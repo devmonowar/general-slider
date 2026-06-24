@@ -33,7 +33,7 @@ class Duplicator {
 	 */
 	public function row_action( $actions, $post ) {
 		if ( Post_Type::SLUG === $post->post_type && current_user_can( 'edit_posts' ) ) {
-			$url = wp_nonce_url(
+			$url                     = wp_nonce_url(
 				admin_url( 'admin.php?action=' . self::ACTION . '&post=' . $post->ID ),
 				self::ACTION . '_' . $post->ID
 			);

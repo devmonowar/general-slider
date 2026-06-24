@@ -139,7 +139,15 @@ class Renderer {
 							<li class="splide__slide gs-thumb">
 								<?php
 								if ( $gs_thumb['image_id'] ) {
-									echo wp_get_attachment_image( $gs_thumb['image_id'], 'thumbnail', false, array( 'class' => 'gs-thumb__img', 'loading' => 'lazy' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+									echo wp_get_attachment_image(
+										$gs_thumb['image_id'],
+										'thumbnail',
+										false,
+										array(
+											'class' => 'gs-thumb__img',
+											'loading' => 'lazy',
+										)
+									); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 								} else {
 									echo '<span class="gs-thumb__num">' . (int) ( $gs_i + 1 ) . '</span>';
 								}

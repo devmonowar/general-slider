@@ -30,12 +30,12 @@ define( 'GENERAL_SLIDER_BASENAME', plugin_basename( __FILE__ ) );
  * GeneralSlider\Post_Type  ->  includes/Post_Type.php
  */
 spl_autoload_register(
-	function ( $class ) {
+	function ( $class_name ) {
 		$prefix = 'GeneralSlider\\';
-		if ( 0 !== strpos( $class, $prefix ) ) {
+		if ( 0 !== strpos( $class_name, $prefix ) ) {
 			return;
 		}
-		$relative = substr( $class, strlen( $prefix ) );
+		$relative = substr( $class_name, strlen( $prefix ) );
 		$file     = GENERAL_SLIDER_DIR . 'includes/' . str_replace( '\\', '/', $relative ) . '.php';
 		if ( is_readable( $file ) ) {
 			require $file;

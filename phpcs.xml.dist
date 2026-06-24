@@ -3,6 +3,7 @@
 	<description>Coding standards for the General Slider plugin.</description>
 
 	<file>.</file>
+	<exclude-pattern>/vendor/*</exclude-pattern>
 	<exclude-pattern>/assets/vendor/*</exclude-pattern>
 	<exclude-pattern>/node_modules/*</exclude-pattern>
 	<exclude-pattern>/.wordpress-org/*</exclude-pattern>
@@ -24,13 +25,19 @@
 
 	<rule ref="WordPress.WP.I18n">
 		<properties>
-			<property name="text_domain" type="array" value="general-slider"/>
+			<property name="text_domain" type="array">
+				<element value="general-slider"/>
+			</property>
 		</properties>
 	</rule>
 
 	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
 		<properties>
-			<property name="prefixes" type="array" value="general_slider,GeneralSlider,GENERAL_SLIDER,gs_"/>
+			<property name="prefixes" type="array">
+				<element value="general_slider"/>
+				<element value="GeneralSlider"/>
+				<element value="GENERAL_SLIDER"/>
+			</property>
 		</properties>
 	</rule>
 

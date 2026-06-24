@@ -127,7 +127,7 @@ class Tools {
 					if ( ! empty( $slider['custom_css'] ) ) {
 						update_post_meta( $new_id, Data::META_CSS, self::clean_css( $slider['custom_css'] ) );
 					}
-					$count++;
+					++$count;
 				}
 			}
 		}

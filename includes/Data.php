@@ -223,7 +223,7 @@ class Data {
 			'link'        => '',
 			'new_tab'     => false,
 		);
-		$slide = wp_parse_args( $slide, $defaults );
+		$slide    = wp_parse_args( $slide, $defaults );
 
 		return array(
 			'image_id'    => absint( $slide['image_id'] ),
