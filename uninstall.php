@@ -26,7 +26,6 @@ function general_slider_uninstall() {
 	}
 
 	delete_option( 'general_slider_settings' );
-	wp_cache_flush();
 }
 
 general_slider_uninstall();

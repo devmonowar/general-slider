@@ -3,7 +3,7 @@
  * Plugin Name:       General Slider
  * Plugin URI:        https://wordpress.org/plugins/general-slider/
  * Description:        A lightweight, easy-to-use carousel slider. Build reusable sliders and drop them anywhere with a block.
- * Version:           2.3.0
+ * Version:           2.3.1
  * Requires at least: 6.0
  * Requires PHP:      7.4
  * Author:            Monowar
@@ -18,11 +18,15 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'GENERAL_SLIDER_VERSION', '2.3.0' );
 define( 'GENERAL_SLIDER_FILE', __FILE__ );
 define( 'GENERAL_SLIDER_DIR', plugin_dir_path( __FILE__ ) );
 define( 'GENERAL_SLIDER_URL', plugin_dir_url( __FILE__ ) );
 define( 'GENERAL_SLIDER_BASENAME', plugin_basename( __FILE__ ) );
+
+// Version is read from the plugin header above, so it only needs bumping there.
+$gs_header = get_file_data( __FILE__, array( 'Version' => 'Version' ) );
+define( 'GENERAL_SLIDER_VERSION', '' !== $gs_header['Version'] ? $gs_header['Version'] : '0.0.0' );
+unset( $gs_header );
 
 /**
  * PSR-4-style autoloader for the GeneralSlider namespace.

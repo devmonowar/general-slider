@@ -4,7 +4,7 @@ Tags: slider, carousel, slideshow, image slider, block
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 2.3.0
+Stable tag: 2.3.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -96,6 +96,10 @@ Yes. The plugin provides filters: `general_slider_settings` (a slider's resolved
 5. The slide editor — build slides with images, headings, text and buttons.
 
 == Changelog ==
+
+= 2.3.1 =
+* Maintenance: internal code-quality and coding-standards improvements (no functional changes).
+* Fix: uninstall now removes only the plugin's own data instead of flushing the entire site object cache.
 
 = 2.3.0 =
 * New: developer filters — general_slider_settings, general_slider_slides, general_slider_config, general_slider_html and general_slider_presets.
