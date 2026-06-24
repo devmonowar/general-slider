@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<ruleset name="General Slider">
+	<description>Coding standards for the General Slider plugin.</description>
+
+	<file>.</file>
+	<exclude-pattern>/assets/vendor/*</exclude-pattern>
+	<exclude-pattern>/node_modules/*</exclude-pattern>
+	<exclude-pattern>/.wordpress-org/*</exclude-pattern>
+
+	<arg name="extensions" value="php"/>
+	<arg name="basepath" value="."/>
+	<arg name="parallel" value="8"/>
+	<arg value="ps"/>
+
+	<config name="minimum_wp_version" value="6.0"/>
+	<config name="testVersion" value="7.4-"/>
+
+	<rule ref="WordPress-Core">
+		<!-- We use PSR-4 class files (Post_Type.php), not class-post-type.php. -->
+		<exclude name="WordPress.Files.FileName"/>
+		<!-- Allow flexible array alignment. -->
+		<exclude name="WordPress.Arrays.MultipleStatementAlignment"/>
+	</rule>
+
+	<rule ref="WordPress.WP.I18n">
+		<properties>
+			<property name="text_domain" type="array" value="general-slider"/>
+		</properties>
+	</rule>
+
+	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
+		<properties>
+			<property name="prefixes" type="array" value="general_slider,GeneralSlider,GENERAL_SLIDER,gs_"/>
+		</properties>
+	</rule>
+
+	<rule ref="PHPCompatibilityWP"/>
+</ruleset>
