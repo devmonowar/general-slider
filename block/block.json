@@ -1,0 +1,22 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "general-slider/slider",
+	"version": "2.3.0",
+	"title": "General Slider",
+	"category": "media",
+	"icon": "slides",
+	"description": "Display a reusable slider built with General Slider.",
+	"keywords": [ "slider", "carousel", "slideshow" ],
+	"textdomain": "general-slider",
+	"attributes": {
+		"sliderId": { "type": "number", "default": 0 },
+		"align": { "type": "string", "default": "full" }
+	},
+	"supports": {
+		"html": false,
+		"align": [ "wide", "full" ]
+	},
+	"editorScript": "general-slider-block-editor",
+	"editorStyle": "general-slider-block-editor"
+}

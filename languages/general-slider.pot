@@ -1,0 +1,570 @@
+# Copyright (C) 2026 Monowar
+# This file is distributed under the GPLv2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: General Slider 2.3.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/general-slider\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-06-24T17:24:43+02:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: general-slider\n"
+
+#. Plugin Name of the plugin
+#: general-slider.php
+#: includes/Elementor_Widget.php:35
+#: includes/Post_Type.php:79
+msgid "General Slider"
+msgstr ""
+
+#. Plugin URI of the plugin
+#. Author URI of the plugin
+#: general-slider.php
+msgid "https://wordpress.org/plugins/general-slider/"
+msgstr ""
+
+#. Description of the plugin
+#: general-slider.php
+msgid "A lightweight, easy-to-use carousel slider. Build reusable sliders and drop them anywhere with a block."
+msgstr ""
+
+#. Author of the plugin
+#: general-slider.php
+msgid "Monowar"
+msgstr ""
+
+#: includes/Assets.php:73
+#: includes/Slides_Meta.php:84
+msgid "Choose image"
+msgstr ""
+
+#: includes/Assets.php:74
+msgid "Use this image"
+msgstr ""
+
+#: includes/Assets.php:75
+msgid "Choose video"
+msgstr ""
+
+#: includes/Assets.php:76
+msgid "Use this video"
+msgstr ""
+
+#: includes/Assets.php:77
+#: includes/Slides_Meta.php:123
+msgid "Remove slide"
+msgstr ""
+
+#: includes/Assets.php:78
+msgid "Remove this slide?"
+msgstr ""
+
+#: includes/Block.php:63
+msgid "General Slider: choose a slider in the block settings."
+msgstr ""
+
+#: includes/Data.php:37
+msgid "Hero fullwidth"
+msgstr ""
+
+#: includes/Data.php:38
+msgid "Split business"
+msgstr ""
+
+#: includes/Data.php:39
+msgid "Minimal centered"
+msgstr ""
+
+#: includes/Data.php:40
+msgid "Testimonial"
+msgstr ""
+
+#: includes/Data.php:41
+msgid "Fullscreen"
+msgstr ""
+
+#: includes/Data.php:53
+msgid "Slide"
+msgstr ""
+
+#: includes/Data.php:54
+msgid "Fade"
+msgstr ""
+
+#: includes/Data.php:65
+msgid "Center"
+msgstr ""
+
+#: includes/Data.php:66
+msgid "Top"
+msgstr ""
+
+#: includes/Data.php:67
+msgid "Bottom"
+msgstr ""
+
+#: includes/Data.php:78
+msgid "Cover (fill the slide)"
+msgstr ""
+
+#: includes/Data.php:79
+msgid "Contain (show whole image)"
+msgstr ""
+
+#: includes/Data.php:90
+msgid "Solid"
+msgstr ""
+
+#: includes/Data.php:91
+msgid "Gradient"
+msgstr ""
+
+#: includes/Demo_Importer.php:35
+msgid "Create demo slider"
+msgstr ""
+
+#: includes/Demo_Importer.php:45
+#: includes/Duplicator.php:54
+#: includes/Tools.php:51
+#: includes/Tools.php:90
+msgid "You are not allowed to do this."
+msgstr ""
+
+#: includes/Demo_Importer.php:53
+msgid "Demo Slider"
+msgstr ""
+
+#: includes/Demo_Importer.php:65
+msgid "Welcome to"
+msgstr ""
+
+#: includes/Demo_Importer.php:66
+msgid "Build sliders in minutes"
+msgstr ""
+
+#: includes/Demo_Importer.php:67
+msgid "A lightweight, no-code carousel for any WordPress page."
+msgstr ""
+
+#: includes/Demo_Importer.php:68
+msgid "Get started"
+msgstr ""
+
+#: includes/Demo_Importer.php:72
+msgid "Easy & fast"
+msgstr ""
+
+#: includes/Demo_Importer.php:73
+msgid "No coding required"
+msgstr ""
+
+#: includes/Demo_Importer.php:74
+msgid "Just add slides and drop the block on any page."
+msgstr ""
+
+#: includes/Demo_Importer.php:75
+msgid "Learn more"
+msgstr ""
+
+#: includes/Demo_Importer.php:79
+msgid "Simple. Fast. Yours."
+msgstr ""
+
+#: includes/Demo_Importer.php:80
+msgid "Make it your own"
+msgstr ""
+
+#: includes/Demo_Importer.php:81
+msgid "Pick a design preset and match your theme."
+msgstr ""
+
+#: includes/Demo_Importer.php:104
+msgid "Demo slider created. Edit it below, then embed it with the block or shortcode."
+msgstr ""
+
+#: includes/Demo_Importer.php:106
+msgid "Could not create the demo slider."
+msgstr ""
+
+#: includes/Duplicator.php:40
+msgid "Duplicate"
+msgstr ""
+
+#. translators: %s: original slider title.
+#: includes/Duplicator.php:62
+#, php-format
+msgid "%s (copy)"
+msgstr ""
+
+#: includes/Elementor_Widget.php:71
+#: includes/Post_Type.php:69
+#: block/editor.js:27
+msgid "Slider"
+msgstr ""
+
+#: includes/Elementor_Widget.php:74
+#: block/editor.js:13
+msgid "— Select a slider —"
+msgstr ""
+
+#: includes/Elementor_Widget.php:82
+#: block/editor.js:29
+msgid "Choose slider"
+msgstr ""
+
+#: includes/Elementor_Widget.php:102
+msgid "General Slider: choose a slider in the widget settings."
+msgstr ""
+
+#: includes/Post_Type.php:39
+#: includes/Slides_Meta.php:29
+msgid "Slides"
+msgstr ""
+
+#: includes/Post_Type.php:40
+msgid "Shortcode"
+msgstr ""
+
+#: includes/Post_Type.php:68
+msgid "Sliders"
+msgstr ""
+
+#: includes/Post_Type.php:70
+msgid "Add New"
+msgstr ""
+
+#: includes/Post_Type.php:71
+msgid "Add New Slider"
+msgstr ""
+
+#: includes/Post_Type.php:72
+msgid "Edit Slider"
+msgstr ""
+
+#: includes/Post_Type.php:73
+msgid "New Slider"
+msgstr ""
+
+#: includes/Post_Type.php:74
+msgid "View Slider"
+msgstr ""
+
+#: includes/Post_Type.php:75
+msgid "Search Sliders"
+msgstr ""
+
+#: includes/Post_Type.php:76
+msgid "No sliders found"
+msgstr ""
+
+#: includes/Post_Type.php:77
+msgid "No sliders found in Trash"
+msgstr ""
+
+#: includes/Post_Type.php:78
+msgid "All Sliders"
+msgstr ""
+
+#: includes/Renderer.php:27
+msgid "General Slider: please choose a slider."
+msgstr ""
+
+#: includes/Renderer.php:32
+msgid "General Slider: this slider has no slides yet."
+msgstr ""
+
+#: includes/Renderer.php:128
+msgid "Pause or play the slider"
+msgstr ""
+
+#: includes/Renderer.php:135
+msgid "Slider thumbnails"
+msgstr ""
+
+#: includes/Settings.php:35
+#: includes/Settings.php:88
+msgid "General Slider Settings"
+msgstr ""
+
+#: includes/Settings.php:36
+#: includes/Settings.php:76
+msgid "Settings"
+msgstr ""
+
+#: includes/Settings.php:89
+msgid "These are the default behaviours applied to new sliders. Each slider can override them individually."
+msgstr ""
+
+#: includes/Settings.php:94
+msgid "Default design preset"
+msgstr ""
+
+#: includes/Settings.php:104
+msgid "Default transition"
+msgstr ""
+
+#: includes/Settings.php:114
+#: includes/Slides_Meta.php:153
+msgid "Autoplay"
+msgstr ""
+
+#: includes/Settings.php:115
+msgid "Play slides automatically"
+msgstr ""
+
+#: includes/Settings.php:118
+#: includes/Slides_Meta.php:156
+msgid "Autoplay speed (ms)"
+msgstr ""
+
+#: includes/Settings.php:122
+msgid "Controls"
+msgstr ""
+
+#: includes/Settings.php:124
+#: includes/Slides_Meta.php:159
+msgid "Loop"
+msgstr ""
+
+#: includes/Settings.php:125
+#: includes/Slides_Meta.php:160
+msgid "Show arrows"
+msgstr ""
+
+#: includes/Settings.php:126
+#: includes/Slides_Meta.php:161
+msgid "Show dots"
+msgstr ""
+
+#: includes/Settings.php:130
+#: includes/Slides_Meta.php:163
+msgid "Slide height (px)"
+msgstr ""
+
+#: includes/Settings.php:134
+#: includes/Slides_Meta.php:167
+msgid "Image fit"
+msgstr ""
+
+#: includes/Settings.php:144
+#: includes/Slides_Meta.php:175
+msgid "Image focus"
+msgstr ""
+
+#: includes/Settings.php:151
+msgid "For \"Cover\" fit, use \"Top\" to keep faces from being cropped on wide slides."
+msgstr ""
+
+#: includes/Settings.php:155
+#: includes/Slides_Meta.php:184
+msgid "Overlay darkness (%)"
+msgstr ""
+
+#: includes/Settings.php:159
+#: includes/Slides_Meta.php:188
+msgid "Overlay style"
+msgstr ""
+
+#: includes/Settings.php:169
+#: includes/Slides_Meta.php:197
+msgid "Slides per view"
+msgstr ""
+
+#: includes/Settings.php:173
+#: includes/Slides_Meta.php:201
+msgid "Gap between slides (px)"
+msgstr ""
+
+#: includes/Settings.php:177
+#: includes/Slides_Meta.php:205
+msgid "Accent color"
+msgstr ""
+
+#: includes/Settings.php:181
+msgid "Effects"
+msgstr ""
+
+#: includes/Settings.php:183
+#: includes/Slides_Meta.php:209
+msgid "Ken Burns zoom"
+msgstr ""
+
+#: includes/Settings.php:184
+#: includes/Slides_Meta.php:210
+msgid "Animate text in"
+msgstr ""
+
+#: includes/Settings.php:185
+#: includes/Slides_Meta.php:211
+msgid "Show thumbnails"
+msgstr ""
+
+#: includes/Settings.php:193
+msgid "Demo slider"
+msgstr ""
+
+#: includes/Settings.php:194
+msgid "New here? Create a ready-made demo slider to see how it works."
+msgstr ""
+
+#: includes/Settings.php:198
+msgid "Import / Export"
+msgstr ""
+
+#: includes/Slides_Meta.php:30
+msgid "Custom CSS"
+msgstr ""
+
+#: includes/Slides_Meta.php:31
+msgid "Slider settings"
+msgstr ""
+
+#: includes/Slides_Meta.php:32
+msgid "How to embed"
+msgstr ""
+
+#: includes/Slides_Meta.php:55
+msgid "Add slide"
+msgstr ""
+
+#: includes/Slides_Meta.php:77
+msgid "Drag to reorder"
+msgstr ""
+
+#: includes/Slides_Meta.php:85
+msgid "Remove"
+msgstr ""
+
+#: includes/Slides_Meta.php:88
+msgid "Sub heading"
+msgstr ""
+
+#: includes/Slides_Meta.php:91
+msgid "Heading"
+msgstr ""
+
+#: includes/Slides_Meta.php:94
+msgid "Text"
+msgstr ""
+
+#: includes/Slides_Meta.php:98
+msgid "Button text"
+msgstr ""
+
+#: includes/Slides_Meta.php:101
+msgid "Button URL"
+msgstr ""
+
+#: includes/Slides_Meta.php:106
+msgid "Whole-slide link (optional)"
+msgstr ""
+
+#: includes/Slides_Meta.php:111
+msgid "Open link in new tab"
+msgstr ""
+
+#: includes/Slides_Meta.php:115
+msgid "Background video (MP4/WebM, YouTube or Vimeo URL)"
+msgstr ""
+
+#: includes/Slides_Meta.php:119
+msgid "Choose file"
+msgstr ""
+
+#: includes/Slides_Meta.php:137
+msgid "Design preset"
+msgstr ""
+
+#: includes/Slides_Meta.php:145
+msgid "Transition"
+msgstr ""
+
+#: includes/Slides_Meta.php:181
+msgid "For \"Cover\" fit, use \"Top\" to keep faces from being cropped."
+msgstr ""
+
+#: includes/Slides_Meta.php:223
+msgid "CSS applied only to this slider. Use the scope selector shown in the placeholder."
+msgstr ""
+
+#: includes/Slides_Meta.php:236
+msgid "Add the \"General Slider\" block to any page and pick this slider, or paste this shortcode:"
+msgstr ""
+
+#: includes/Taxonomy.php:35
+#: includes/Taxonomy.php:37
+msgid "Categories"
+msgstr ""
+
+#: includes/Taxonomy.php:36
+msgid "Category"
+msgstr ""
+
+#: includes/Taxonomy.php:38
+msgid "All Categories"
+msgstr ""
+
+#: includes/Taxonomy.php:39
+msgid "Edit Category"
+msgstr ""
+
+#: includes/Taxonomy.php:40
+msgid "Add New Category"
+msgstr ""
+
+#: includes/Taxonomy.php:41
+msgid "Search Categories"
+msgstr ""
+
+#: includes/Tools.php:35
+msgid "Export all sliders"
+msgstr ""
+
+#: includes/Tools.php:41
+msgid "Import sliders"
+msgstr ""
+
+#: includes/Tools.php:108
+msgid "Imported slider"
+msgstr ""
+
+#. translators: %d: number of sliders imported.
+#: includes/Tools.php:164
+#, php-format
+msgid "Imported %d slider."
+msgid_plural "Imported %d sliders."
+msgstr[0] ""
+msgstr[1] ""
+
+#: block/editor.js:50
+msgid "General Slider — choose a slider in the block settings."
+msgstr ""
+
+#: block/block.json
+msgctxt "block title"
+msgid "General Slider"
+msgstr ""
+
+#: block/block.json
+msgctxt "block description"
+msgid "Display a reusable slider built with General Slider."
+msgstr ""
+
+#: block/block.json
+msgctxt "block keyword"
+msgid "slider"
+msgstr ""
+
+#: block/block.json
+msgctxt "block keyword"
+msgid "carousel"
+msgstr ""
+
+#: block/block.json
+msgctxt "block keyword"
+msgid "slideshow"
+msgstr ""
