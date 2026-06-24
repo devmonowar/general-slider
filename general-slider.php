@@ -24,9 +24,7 @@ define( 'GENERAL_SLIDER_URL', plugin_dir_url( __FILE__ ) );
 define( 'GENERAL_SLIDER_BASENAME', plugin_basename( __FILE__ ) );
 
 // Version is read from the plugin header above, so it only needs bumping there.
-$gs_header = get_file_data( __FILE__, array( 'Version' => 'Version' ) );
-define( 'GENERAL_SLIDER_VERSION', '' !== $gs_header['Version'] ? $gs_header['Version'] : '0.0.0' );
-unset( $gs_header );
+define( 'GENERAL_SLIDER_VERSION', get_file_data( __FILE__, array( 'Version' => 'Version' ) )['Version'] );
 
 /**
  * PSR-4-style autoloader for the GeneralSlider namespace.
