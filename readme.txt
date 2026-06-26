@@ -4,7 +4,7 @@ Tags: slider, carousel, slideshow, image slider, block
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 2.3.2
+Stable tag: 2.3.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -111,6 +111,14 @@ These are plain, read-only requests for files. No personal data is collected or 
 5. The slide editor — build slides with images, headings, text and buttons.
 
 == Changelog ==
+
+= 2.3.3 =
+* New: a starter demo ships with the plugin and is created automatically on first activation, so a fresh install isn't empty.
+* New: import a demo package (.zip) directly from the Demo Library screen.
+* New: click any slider shortcode to copy it.
+* Improvement: the empty sliders list now offers "Create your first slider" and "Browse Demo Library".
+* Improvement: slider buttons keep their accent colour and white text on any theme.
+* Fix: the Button URL and whole-slide link fields now accept "#", relative URLs and anchors.
 
 = 2.3.2 =
 * New: Demo Library — browse a library of ready-made sliders and import one (with its images) in a single click. New demos are added online, so they appear without updating the plugin.

@@ -99,12 +99,12 @@ class Slides_Meta {
 						<input type="text" name="<?php echo esc_attr( $name ); ?>[btn_text]" value="<?php echo esc_attr( $slide['btn_text'] ); ?>" />
 					</label>
 					<label><?php esc_html_e( 'Button URL', 'general-slider' ); ?>
-						<input type="url" name="<?php echo esc_attr( $name ); ?>[btn_url]" value="<?php echo esc_attr( $slide['btn_url'] ); ?>" placeholder="https://" />
+						<input type="text" name="<?php echo esc_attr( $name ); ?>[btn_url]" value="<?php echo esc_attr( $slide['btn_url'] ); ?>" placeholder="https://, /page or #" />
 					</label>
 				</div>
 				<div class="gs-slide-row__cols">
 					<label><?php esc_html_e( 'Whole-slide link (optional)', 'general-slider' ); ?>
-						<input type="url" name="<?php echo esc_attr( $name ); ?>[link]" value="<?php echo esc_attr( $slide['link'] ); ?>" placeholder="https://" />
+						<input type="text" name="<?php echo esc_attr( $name ); ?>[link]" value="<?php echo esc_attr( $slide['link'] ); ?>" placeholder="https://" />
 					</label>
 					<label class="gs-slide-row__inline">
 						<input type="checkbox" name="<?php echo esc_attr( $name ); ?>[new_tab]" value="1" <?php checked( ! empty( $slide['new_tab'] ) ); ?> />
@@ -234,7 +234,7 @@ class Slides_Meta {
 		$shortcode = sprintf( '[general_slider id="%d"]', $post->ID );
 		?>
 		<p><?php esc_html_e( 'Add the "General Slider" block to any page and pick this slider, or paste this shortcode:', 'general-slider' ); ?></p>
-		<input type="text" readonly onclick="this.select()" value="<?php echo esc_attr( $shortcode ); ?>" style="width:100%" />
+		<input type="text" class="gs-shortcode-copy" readonly onclick="this.select()" title="<?php echo esc_attr__( 'Click to copy', 'general-slider' ); ?>" data-copied="<?php echo esc_attr__( 'Copied!', 'general-slider' ); ?>" value="<?php echo esc_attr( $shortcode ); ?>" style="width:100%" />
 		<?php
 	}
 

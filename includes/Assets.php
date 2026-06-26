@@ -55,16 +55,23 @@ class Assets {
 	 * @param string $hook Current admin page hook.
 	 */
 	public static function admin( $hook ) {
-		if ( ! in_array( $hook, array( 'post.php', 'post-new.php' ), true ) ) {
-			return;
-		}
 		$screen = get_current_screen();
 		if ( ! $screen || Post_Type::SLUG !== $screen->post_type ) {
 			return;
 		}
 
+		// Shortcode click-to-copy + admin styles: on the sliders list and the editor.
+		if ( in_array( $hook, array( 'edit.php', 'post.php', 'post-new.php' ), true ) ) {
+			wp_enqueue_style( 'general-slider-admin', GENERAL_SLIDER_URL . 'assets/css/admin.css', array(), GENERAL_SLIDER_VERSION );
+			wp_enqueue_script( 'general-slider-admin-copy', GENERAL_SLIDER_URL . 'assets/js/admin-copy.js', array(), GENERAL_SLIDER_VERSION, true );
+		}
+
+		// The slide editor (repeater + media picker) only.
+		if ( ! in_array( $hook, array( 'post.php', 'post-new.php' ), true ) ) {
+			return;
+		}
+
 		wp_enqueue_media();
-		wp_enqueue_style( 'general-slider-admin', GENERAL_SLIDER_URL . 'assets/css/admin.css', array(), GENERAL_SLIDER_VERSION );
 		wp_enqueue_script( 'general-slider-admin', GENERAL_SLIDER_URL . 'assets/js/admin.js', array( 'jquery', 'jquery-ui-sortable' ), GENERAL_SLIDER_VERSION, true );
 		wp_localize_script(
 			'general-slider-admin',

@@ -34,13 +34,21 @@ class Tools {
 		<p>
 			<a class="button" href="<?php echo esc_url( wp_nonce_url( admin_url( 'admin-post.php?action=' . self::EXPORT ), self::EXPORT ) ); ?>"><?php esc_html_e( 'Export all sliders', 'general-slider' ); ?></a>
 		</p>
-		<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" enctype="multipart/form-data">
+		<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" enctype="multipart/form-data" class="gs-file-form">
 			<input type="hidden" name="action" value="<?php echo esc_attr( self::IMPORT ); ?>" />
 			<?php wp_nonce_field( self::IMPORT ); ?>
 			<input type="file" name="gs_file" accept="application/json,.json" required />
 			<?php submit_button( __( 'Import sliders', 'general-slider' ), 'secondary', 'submit', false ); ?>
 		</form>
 		<?php
+	}
+
+	/**
+	 * Disable a file form's submit button until a file is chosen.
+	 * Applies to any form with the `gs-file-form` class on the current page.
+	 */
+	public static function file_required_script() {
+		wp_print_inline_script_tag( 'document.querySelectorAll(".gs-file-form").forEach(function(f){var i=f.querySelector("input[type=file]"),b=f.querySelector("[type=submit]");if(i&&b){b.disabled=!i.value;i.addEventListener("change",function(){b.disabled=!i.value;});}});' );
 	}
 
 	/**

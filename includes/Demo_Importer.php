@@ -46,49 +46,22 @@ class Demo_Importer {
 		}
 		check_admin_referer( self::ACTION );
 
-		$post_id = wp_insert_post(
-			array(
-				'post_type'   => Post_Type::SLUG,
-				'post_status' => 'publish',
-				'post_title'  => __( 'Demo Slider', 'general-slider' ),
-			),
-			true
-		);
-
-		if ( is_wp_error( $post_id ) ) {
-			wp_safe_redirect( admin_url( 'edit.php?post_type=' . Post_Type::SLUG . '&page=' . Settings::PAGE . '&gs_demo=fail' ) );
+		// Create the same bundled starter demo offered by the Demo Library.
+		$post_id = Demo_Library::create_bundled_slider( 'publish' );
+		if ( $post_id ) {
+			wp_safe_redirect( add_query_arg( 'gs_demo', 'ok', get_edit_post_link( $post_id, 'redirect' ) ) );
 			exit;
 		}
 
-		$slides = array(
-			array(
-				'sub_heading' => __( 'Welcome to', 'general-slider' ),
-				'heading'     => __( 'Build sliders in minutes', 'general-slider' ),
-				'text'        => __( 'A lightweight, no-code carousel for any WordPress page.', 'general-slider' ),
-				'btn_text'    => __( 'Get started', 'general-slider' ),
-				'btn_url'     => '#',
-			),
-			array(
-				'sub_heading' => __( 'Easy & fast', 'general-slider' ),
-				'heading'     => __( 'No coding required', 'general-slider' ),
-				'text'        => __( 'Just add slides and drop the block on any page.', 'general-slider' ),
-				'btn_text'    => __( 'Learn more', 'general-slider' ),
-				'btn_url'     => '#',
-			),
-			array(
-				'sub_heading' => __( 'Simple. Fast. Yours.', 'general-slider' ),
-				'heading'     => __( 'Make it your own', 'general-slider' ),
-				'text'        => __( 'Pick a design preset and match your theme.', 'general-slider' ),
-				'btn_text'    => '',
-				'btn_url'     => '',
-			),
+		wp_safe_redirect(
+			add_query_arg(
+				array(
+					'page'    => Settings::PAGE,
+					'gs_demo' => 'fail',
+				),
+				admin_url( 'edit.php?post_type=' . Post_Type::SLUG )
+			)
 		);
-
-		$slides = array_map( array( Data::class, 'normalise_slide' ), $slides );
-		update_post_meta( $post_id, Data::META_SLIDES, $slides );
-		update_post_meta( $post_id, Data::META_SETTINGS, Data::default_settings() );
-
-		wp_safe_redirect( get_edit_post_link( $post_id, 'redirect' ) . '&gs_demo=ok' );
 		exit;
 	}
 

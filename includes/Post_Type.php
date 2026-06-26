@@ -36,8 +36,8 @@ class Post_Type {
 		foreach ( $cols as $key => $label ) {
 			$new[ $key ] = $label;
 			if ( 'title' === $key ) {
-				$new['gs_slides']    = __( 'Slides', 'general-slider' );
 				$new['gs_shortcode'] = __( 'Shortcode', 'general-slider' );
+				$new['gs_slides']    = __( 'Slides', 'general-slider' );
 			}
 		}
 		return $new;
@@ -54,7 +54,9 @@ class Post_Type {
 			echo (int) count( Data::get_slides( $post_id ) );
 		} elseif ( 'gs_shortcode' === $column ) {
 			printf(
-				'<input type="text" readonly onclick="this.select()" value="%s" style="width:200px;max-width:100%%" />',
+				'<input type="text" class="gs-shortcode-copy" readonly onclick="this.select()" title="%1$s" data-copied="%2$s" value="%3$s" style="width:200px;max-width:100%%" />',
+				esc_attr__( 'Click to copy', 'general-slider' ),
+				esc_attr__( 'Copied!', 'general-slider' ),
 				esc_attr( sprintf( '[general_slider id="%d"]', $post_id ) )
 			);
 		}
@@ -73,7 +75,12 @@ class Post_Type {
 			'new_item'           => __( 'New Slider', 'general-slider' ),
 			'view_item'          => __( 'View Slider', 'general-slider' ),
 			'search_items'       => __( 'Search Sliders', 'general-slider' ),
-			'not_found'          => __( 'No sliders found', 'general-slider' ),
+			'not_found'          => sprintf(
+				/* translators: 1: "create a slider" button, 2: "browse demo library" button. */
+				__( 'No sliders found. %1$s or %2$s', 'general-slider' ),
+				'<a class="button button-primary" href="' . esc_url( admin_url( 'post-new.php?post_type=' . self::SLUG ) ) . '">' . esc_html__( 'Create your first slider', 'general-slider' ) . '</a>',
+				'<a class="button" href="' . esc_url( admin_url( 'edit.php?post_type=' . self::SLUG . '&page=' . Demo_Library::PAGE ) ) . '">' . esc_html__( 'Browse Demo Library', 'general-slider' ) . '</a>'
+			),
 			'not_found_in_trash' => __( 'No sliders found in Trash', 'general-slider' ),
 			'all_items'          => __( 'All Sliders', 'general-slider' ),
 			'menu_name'          => __( 'General Slider', 'general-slider' ),

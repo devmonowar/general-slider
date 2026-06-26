@@ -36,18 +36,29 @@
 .gs-slide__sub { margin: 0 0 10px; text-transform: uppercase; letter-spacing: 2px; font-size: 14px; color: inherit; }
 .gs-slide__title { margin: 0 0 16px; line-height: 1.1; font-weight: 700; color: inherit; }
 .gs-slide__text { margin: 0 0 24px; line-height: 1.6; color: inherit; }
-.gs-slide__btn {
+/* Scoped to .gs-slider + theme resets so the button keeps the accent colour
+   and white text on any theme. */
+.gs-slider .gs-slide__btn {
 	display: inline-block;
 	margin: 6px 8px 0 0;
 	padding: 12px 28px;
 	background: var(--gs-accent, #2196f3);
 	color: #fff;
-	text-decoration: none;
+	border: 0;
 	border-radius: 4px;
+	box-shadow: none;
+	text-shadow: none;
+	text-decoration: none;
+	line-height: 1.4;
 	font-weight: 600;
 	transition: opacity .3s ease;
 }
-.gs-slide__btn:hover { opacity: .88; color: #fff; }
+.gs-slider .gs-slide__btn:hover,
+.gs-slider .gs-slide__btn:focus {
+	opacity: .88;
+	color: #fff;
+	background: var(--gs-accent, #2196f3);
+}
 
 /* Whole-slide link */
 .gs-slide__content--link { text-decoration: none; color: inherit; cursor: pointer; }

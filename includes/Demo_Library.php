@@ -2,9 +2,7 @@
 /**
  * Remote Demo Library: fetches a manifest of ready-made sliders from a
  * GitHub Pages endpoint and imports them (with their images) on one click.
- *
- * Nothing here is hard-coded: the demo list, metadata, preview images and
- * slider data all come from the manifest at GS_DEMO_LIBRARY_URL.
+ * Ships with one bundled starter demo used as the offline fallback.
  *
  * @package General_Slider
  */
@@ -23,12 +21,19 @@ class Demo_Library {
 	const TRANSIENT = 'gs_demo_manifest';
 	const CACHE_TTL = 6 * HOUR_IN_SECONDS;
 
+	/** Reserved id for the demo bundled inside the plugin (offline fallback). */
+	const BUNDLED_ID = 'nature-showcase';
+
+	/** admin-post action for importing a demo package (.zip) exported with "Export Slider". */
+	const ZIP_ACTION = 'gs_demo_import_zip';
+
 	/**
 	 * Register hooks.
 	 */
 	public function hooks() {
 		add_action( 'admin_menu', array( $this, 'menu' ) );
 		add_action( 'admin_post_' . self::ACTION, array( $this, 'import' ) );
+		add_action( 'admin_post_' . self::ZIP_ACTION, array( $this, 'import_zip' ) );
 		add_action( 'admin_notices', array( $this, 'notice' ) );
 	}
 
@@ -166,9 +171,10 @@ class Demo_Library {
 				<div class="notice notice-warning">
 					<p><strong><?php esc_html_e( 'Unable to load the online demo library.', 'general-slider' ); ?></strong> <?php echo esc_html( $manifest->get_error_message() ); ?></p>
 				</div>
-				<h2><?php esc_html_e( 'Basic demo', 'general-slider' ); ?></h2>
-				<p><?php esc_html_e( 'You can still create a simple starter slider offline:', 'general-slider' ); ?></p>
-				<?php Demo_Importer::button(); ?>
+				<p><?php esc_html_e( 'You can still import the bundled starter demo below.', 'general-slider' ); ?></p>
+				<div class="gs-demo-grid">
+					<?php $this->bundled_card(); ?>
+				</div>
 			<?php else : ?>
 				<div class="gs-demo-grid">
 					<?php
@@ -178,12 +184,23 @@ class Demo_Library {
 					?>
 				</div>
 			<?php endif; ?>
+
+			<hr />
+			<h2><?php esc_html_e( 'Import a demo package', 'general-slider' ); ?></h2>
+			<p class="description"><?php esc_html_e( 'Have a .zip exported with "Export Slider"? Import it here — its images are included.', 'general-slider' ); ?></p>
+			<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" enctype="multipart/form-data" class="gs-file-form">
+				<input type="hidden" name="action" value="<?php echo esc_attr( self::ZIP_ACTION ); ?>" />
+				<?php wp_nonce_field( self::ZIP_ACTION ); ?>
+				<input type="file" name="gs_zip" accept=".zip,application/zip" required />
+				<?php submit_button( __( 'Import package', 'general-slider' ), 'secondary', 'submit', false ); ?>
+			</form>
+			<?php Tools::file_required_script(); ?>
 		</div>
 		<?php
 	}
 
 	/**
-	 * Render a single demo card.
+	 * Render a single (remote) demo card.
 	 *
 	 * @param array $demo Normalised demo entry.
 	 */
@@ -234,17 +251,71 @@ class Demo_Library {
 	}
 
 	/**
-	 * Handle a one-click import request.
+	 * Render the bundled starter demo as a card (offline fallback).
+	 */
+	private function bundled_card() {
+		$demo = self::bundled_demo();
+		if ( ! $demo ) {
+			return;
+		}
+		$name        = isset( $demo['name'] ) ? $demo['name'] : __( 'Starter demo', 'general-slider' );
+		$description = isset( $demo['description'] ) ? $demo['description'] : '';
+		$preview     = GENERAL_SLIDER_URL . 'demos/images/nature-1.jpg';
+		?>
+		<div class="gs-demo-card">
+			<div class="gs-demo-card__preview">
+				<img src="<?php echo esc_url( $preview ); ?>" alt="<?php echo esc_attr( $name ); ?>" loading="lazy" />
+				<span class="gs-demo-badge gs-demo-badge--featured"><?php esc_html_e( 'Starter', 'general-slider' ); ?></span>
+			</div>
+			<div class="gs-demo-card__body">
+				<h3 class="gs-demo-card__title"><?php echo esc_html( $name ); ?></h3>
+				<?php if ( $description ) : ?>
+					<p class="gs-demo-card__desc"><?php echo esc_html( $description ); ?></p>
+				<?php endif; ?>
+			</div>
+			<div class="gs-demo-card__actions">
+				<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
+					<input type="hidden" name="action" value="<?php echo esc_attr( self::ACTION ); ?>" />
+					<input type="hidden" name="gs_bundled" value="1" />
+					<?php wp_nonce_field( self::ACTION . '_bundled' ); ?>
+					<?php submit_button( __( 'Import Demo', 'general-slider' ), 'primary', 'submit', false ); ?>
+				</form>
+			</div>
+		</div>
+		<?php
+	}
+
+	/**
+	 * Read the demo bundled inside the plugin (demos/{id}.json).
+	 *
+	 * @return array|null Demo data, or null if missing / invalid.
+	 */
+	private static function bundled_demo() {
+		$file = GENERAL_SLIDER_DIR . 'demos/' . self::BUNDLED_ID . '.json';
+		if ( ! is_readable( $file ) ) {
+			return null;
+		}
+		$data = json_decode( file_get_contents( $file ), true ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- local bundled file.
+		return is_array( $data ) ? $data : null;
+	}
+
+	/**
+	 * Handle a one-click import request (remote demo or bundled fallback).
 	 */
 	public function import() {
 		if ( ! current_user_can( 'manage_options' ) ) {
 			wp_die( esc_html__( 'You are not allowed to do this.', 'general-slider' ) );
 		}
 
-		$demo_id = isset( $_POST['demo_id'] ) ? sanitize_key( wp_unslash( $_POST['demo_id'] ) ) : '';
-		check_admin_referer( self::ACTION . '_' . $demo_id );
+		if ( isset( $_POST['gs_bundled'] ) ) {
+			check_admin_referer( self::ACTION . '_bundled' );
+			$result = self::create_bundled_slider( 'draft' );
+		} else {
+			$demo_id = isset( $_POST['demo_id'] ) ? sanitize_key( wp_unslash( $_POST['demo_id'] ) ) : '';
+			check_admin_referer( self::ACTION . '_' . $demo_id );
+			$result = $demo_id ? $this->import_demo( $demo_id ) : 0;
+		}
 
-		$result = $demo_id ? $this->import_demo( $demo_id ) : 0;
 		if ( $result ) {
 			wp_safe_redirect( add_query_arg( 'gs_demo_lib', 'ok', get_edit_post_link( $result, 'redirect' ) ) );
 			exit;
@@ -260,6 +331,66 @@ class Demo_Library {
 			)
 		);
 		exit;
+	}
+
+	/**
+	 * Create a slider from demo data, resolving each slide image via a callback.
+	 *
+	 * Shared by the remote import, the bundled demo and the .zip import — only the
+	 * image source differs, supplied as $resolve_image.
+	 *
+	 * @param mixed    $demo          Demo data: 'title', 'slides', 'settings', 'custom_css'.
+	 * @param string   $status        Post status ('draft' or 'publish').
+	 * @param string   $source        Stored as _gs_demo_source.
+	 * @param string   $demo_id       Stored as _gs_demo_id (skipped if empty).
+	 * @param callable $resolve_image function( array $slide, int $post_id ): int — attachment id or 0.
+	 * @return int New slider ID, or 0 on failure.
+	 */
+	private static function build_slider( $demo, $status, $source, $demo_id, $resolve_image ) {
+		if ( ! is_array( $demo ) || empty( $demo['slides'] ) || ! is_array( $demo['slides'] ) ) {
+			return 0;
+		}
+
+		$title   = ! empty( $demo['title'] ) ? sanitize_text_field( $demo['title'] ) : __( 'Imported demo', 'general-slider' );
+		$post_id = wp_insert_post(
+			array(
+				'post_type'   => Post_Type::SLUG,
+				'post_status' => ( 'publish' === $status ) ? 'publish' : 'draft',
+				'post_title'  => $title,
+			),
+			true
+		);
+		if ( is_wp_error( $post_id ) || ! $post_id ) {
+			return 0;
+		}
+
+		$slides = array();
+		foreach ( $demo['slides'] as $raw ) {
+			if ( ! is_array( $raw ) ) {
+				continue;
+			}
+			$image_id = (int) call_user_func( $resolve_image, $raw, $post_id );
+			unset( $raw['image_url'], $raw['image'] );
+			if ( $image_id ) {
+				$raw['image_id'] = $image_id;
+			}
+			$slide = Data::normalise_slide( $raw );
+			if ( $slide ) {
+				$slides[] = $slide;
+			}
+		}
+
+		update_post_meta( $post_id, Data::META_SLIDES, $slides );
+		update_post_meta( $post_id, Data::META_SETTINGS, Data::sanitize_settings( isset( $demo['settings'] ) ? $demo['settings'] : array() ) );
+		if ( ! empty( $demo['custom_css'] ) ) {
+			update_post_meta( $post_id, Data::META_CSS, Tools::clean_css( $demo['custom_css'] ) );
+		}
+		if ( '' !== (string) $demo_id ) {
+			update_post_meta( $post_id, '_gs_demo_id', $demo_id );
+		}
+		update_post_meta( $post_id, '_gs_demo_source', $source );
+
+		return (int) $post_id;
 	}
 
 	/**
@@ -300,52 +431,69 @@ class Demo_Library {
 			return 0;
 		}
 
-		$title   = isset( $data['title'] ) ? sanitize_text_field( $data['title'] ) : $entry['name'];
-		$post_id = wp_insert_post(
+		if ( empty( $data['title'] ) ) {
+			$data['title'] = $entry['name'];
+		}
+
+		return self::build_slider(
+			$data,
+			'draft',
+			esc_url_raw( $entry['file'] ),
+			$demo_id,
+			function ( $raw, $pid ) {
+				return ! empty( $raw['image_url'] ) ? self::sideload_image( $raw['image_url'], $pid ) : 0;
+			}
+		);
+	}
+
+	/**
+	 * Seed the bundled starter demo on first activation (once, only on an empty site).
+	 */
+	public static function maybe_install_demo() {
+		if ( get_option( 'general_slider_demo_installed' ) ) {
+			return;
+		}
+		// Mark first so this never retries on later activations.
+		update_option( 'general_slider_demo_installed', 1 );
+
+		$existing = get_posts(
 			array(
 				'post_type'   => Post_Type::SLUG,
-				'post_status' => 'draft',
-				'post_title'  => $title,
-			),
-			true
+				'post_status' => 'any',
+				'numberposts' => 1,
+				'fields'      => 'ids',
+			)
 		);
-		if ( is_wp_error( $post_id ) || ! $post_id ) {
-			return 0;
+		if ( $existing ) {
+			return;
 		}
 
-		// Build slides, sideloading each image into the Media Library.
-		$slides = array();
-		foreach ( $data['slides'] as $raw ) {
-			if ( ! is_array( $raw ) ) {
-				continue;
-			}
-			if ( ! empty( $raw['image_url'] ) ) {
-				$raw['image_id'] = self::sideload_image( $raw['image_url'], $post_id );
-			}
-			unset( $raw['image_url'] );
-			$slide = Data::normalise_slide( $raw );
-			if ( $slide ) {
-				$slides[] = $slide;
-			}
-		}
+		self::create_bundled_slider( 'publish' );
+	}
 
-		update_post_meta( $post_id, Data::META_SLIDES, $slides );
-		update_post_meta( $post_id, Data::META_SETTINGS, Data::sanitize_settings( isset( $data['settings'] ) ? $data['settings'] : array() ) );
-		if ( ! empty( $data['custom_css'] ) ) {
-			update_post_meta( $post_id, Data::META_CSS, Tools::clean_css( $data['custom_css'] ) );
-		}
-
-		// Provenance: which demo this slider came from (foundation for future updates).
-		update_post_meta( $post_id, '_gs_demo_id', $demo_id );
-		update_post_meta( $post_id, '_gs_demo_source', esc_url_raw( $entry['file'] ) );
-
-		return (int) $post_id;
+	/**
+	 * Create a slider from the bundled demo, sideloading its images from the plugin.
+	 *
+	 * @param string $status Post status ('draft' or 'publish').
+	 * @return int New slider ID, or 0 on failure.
+	 */
+	public static function create_bundled_slider( $status = 'draft' ) {
+		$img_dir = GENERAL_SLIDER_DIR . 'demos/images/';
+		return self::build_slider(
+			self::bundled_demo(),
+			$status,
+			'bundled',
+			self::BUNDLED_ID,
+			function ( $raw, $pid ) use ( $img_dir ) {
+				return ! empty( $raw['image'] ) ? self::sideload_local_image( $img_dir . basename( $raw['image'] ), $pid ) : 0;
+			}
+		);
 	}
 
 	/**
 	 * Download a remote image into the Media Library.
 	 *
-	 * @param string $url     Image URL (must be https).
+	 * @param string $url     Image URL (http/https).
 	 * @param int    $post_id Slider to attach it to.
 	 * @return int Attachment ID, or 0 on failure.
 	 */
@@ -371,6 +519,166 @@ class Demo_Library {
 
 		// media_handle_sideload validates the file type itself; non-images are rejected.
 		$id = media_handle_sideload( $file, $post_id );
+		if ( is_wp_error( $id ) ) {
+			if ( file_exists( $tmp ) ) {
+				wp_delete_file( $tmp );
+			}
+			return 0;
+		}
+
+		return (int) $id;
+	}
+
+	/**
+	 * Copy a bundled image into the Media Library.
+	 *
+	 * @param string $path    Absolute path to a bundled image.
+	 * @param int    $post_id Slider to attach it to.
+	 * @return int Attachment ID, or 0 on failure.
+	 */
+	private static function sideload_local_image( $path, $post_id ) {
+		if ( ! is_readable( $path ) ) {
+			return 0;
+		}
+
+		require_once ABSPATH . 'wp-admin/includes/file.php';
+		require_once ABSPATH . 'wp-admin/includes/media.php';
+		require_once ABSPATH . 'wp-admin/includes/image.php';
+
+		// Sideload moves the temp file, so copy the bundled asset to a temp path first.
+		$tmp = wp_tempnam( basename( $path ) );
+		if ( ! $tmp || ! copy( $path, $tmp ) ) { // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_copy -- copying a bundled plugin asset to a temp file for sideload.
+			if ( $tmp && file_exists( $tmp ) ) {
+				wp_delete_file( $tmp );
+			}
+			return 0;
+		}
+
+		$file = array(
+			'name'     => basename( $path ),
+			'tmp_name' => $tmp,
+		);
+		$id   = media_handle_sideload( $file, $post_id );
+		if ( is_wp_error( $id ) ) {
+			if ( file_exists( $tmp ) ) {
+				wp_delete_file( $tmp );
+			}
+			return 0;
+		}
+
+		return (int) $id;
+	}
+
+	/**
+	 * Handle an uploaded demo package (.zip) and import it.
+	 */
+	public function import_zip() {
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_die( esc_html__( 'You are not allowed to do this.', 'general-slider' ) );
+		}
+		check_admin_referer( self::ZIP_ACTION );
+
+		$result = 0;
+		if ( isset( $_FILES['gs_zip']['tmp_name'] ) && is_uploaded_file( $_FILES['gs_zip']['tmp_name'] ) ) { // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
+			$result = self::import_zip_file( $_FILES['gs_zip']['tmp_name'] ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
+		}
+
+		if ( $result ) {
+			wp_safe_redirect( add_query_arg( 'gs_demo_lib', 'ok', get_edit_post_link( $result, 'redirect' ) ) );
+			exit;
+		}
+		wp_safe_redirect(
+			add_query_arg(
+				array(
+					'page'        => self::PAGE,
+					'gs_demo_lib' => 'fail',
+				),
+				admin_url( 'edit.php?post_type=' . Post_Type::SLUG )
+			)
+		);
+		exit;
+	}
+
+	/**
+	 * Create a slider from an exported demo .zip, sideloading the images it contains.
+	 *
+	 * @param string $tmp_zip Path to the uploaded zip.
+	 * @return int New slider ID, or 0 on failure.
+	 */
+	private static function import_zip_file( $tmp_zip ) {
+		if ( ! class_exists( 'ZipArchive' ) ) {
+			return 0;
+		}
+		$zip = new \ZipArchive();
+		if ( true !== $zip->open( $tmp_zip ) ) {
+			return 0;
+		}
+
+		// Locate the demo JSON inside the package (the one that has slides).
+		$data  = null;
+		$count = $zip->count();
+		for ( $i = 0; $i < $count; $i++ ) {
+			$name = $zip->getNameIndex( $i );
+			if ( '.json' !== substr( $name, -5 ) || 'manifest-entry.json' === basename( $name ) ) {
+				continue;
+			}
+			$decoded = json_decode( $zip->getFromIndex( $i ), true );
+			if ( is_array( $decoded ) && ! empty( $decoded['slides'] ) && is_array( $decoded['slides'] ) ) {
+				$data = $decoded;
+				break;
+			}
+		}
+		if ( ! $data ) {
+			$zip->close();
+			return 0;
+		}
+
+		$demo_id = ! empty( $data['id'] ) ? sanitize_key( $data['id'] ) : '';
+		$result  = self::build_slider(
+			$data,
+			'draft',
+			'zip',
+			$demo_id,
+			function ( $raw, $pid ) use ( $zip ) {
+				if ( empty( $raw['image_url'] ) ) {
+					return 0;
+				}
+				$base  = basename( (string) wp_parse_url( $raw['image_url'], PHP_URL_PATH ) );
+				$bytes = $base ? $zip->getFromName( 'assets/images/' . $base ) : false;
+				return ( false !== $bytes ) ? self::sideload_bytes( $bytes, $base, $pid ) : 0;
+			}
+		);
+		$zip->close();
+
+		return $result;
+	}
+
+	/**
+	 * Write raw image bytes to a temp file and sideload it into the Media Library.
+	 *
+	 * @param string $bytes   Raw image data.
+	 * @param string $name    File name.
+	 * @param int    $post_id Slider to attach it to.
+	 * @return int Attachment ID, or 0 on failure.
+	 */
+	private static function sideload_bytes( $bytes, $name, $post_id ) {
+		require_once ABSPATH . 'wp-admin/includes/file.php';
+		require_once ABSPATH . 'wp-admin/includes/media.php';
+		require_once ABSPATH . 'wp-admin/includes/image.php';
+
+		$tmp = wp_tempnam( $name );
+		if ( ! $tmp || false === file_put_contents( $tmp, $bytes ) ) { // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents -- writing extracted zip bytes to a temp file for sideload.
+			if ( $tmp && file_exists( $tmp ) ) {
+				wp_delete_file( $tmp );
+			}
+			return 0;
+		}
+
+		$file = array(
+			'name'     => $name,
+			'tmp_name' => $tmp,
+		);
+		$id   = media_handle_sideload( $file, $post_id );
 		if ( is_wp_error( $id ) ) {
 			if ( file_exists( $tmp ) ) {
 				wp_delete_file( $tmp );

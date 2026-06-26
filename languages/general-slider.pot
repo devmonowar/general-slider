@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: General Slider 2.3.0\n"
+"Project-Id-Version: General Slider 2.3.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/general-slider\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-06-24T17:24:43+02:00\n"
+"POT-Creation-Date: 2026-06-26T17:11:32+02:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: general-slider\n"
@@ -17,7 +17,7 @@ msgstr ""
 #. Plugin Name of the plugin
 #: general-slider.php
 #: includes/Elementor_Widget.php:35
-#: includes/Post_Type.php:79
+#: includes/Post_Type.php:86
 msgid "General Slider"
 msgstr ""
 
@@ -37,29 +37,29 @@ msgstr ""
 msgid "Monowar"
 msgstr ""
 
-#: includes/Assets.php:73
+#: includes/Assets.php:80
 #: includes/Slides_Meta.php:84
 msgid "Choose image"
 msgstr ""
 
-#: includes/Assets.php:74
+#: includes/Assets.php:81
 msgid "Use this image"
 msgstr ""
 
-#: includes/Assets.php:75
+#: includes/Assets.php:82
 msgid "Choose video"
 msgstr ""
 
-#: includes/Assets.php:76
+#: includes/Assets.php:83
 msgid "Use this video"
 msgstr ""
 
-#: includes/Assets.php:77
+#: includes/Assets.php:84
 #: includes/Slides_Meta.php:123
 msgid "Remove slide"
 msgstr ""
 
-#: includes/Assets.php:78
+#: includes/Assets.php:85
 msgid "Remove this slide?"
 msgstr ""
 
@@ -123,71 +123,136 @@ msgstr ""
 msgid "Gradient"
 msgstr ""
 
+#: includes/Demo_Export.php:45
+msgid "Export Slider"
+msgstr ""
+
+#: includes/Demo_Export.php:65
+msgid "Demo package created successfully."
+msgstr ""
+
+#: includes/Demo_Export.php:66
+msgid "Download will begin shortly."
+msgstr ""
+
+#: includes/Demo_Export.php:82
+#: includes/Demo_Importer.php:45
+#: includes/Demo_Library.php:307
+#: includes/Demo_Library.php:577
+#: includes/Duplicator.php:54
+#: includes/Tools.php:59
+#: includes/Tools.php:98
+msgid "You are not allowed to do this."
+msgstr ""
+
+#: includes/Demo_Export.php:85
+msgid "Export Slider needs the PHP Zip extension, which is not available on this server."
+msgstr ""
+
+#: includes/Demo_Export.php:172
+msgid "Could not create the demo ZIP."
+msgstr ""
+
 #: includes/Demo_Importer.php:35
 msgid "Create demo slider"
 msgstr ""
 
-#: includes/Demo_Importer.php:45
-#: includes/Duplicator.php:54
-#: includes/Tools.php:51
-#: includes/Tools.php:90
-msgid "You are not allowed to do this."
-msgstr ""
-
-#: includes/Demo_Importer.php:53
-msgid "Demo Slider"
-msgstr ""
-
-#: includes/Demo_Importer.php:65
-msgid "Welcome to"
-msgstr ""
-
-#: includes/Demo_Importer.php:66
-msgid "Build sliders in minutes"
-msgstr ""
-
-#: includes/Demo_Importer.php:67
-msgid "A lightweight, no-code carousel for any WordPress page."
-msgstr ""
-
-#: includes/Demo_Importer.php:68
-msgid "Get started"
-msgstr ""
-
-#: includes/Demo_Importer.php:72
-msgid "Easy & fast"
-msgstr ""
-
-#: includes/Demo_Importer.php:73
-msgid "No coding required"
-msgstr ""
-
-#: includes/Demo_Importer.php:74
-msgid "Just add slides and drop the block on any page."
-msgstr ""
-
-#: includes/Demo_Importer.php:75
-msgid "Learn more"
-msgstr ""
-
-#: includes/Demo_Importer.php:79
-msgid "Simple. Fast. Yours."
-msgstr ""
-
-#: includes/Demo_Importer.php:80
-msgid "Make it your own"
-msgstr ""
-
-#: includes/Demo_Importer.php:81
-msgid "Pick a design preset and match your theme."
-msgstr ""
-
-#: includes/Demo_Importer.php:104
+#: includes/Demo_Importer.php:77
 msgid "Demo slider created. Edit it below, then embed it with the block or shortcode."
 msgstr ""
 
-#: includes/Demo_Importer.php:106
+#: includes/Demo_Importer.php:79
 msgid "Could not create the demo slider."
+msgstr ""
+
+#: includes/Demo_Library.php:46
+#: includes/Demo_Library.php:47
+#: includes/Demo_Library.php:167
+msgid "Demo Library"
+msgstr ""
+
+#: includes/Demo_Library.php:99
+msgid "The demo library could not be reached."
+msgstr ""
+
+#: includes/Demo_Library.php:120
+msgid "The demo library response was not valid."
+msgstr ""
+
+#: includes/Demo_Library.php:123
+msgid "The demo library is for a different plugin."
+msgstr ""
+
+#: includes/Demo_Library.php:151
+msgid "The demo library is empty right now."
+msgstr ""
+
+#: includes/Demo_Library.php:168
+msgid "Import a ready-made slider with one click. Images are downloaded into your Media Library automatically."
+msgstr ""
+
+#: includes/Demo_Library.php:172
+msgid "Unable to load the online demo library."
+msgstr ""
+
+#: includes/Demo_Library.php:174
+msgid "You can still import the bundled starter demo below."
+msgstr ""
+
+#: includes/Demo_Library.php:189
+msgid "Import a demo package"
+msgstr ""
+
+#: includes/Demo_Library.php:190
+msgid "Have a .zip exported with \"Export Slider\"? Import it here — its images are included."
+msgstr ""
+
+#: includes/Demo_Library.php:195
+msgid "Import package"
+msgstr ""
+
+#: includes/Demo_Library.php:216
+msgid "Featured"
+msgstr ""
+
+#: includes/Demo_Library.php:218
+msgid "New"
+msgstr ""
+
+#: includes/Demo_Library.php:236
+#: includes/Demo_Library.php:239
+#: includes/Demo_Library.php:281
+msgid "Import Demo"
+msgstr ""
+
+#. translators: %s: required plugin version.
+#: includes/Demo_Library.php:243
+#, php-format
+msgid "Requires General Slider %s+"
+msgstr ""
+
+#: includes/Demo_Library.php:245
+msgid "Update Needed"
+msgstr ""
+
+#: includes/Demo_Library.php:261
+msgid "Starter demo"
+msgstr ""
+
+#: includes/Demo_Library.php:268
+msgid "Starter"
+msgstr ""
+
+#: includes/Demo_Library.php:354
+msgid "Imported demo"
+msgstr ""
+
+#: includes/Demo_Library.php:701
+msgid "Demo imported. Review it below, then publish and embed it with the block or shortcode."
+msgstr ""
+
+#: includes/Demo_Library.php:703
+msgid "Sorry, that demo could not be imported. Please try again."
 msgstr ""
 
 #: includes/Duplicator.php:40
@@ -201,7 +266,7 @@ msgid "%s (copy)"
 msgstr ""
 
 #: includes/Elementor_Widget.php:71
-#: includes/Post_Type.php:69
+#: includes/Post_Type.php:71
 #: block/editor.js:27
 msgid "Slider"
 msgstr ""
@@ -221,51 +286,72 @@ msgid "General Slider: choose a slider in the widget settings."
 msgstr ""
 
 #: includes/Post_Type.php:39
+msgid "Shortcode"
+msgstr ""
+
+#: includes/Post_Type.php:40
 #: includes/Slides_Meta.php:29
 msgid "Slides"
 msgstr ""
 
-#: includes/Post_Type.php:40
-msgid "Shortcode"
+#: includes/Post_Type.php:58
+#: includes/Slides_Meta.php:237
+msgid "Click to copy"
 msgstr ""
 
-#: includes/Post_Type.php:68
-msgid "Sliders"
+#: includes/Post_Type.php:59
+#: includes/Slides_Meta.php:237
+msgid "Copied!"
 msgstr ""
 
 #: includes/Post_Type.php:70
-msgid "Add New"
-msgstr ""
-
-#: includes/Post_Type.php:71
-msgid "Add New Slider"
+msgid "Sliders"
 msgstr ""
 
 #: includes/Post_Type.php:72
-msgid "Edit Slider"
+msgid "Add New"
 msgstr ""
 
 #: includes/Post_Type.php:73
-msgid "New Slider"
+msgid "Add New Slider"
 msgstr ""
 
 #: includes/Post_Type.php:74
-msgid "View Slider"
+msgid "Edit Slider"
 msgstr ""
 
 #: includes/Post_Type.php:75
-msgid "Search Sliders"
+msgid "New Slider"
 msgstr ""
 
 #: includes/Post_Type.php:76
-msgid "No sliders found"
+msgid "View Slider"
 msgstr ""
 
 #: includes/Post_Type.php:77
+msgid "Search Sliders"
+msgstr ""
+
+#. translators: 1: "create a slider" button, 2: "browse demo library" button.
+#: includes/Post_Type.php:80
+#, php-format
+msgid "No sliders found. %1$s or %2$s"
+msgstr ""
+
+#: includes/Post_Type.php:81
+msgid "Create your first slider"
+msgstr ""
+
+#: includes/Post_Type.php:82
+#: includes/Settings.php:197
+msgid "Browse Demo Library"
+msgstr ""
+
+#: includes/Post_Type.php:84
 msgid "No sliders found in Trash"
 msgstr ""
 
-#: includes/Post_Type.php:78
+#: includes/Post_Type.php:85
 msgid "All Sliders"
 msgstr ""
 
@@ -408,10 +494,10 @@ msgid "Demo slider"
 msgstr ""
 
 #: includes/Settings.php:194
-msgid "New here? Create a ready-made demo slider to see how it works."
+msgid "New here? Create the bundled starter slider, or browse the online Demo Library for more."
 msgstr ""
 
-#: includes/Settings.php:198
+#: includes/Settings.php:201
 msgid "Import / Export"
 msgstr ""
 
@@ -528,12 +614,12 @@ msgstr ""
 msgid "Import sliders"
 msgstr ""
 
-#: includes/Tools.php:108
+#: includes/Tools.php:116
 msgid "Imported slider"
 msgstr ""
 
 #. translators: %d: number of sliders imported.
-#: includes/Tools.php:164
+#: includes/Tools.php:172
 #, php-format
 msgid "Imported %d slider."
 msgid_plural "Imported %d sliders."

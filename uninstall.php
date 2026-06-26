@@ -26,6 +26,7 @@ function general_slider_uninstall() {
 	}
 
 	delete_option( 'general_slider_settings' );
+	delete_option( 'general_slider_demo_installed' );
 }
 
 general_slider_uninstall();

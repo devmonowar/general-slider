@@ -19,6 +19,7 @@ Built on the lightweight [Splide](https://splidejs.com/) engine — **no jQuery*
 - Multiple slides per view (carousel), thumbnail navigation, Ken Burns zoom and text animations
 - Per-slider settings: autoplay (+ pause button), loop, arrows, dots, slide/fade, height, overlay (solid or gradient), image fit/focus and accent colour
 - Custom CSS, categories, duplicate and JSON import / export
+- **Demo Library** — one-click ready-made sliders (a starter demo ships with the plugin)
 - Responsive, **accessible** (keyboard + screen reader, pause control), respects reduced-motion
 - Performance friendly: lazy-loaded images, viewport lazy-init, RTL ready
 
@@ -42,6 +43,12 @@ Create a slider under **General Slider → Add New**, add slides, then embed it:
 - **Shortcode:** `[general_slider id="123"]`
 - **Elementor:** drop the *General Slider* widget.
 
+## Demo Library
+
+A starter demo ships inside the plugin and is created automatically on first activation, so a fresh install isn't empty. **General Slider → Demo Library** offers more ready-made sliders — imported in one click, images and all — from an online library ([wp-plugin-demo-library](https://github.com/devmonowar/wp-plugin-demo-library)) served over GitHub Pages, so new demos appear **without updating the plugin**.
+
+Developers can package any slider into a portable demo with the **Export Slider** row action, then re-import a package from the Demo Library screen.
+
 ## Developer filters
 
 ```php
@@ -59,6 +66,9 @@ add_filter( 'general_slider_html', function ( $html, $post_id, $settings ) { ret
 
 // Register your own design preset (also provide a `.gs-preset-{key}` stylesheet).
 add_filter( 'general_slider_presets', function ( $presets ) { return $presets; } );
+
+// Point the Demo Library at a different manifest (dev / staging).
+add_filter( 'general_slider_demo_library_url', function ( $url ) { return $url; } );
 ```
 
 ## Screenshots

@@ -1,0 +1,61 @@
+{
+	"id": "nature-showcase",
+	"name": "Nature Showcase",
+	"description": "A cinematic full-width hero slider with a gradient overlay, Ken Burns zoom and animated text.",
+	"title": "Nature Showcase",
+	"slides": [
+		{
+			"image": "nature-1.jpg",
+			"sub_heading": "EXPLORE",
+			"heading": "Reach new heights",
+			"text": "Adventures that take your breath away.",
+			"btn_text": "Discover more",
+			"btn_url": "#"
+		},
+		{
+			"image": "nature-2.jpg",
+			"sub_heading": "WANDER",
+			"heading": "Find your wild",
+			"text": "Where rivers carve their own path.",
+			"btn_text": "Start the journey",
+			"btn_url": "#"
+		},
+		{
+			"image": "nature-3.jpg",
+			"sub_heading": "DREAM",
+			"heading": "Above the clouds",
+			"text": "Chase horizons that never end.",
+			"btn_text": "Plan your trip",
+			"btn_url": "#"
+		},
+		{
+			"image": "nature-4.jpg",
+			"sub_heading": "DISCOVER",
+			"heading": "Into the wild",
+			"text": "The quiet, powerful beauty of nature.",
+			"btn_text": "See the gallery",
+			"btn_url": "#"
+		}
+	],
+	"settings": {
+		"preset": "hero",
+		"transition": "fade",
+		"autoplay": true,
+		"speed": 5000,
+		"loop": true,
+		"arrows": true,
+		"dots": true,
+		"overlay": 40,
+		"overlay_style": "gradient",
+		"height": 600,
+		"focus": "center",
+		"fit": "cover",
+		"per_page": 1,
+		"gap": 16,
+		"accent": "#14a085",
+		"ken_burns": true,
+		"animate": true,
+		"thumbnails": false
+	},
+	"custom_css": ""
+}

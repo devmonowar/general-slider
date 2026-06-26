@@ -48,12 +48,12 @@ final class Plugin {
 		( new Post_Type() )->hooks();
 		( new Taxonomy() )->hooks();
 		( new Slides_Meta() )->hooks();
+		( new Demo_Library() )->hooks();
 		( new Settings() )->hooks();
 		( new Assets() )->hooks();
 		( new Shortcode() )->hooks();
 		( new Block() )->hooks();
 		( new Demo_Importer() )->hooks();
-		( new Demo_Library() )->hooks();
 		( new Demo_Export() )->hooks();
 		( new Duplicator() )->hooks();
 		( new Tools() )->hooks();

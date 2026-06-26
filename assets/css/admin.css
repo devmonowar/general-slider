@@ -115,3 +115,15 @@
 }
 .gs-demo-card__actions { padding: 0 16px 16px; }
 .gs-demo-card__requires { margin: 8px 0 0; font-size: 12px; color: #787c82; }
+
+/* Shortcode click-to-copy */
+.gs-shortcode-copy { cursor: pointer; }
+.gs-copied {
+	margin-left: 8px;
+	color: #1a7e3c;
+	font-weight: 600;
+	font-size: 12px;
+	opacity: 0;
+	transition: opacity .2s ease;
+}
+.gs-copied.is-visible { opacity: 1; }

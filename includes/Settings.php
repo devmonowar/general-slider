@@ -191,12 +191,16 @@ class Settings {
 
 			<hr />
 			<h2><?php esc_html_e( 'Demo slider', 'general-slider' ); ?></h2>
-			<p><?php esc_html_e( 'New here? Create a ready-made demo slider to see how it works.', 'general-slider' ); ?></p>
-			<?php Demo_Importer::button(); ?>
+			<p><?php esc_html_e( 'New here? Create the bundled starter slider, or browse the online Demo Library for more.', 'general-slider' ); ?></p>
+			<div class="gs-demo-buttons" style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+				<?php Demo_Importer::button(); ?>
+				<a class="button" href="<?php echo esc_url( admin_url( 'edit.php?post_type=' . Post_Type::SLUG . '&page=' . Demo_Library::PAGE ) ); ?>"><?php esc_html_e( 'Browse Demo Library', 'general-slider' ); ?></a>
+			</div>
 
 			<hr />
 			<h2><?php esc_html_e( 'Import / Export', 'general-slider' ); ?></h2>
 			<?php Tools::ui(); ?>
+			<?php Tools::file_required_script(); ?>
 		</div>
 		<?php
 	}

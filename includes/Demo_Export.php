@@ -26,6 +26,7 @@ class Demo_Export {
 	public function hooks() {
 		add_filter( 'post_row_actions', array( $this, 'row_action' ), 20, 2 );
 		add_action( 'admin_action_' . self::ACTION, array( $this, 'export' ) );
+		add_action( 'admin_notices', array( $this, 'export_notice' ) );
 	}
 
 	/**
@@ -38,12 +39,35 @@ class Demo_Export {
 	public function row_action( $actions, $post ) {
 		if ( Post_Type::SLUG === $post->post_type && current_user_can( 'manage_options' ) ) {
 			$url                       = wp_nonce_url(
-				admin_url( 'admin.php?action=' . self::ACTION . '&post=' . $post->ID ),
+				admin_url( 'edit.php?post_type=' . Post_Type::SLUG . '&gs_export=' . $post->ID ),
 				self::ACTION . '_' . $post->ID
 			);
-			$actions['gs_demo_export'] = '<a href="' . esc_url( $url ) . '">' . esc_html__( 'Demo Export', 'general-slider' ) . '</a>';
+			$actions['gs_demo_export'] = '<a href="' . esc_url( $url ) . '">' . esc_html__( 'Export Slider', 'general-slider' ) . '</a>';
 		}
 		return $actions;
+	}
+
+	/**
+	 * After "Export Slider", show a success notice and auto-start the download.
+	 */
+	public function export_notice() {
+		if ( ! isset( $_GET['gs_export'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			return;
+		}
+		$id    = absint( $_GET['gs_export'] ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$nonce = isset( $_GET['_wpnonce'] ) ? sanitize_key( $_GET['_wpnonce'] ) : '';
+		if ( ! $id || ! current_user_can( 'manage_options' ) || ! wp_verify_nonce( $nonce, self::ACTION . '_' . $id ) ) {
+			return;
+		}
+
+		printf(
+			'<div class="notice notice-success is-dismissible"><p><strong>%s</strong><br>%s</p></div>',
+			esc_html__( 'Demo package created successfully.', 'general-slider' ),
+			esc_html__( 'Download will begin shortly.', 'general-slider' )
+		);
+
+		$download = wp_nonce_url( admin_url( 'admin.php?action=' . self::ACTION . '&post=' . $id ), self::ACTION . '_' . $id );
+		wp_print_inline_script_tag( 'setTimeout(function(){window.location=' . wp_json_encode( $download ) . ';},800);' );
 	}
 
 	/**
@@ -58,7 +82,7 @@ class Demo_Export {
 			wp_die( esc_html__( 'You are not allowed to do this.', 'general-slider' ) );
 		}
 		if ( ! class_exists( 'ZipArchive' ) ) {
-			wp_die( esc_html__( 'Demo Export needs the PHP Zip extension, which is not available on this server.', 'general-slider' ) );
+			wp_die( esc_html__( 'Export Slider needs the PHP Zip extension, which is not available on this server.', 'general-slider' ) );
 		}
 
 		$slug = sanitize_title( $post->post_title );
@@ -209,7 +233,7 @@ class Demo_Export {
 	 * @return string
 	 */
 	private function readme( $slug ) {
-		return "General Slider — Demo Export: {$slug}\n"
+		return "General Slider — Export Slider: {$slug}\n"
 			. "=======================================\n\n"
 			. "To publish this demo in your wp-plugin-demo-library repository:\n\n"
 			. "1. Copy assets/images/*  ->  general-slider/assets/images/\n"
