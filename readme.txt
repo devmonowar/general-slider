@@ -1,6 +1,6 @@
 === General Slider ===
 Contributors: devmonowar
-Tags: slider, carousel, slideshow, image slider, block
+Tags: slider, carousel, image slider, slideshow, gutenberg
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 7.4
@@ -8,7 +8,7 @@ Stable tag: 2.3.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-A lightweight, easy-to-use carousel slider. Build reusable sliders and drop them anywhere with a block — no coding required.
+Create beautiful, reusable carousel sliders in minutes — lightweight, block-ready, and no coding required.
 
 == Description ==
 
@@ -104,11 +104,12 @@ These are plain, read-only requests for files. No personal data is collected or 
 
 == Screenshots ==
 
-1. A full-width slider on the front end.
-2. Cinematic slides with a gradient overlay and animation.
-3. Per-slider and global settings.
-4. A slider running on the front end.
-5. The slide editor — build slides with images, headings, text and buttons.
+1. A full-width hero slider on the front end.
+2. Cinematic full-bleed slides with overlay text and a call-to-action button.
+3. Smooth autoplay with fade and slide transitions (animated).
+4. Demo Library — import a ready-made slider in one click, images included.
+5. Reusable sliders, each with a click-to-copy shortcode.
+6. Per-slider and global settings: presets, transitions, overlay, image fit and accent colour.
 
 == Changelog ==
 

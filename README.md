@@ -1,4 +1,4 @@
-# General Slider
+# General Slider — Lightweight WordPress Slider
 
 > A lightweight, easy-to-use carousel slider for WordPress. Build reusable sliders and drop them anywhere with a block — no coding required.
 
@@ -73,9 +73,9 @@ add_filter( 'general_slider_demo_library_url', function ( $url ) { return $url; 
 
 ## Screenshots
 
-| Front end | Settings | Editor |
+| Front end | Demo Library | Settings |
 | --- | --- | --- |
-| ![](.wordpress-org/screenshot-1.jpg) | ![](.wordpress-org/screenshot-3.png) | ![](.wordpress-org/screenshot-5.png) |
+| ![](.wordpress-org/screenshot-1.jpg) | ![](.wordpress-org/screenshot-4.png) | ![](.wordpress-org/screenshot-6.png) |
 
 ## Development
 
