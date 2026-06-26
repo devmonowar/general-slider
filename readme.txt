@@ -4,7 +4,7 @@ Tags: slider, carousel, slideshow, image slider, block
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 2.3.1
+Stable tag: 2.3.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -87,6 +87,21 @@ Yes. Use the JSON import / export tools on the General Slider > Settings screen.
 
 Yes. The plugin provides filters: `general_slider_settings` (a slider's resolved settings), `general_slider_slides` (the slides before rendering), `general_slider_config` (the Splide JS options), `general_slider_html` (the final markup) and `general_slider_presets` (register your own design preset).
 
+= Where do the demos come from? =
+
+The Demo Library loads ready-made sliders from an online library so new demos can be added without updating the plugin. It only connects when you open the Demo Library screen or import a demo. See "External services" below.
+
+== External services ==
+
+This plugin includes an optional **Demo Library** that loads ready-made sliders from a remote service hosted on GitHub Pages: https://devmonowar.github.io/wp-plugin-demo-library/
+
+It connects to this service only when you:
+
+* open the **Demo Library** screen — to download the list of demos and show their preview images; and
+* click **Import Demo** — to download that demo's data and images into your site's Media Library.
+
+These are plain, read-only requests for files. No personal data is collected or sent, and no request is made unless you use the Demo Library. The service is provided by GitHub Pages (GitHub, Inc.) — terms of service: https://docs.github.com/site-policy/github-terms/github-terms-of-service — privacy statement: https://docs.github.com/site-policy/privacy-policies/github-privacy-statement
+
 == Screenshots ==
 
 1. A full-width slider on the front end.
@@ -96,6 +111,10 @@ Yes. The plugin provides filters: `general_slider_settings` (a slider's resolved
 5. The slide editor — build slides with images, headings, text and buttons.
 
 == Changelog ==
+
+= 2.3.2 =
+* New: Demo Library — browse a library of ready-made sliders and import one (with its images) in a single click. New demos are added online, so they appear without updating the plugin.
+* New: Demo Export — turn any slider into a portable demo package from the sliders list.
 
 = 2.3.1 =
 * Maintenance: internal code-quality and coding-standards improvements (no functional changes).

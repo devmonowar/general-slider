@@ -53,6 +53,8 @@ final class Plugin {
 		( new Shortcode() )->hooks();
 		( new Block() )->hooks();
 		( new Demo_Importer() )->hooks();
+		( new Demo_Library() )->hooks();
+		( new Demo_Export() )->hooks();
 		( new Duplicator() )->hooks();
 		( new Tools() )->hooks();
 		( new Elementor() )->hooks();
