@@ -116,7 +116,11 @@ class Demo_Export {
 					$name               = $slug . '-' . $i . '.' . $ext;
 					$image_map[ $name ] = $file;
 					$out['image_url']   = $images_base . $name;
-					$first_img          = $first_img ? $first_img : $file;
+					$alt                = get_post_meta( $slide['image_id'], '_wp_attachment_image_alt', true );
+					if ( '' !== (string) $alt ) {
+						$out['alt'] = sanitize_text_field( $alt );
+					}
+					$first_img = $first_img ? $first_img : $file;
 				}
 			}
 			foreach ( array( 'video', 'sub_heading', 'heading', 'text', 'btn_text', 'btn_url', 'link' ) as $field ) {

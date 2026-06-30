@@ -377,10 +377,20 @@ class Demo_Library {
 				continue;
 			}
 			$image_id = (int) call_user_func( $resolve_image, $raw, $post_id );
-			unset( $raw['image_url'], $raw['image'] );
 			if ( $image_id ) {
 				$raw['image_id'] = $image_id;
+				// SEO: give the imported image descriptive alt text (demo-provided "alt", else the heading).
+				$alt = '';
+				if ( ! empty( $raw['alt'] ) ) {
+					$alt = sanitize_text_field( $raw['alt'] );
+				} elseif ( ! empty( $raw['heading'] ) ) {
+					$alt = sanitize_text_field( wp_strip_all_tags( $raw['heading'] ) );
+				}
+				if ( '' !== $alt ) {
+					update_post_meta( $image_id, '_wp_attachment_image_alt', $alt );
+				}
 			}
+			unset( $raw['image_url'], $raw['image'], $raw['alt'] );
 			$slide = Data::normalise_slide( $raw );
 			if ( $slide ) {
 				$slides[] = $slide;

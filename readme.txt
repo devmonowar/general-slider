@@ -116,6 +116,7 @@ These are plain, read-only requests for files. No personal data is collected or 
 = 2.3.4 =
 * Fix: "Export Slider" now downloads correctly — the auto-download link was being HTML-encoded and failed with an expired-link error.
 * New: a "Refresh" button on the Demo Library fetches the latest demos right away, instead of waiting for the cache to expire.
+* New: imported demo images now get descriptive alt text automatically — better image SEO and accessibility. "Export Slider" includes each image's alt text in the package too.
 
 = 2.3.3 =
 * New: a starter demo ships with the plugin and is created automatically on first activation, so a fresh install isn't empty.
