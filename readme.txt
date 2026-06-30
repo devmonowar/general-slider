@@ -4,7 +4,7 @@ Tags: slider, carousel, image slider, slideshow, gutenberg
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 2.3.3
+Stable tag: 2.3.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -112,6 +112,10 @@ These are plain, read-only requests for files. No personal data is collected or 
 6. Per-slider and global settings: presets, transitions, overlay, image fit and accent colour.
 
 == Changelog ==
+
+= 2.3.4 =
+* Fix: "Export Slider" now downloads correctly — the auto-download link was being HTML-encoded and failed with an expired-link error.
+* New: a "Refresh" button on the Demo Library fetches the latest demos right away, instead of waiting for the cache to expire.
 
 = 2.3.3 =
 * New: a starter demo ships with the plugin and is created automatically on first activation, so a fresh install isn't empty.

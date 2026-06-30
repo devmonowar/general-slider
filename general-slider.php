@@ -3,7 +3,7 @@
  * Plugin Name:       General Slider
  * Plugin URI:        https://wordpress.org/plugins/general-slider/
  * Description:        A lightweight, easy-to-use carousel slider. Build reusable sliders and drop them anywhere with a block.
- * Version:           2.3.3
+ * Version:           2.3.4
  * Requires at least: 6.0
  * Requires PHP:      7.4
  * Author:            Monowar

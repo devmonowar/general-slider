@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: General Slider 2.3.3\n"
+"Project-Id-Version: General Slider 2.3.4\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/general-slider\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-06-26T17:11:32+02:00\n"
+"POT-Creation-Date: 2026-06-30T18:39:54+02:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: general-slider\n"
@@ -135,21 +135,21 @@ msgstr ""
 msgid "Download will begin shortly."
 msgstr ""
 
-#: includes/Demo_Export.php:82
+#: includes/Demo_Export.php:91
 #: includes/Demo_Importer.php:45
-#: includes/Demo_Library.php:307
-#: includes/Demo_Library.php:577
+#: includes/Demo_Library.php:314
+#: includes/Demo_Library.php:584
 #: includes/Duplicator.php:54
 #: includes/Tools.php:59
 #: includes/Tools.php:98
 msgid "You are not allowed to do this."
 msgstr ""
 
-#: includes/Demo_Export.php:85
+#: includes/Demo_Export.php:94
 msgid "Export Slider needs the PHP Zip extension, which is not available on this server."
 msgstr ""
 
-#: includes/Demo_Export.php:172
+#: includes/Demo_Export.php:181
 msgid "Could not create the demo ZIP."
 msgstr ""
 
@@ -167,7 +167,7 @@ msgstr ""
 
 #: includes/Demo_Library.php:46
 #: includes/Demo_Library.php:47
-#: includes/Demo_Library.php:167
+#: includes/Demo_Library.php:172
 msgid "Demo Library"
 msgstr ""
 
@@ -187,71 +187,75 @@ msgstr ""
 msgid "The demo library is empty right now."
 msgstr ""
 
-#: includes/Demo_Library.php:168
+#: includes/Demo_Library.php:173
+msgid "Refresh"
+msgstr ""
+
+#: includes/Demo_Library.php:175
 msgid "Import a ready-made slider with one click. Images are downloaded into your Media Library automatically."
 msgstr ""
 
-#: includes/Demo_Library.php:172
+#: includes/Demo_Library.php:179
 msgid "Unable to load the online demo library."
 msgstr ""
 
-#: includes/Demo_Library.php:174
+#: includes/Demo_Library.php:181
 msgid "You can still import the bundled starter demo below."
 msgstr ""
 
-#: includes/Demo_Library.php:189
+#: includes/Demo_Library.php:196
 msgid "Import a demo package"
 msgstr ""
 
-#: includes/Demo_Library.php:190
+#: includes/Demo_Library.php:197
 msgid "Have a .zip exported with \"Export Slider\"? Import it here — its images are included."
 msgstr ""
 
-#: includes/Demo_Library.php:195
+#: includes/Demo_Library.php:202
 msgid "Import package"
 msgstr ""
 
-#: includes/Demo_Library.php:216
+#: includes/Demo_Library.php:223
 msgid "Featured"
 msgstr ""
 
-#: includes/Demo_Library.php:218
+#: includes/Demo_Library.php:225
 msgid "New"
 msgstr ""
 
-#: includes/Demo_Library.php:236
-#: includes/Demo_Library.php:239
-#: includes/Demo_Library.php:281
+#: includes/Demo_Library.php:243
+#: includes/Demo_Library.php:246
+#: includes/Demo_Library.php:288
 msgid "Import Demo"
 msgstr ""
 
 #. translators: %s: required plugin version.
-#: includes/Demo_Library.php:243
+#: includes/Demo_Library.php:250
 #, php-format
 msgid "Requires General Slider %s+"
 msgstr ""
 
-#: includes/Demo_Library.php:245
+#: includes/Demo_Library.php:252
 msgid "Update Needed"
 msgstr ""
 
-#: includes/Demo_Library.php:261
+#: includes/Demo_Library.php:268
 msgid "Starter demo"
 msgstr ""
 
-#: includes/Demo_Library.php:268
+#: includes/Demo_Library.php:275
 msgid "Starter"
 msgstr ""
 
-#: includes/Demo_Library.php:354
+#: includes/Demo_Library.php:361
 msgid "Imported demo"
 msgstr ""
 
-#: includes/Demo_Library.php:701
+#: includes/Demo_Library.php:708
 msgid "Demo imported. Review it below, then publish and embed it with the block or shortcode."
 msgstr ""
 
-#: includes/Demo_Library.php:703
+#: includes/Demo_Library.php:710
 msgid "Sorry, that demo could not be imported. Please try again."
 msgstr ""
 

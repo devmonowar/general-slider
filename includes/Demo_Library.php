@@ -161,10 +161,17 @@ class Demo_Library {
 	 * Render the Demo Library page.
 	 */
 	public function page() {
+		// "Refresh" clears the 6-hour manifest cache so newly published demos appear immediately.
+		if ( isset( $_GET['gs_refresh'] ) && isset( $_GET['_wpnonce'] ) && wp_verify_nonce( sanitize_key( wp_unslash( $_GET['_wpnonce'] ) ), 'gs_demo_refresh' ) ) {
+			delete_transient( self::TRANSIENT );
+		}
 		$manifest = self::get_manifest();
 		?>
 		<div class="wrap gs-demo-library">
-			<h1><?php esc_html_e( 'Demo Library', 'general-slider' ); ?></h1>
+			<h1>
+				<?php esc_html_e( 'Demo Library', 'general-slider' ); ?>
+				<a href="<?php echo esc_url( wp_nonce_url( add_query_arg( 'gs_refresh', '1', admin_url( 'edit.php?post_type=' . Post_Type::SLUG . '&page=' . self::PAGE ) ), 'gs_demo_refresh' ) ); ?>" class="page-title-action"><?php esc_html_e( 'Refresh', 'general-slider' ); ?></a>
+			</h1>
 			<p><?php esc_html_e( 'Import a ready-made slider with one click. Images are downloaded into your Media Library automatically.', 'general-slider' ); ?></p>
 
 			<?php if ( is_wp_error( $manifest ) ) : ?>

@@ -66,8 +66,17 @@ class Demo_Export {
 			esc_html__( 'Download will begin shortly.', 'general-slider' )
 		);
 
-		$download = wp_nonce_url( admin_url( 'admin.php?action=' . self::ACTION . '&post=' . $id ), self::ACTION . '_' . $id );
-		wp_print_inline_script_tag( 'setTimeout(function(){window.location=' . wp_json_encode( $download ) . ';},800);' );
+		// Build the download URL with raw "&" (wp_nonce_url() would HTML-encode it to
+		// "&amp;", which breaks when used in JS window.location — not decoded like an href).
+		$download = add_query_arg(
+			array(
+				'action'   => self::ACTION,
+				'post'     => $id,
+				'_wpnonce' => wp_create_nonce( self::ACTION . '_' . $id ),
+			),
+			admin_url( 'admin.php' )
+		);
+		wp_print_inline_script_tag( 'setTimeout(function(){window.location=' . wp_json_encode( esc_url_raw( $download ) ) . ';},800);' );
 	}
 
 	/**
