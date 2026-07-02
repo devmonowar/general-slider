@@ -160,6 +160,8 @@ Yes. The plugin provides filters: `general_slider_settings` (a slider's resolved
 
 The Demo Library loads ready-made sliders from an online library so new demos can be added without updating the plugin. It only connects when you open the Demo Library screen or import a demo. See "External services" below.
 
+You can also browse the demos online before installing: https://devmonowar.github.io/wp-plugin-demo-library/general-slider/
+
 == External services ==
 
 This plugin includes an optional **Demo Library** that loads ready-made sliders from a remote service hosted on GitHub Pages: https://devmonowar.github.io/wp-plugin-demo-library/
