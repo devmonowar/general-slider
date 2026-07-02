@@ -1,10 +1,10 @@
 === General Slider ===
 Contributors: devmonowar
-Tags: slider, carousel, image slider, slideshow, gutenberg
+Tags: slider, carousel, elementor, testimonial, slideshow
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 2.3.4
+Stable tag: 2.3.5
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,27 +12,76 @@ Create beautiful, reusable carousel sliders in minutes — lightweight, block-re
 
 == Description ==
 
-General Slider is a fast, modern slider for WordPress. Create a slider once, then place it on any page with the block or a shortcode. No page builder and no coding required.
+General Slider is a fast, modern slider for WordPress. Create a slider once, then place it anywhere with a block or shortcode — no page builder and no coding required.
 
-Built on the lightweight Splide engine — no jQuery on the front end, accessible by default, and assets only load on pages that actually show a slider.
+Use it as a hero slider, image carousel, testimonial slider, logo carousel, product showcase or fullscreen banner, in the block editor, with a shortcode, or as an Elementor widget — on any block or classic theme.
 
-Use it as a hero slider, image carousel, testimonial slider, logo carousel, content slideshow or fullscreen banner. Works in the block editor, with a shortcode, and as an Elementor widget — on any block theme or classic theme.
+= Why General Slider? =
+
+* **Lightweight and fast** — no jQuery on the front end (built on the Splide engine)
+* **Accessibility-first** — keyboard, screen reader, play/pause and reduced-motion support
+* **Works with any theme** — block (FSE) or classic
+* **Beginner friendly** — build sliders from the WordPress admin, no code
+* **Block, shortcode and Elementor** — add a slider anywhere
+* **Loads only where needed** — assets are added only on pages that show a slider
+
+= Perfect for =
+
+* Business and agency websites
+* Portfolios and landing pages
+* Hero sections and fullscreen banners
+* Image and logo carousels
+* Testimonials and team showcases
+* Product showcases and WooCommerce banners
+
+= Getting started =
+
+1. Install and activate General Slider.
+2. Go to **General Slider > Add New**, add your slides, or import a ready-made demo from the Demo Library.
+3. Add the **General Slider** block to any page, or paste the shortcode. Done.
 
 = Features =
 
+**Editing**
+
 * Reusable sliders — build once, use anywhere
+* Per-slide image or background video (self-hosted MP4/WebM, YouTube or Vimeo)
+* Sub heading, heading, text, button and a whole-slide clickable link
+* Categories, a duplicate action and custom CSS per slider
+
+**Display**
+
 * Gutenberg block, shortcode and Elementor widget
-* Five design presets — Hero, Split, Minimal, Testimonial, Fullscreen
-* One-click demo slider so you can see how it works straight away
-* Per-slide image or background video (self-hosted MP4/WebM, YouTube or Vimeo), sub heading, heading, text, button and a whole-slide link
+* Five design presets — Hero, Split, Minimal, Testimonial and Fullscreen
+* Slide or fade transitions, autoplay with a pause control
 * Multiple slides per view (carousel) with adjustable gap
-* Thumbnail navigation
-* Ken Burns zoom and text entrance animations
-* Per-slider settings: autoplay (+ speed and pause button), loop, arrows, dots, slide/fade transition, height, overlay (solid or gradient), image fit, image focus and accent colour
-* Custom CSS, categories, duplicate and JSON import / export
-* Global default settings for new sliders
-* Responsive, accessible (keyboard + screen reader, pause control), respects reduced-motion
-* Performance friendly: no jQuery on the front end, lazy-loaded images (eager + high-priority first slide), conditional asset loading, RTL ready
+* Thumbnail navigation, Ken Burns zoom and text entrance animations
+* Overlay (solid or gradient), image fit, focus point and accent colour
+
+**Performance**
+
+* No jQuery on the front end
+* Conditional asset loading — nothing loads on pages without a slider
+* Lazy-loaded images, with the first slide eager and high-priority for a better LCP
+* Sliders initialise only when scrolled into view
+* RTL ready
+
+**Accessibility**
+
+* Full keyboard navigation and screen-reader labels
+* Play/pause button for autoplay
+* Respects the reduced-motion setting
+
+**For developers**
+
+* Filters: `general_slider_settings`, `general_slider_slides`, `general_slider_config`, `general_slider_html` and `general_slider_presets`
+* Register your own design preset
+
+**Demos & migration**
+
+* Demo Library — import ready-made sliders, images included, in one click
+* Export any slider as a portable demo package (.zip)
+* JSON import / export, plus global default settings for new sliders
 
 == Installation ==
 
@@ -81,11 +130,31 @@ Yes. Sliders support keyboard navigation, screen-reader labels, a play/pause but
 
 = Can I move sliders between sites? =
 
-Yes. Use the JSON import / export tools on the General Slider > Settings screen.
+Yes. Use the JSON import / export tools on the General Slider > Settings screen, or export a slider as a demo package (.zip) and import it on another site.
+
+= Can I create and duplicate multiple sliders? =
+
+Yes. Build as many reusable sliders as you like, each with its own slides and settings, and use the Duplicate action to copy an existing slider as a starting point.
+
+= Can I use more than one slider on the same page? =
+
+Yes. Add as many sliders as you need to a single page — each one runs independently.
+
+= Does it support right-to-left (RTL) languages? =
+
+Yes. Sliders are RTL ready and follow your site's text direction automatically.
+
+= Is General Slider translation ready? =
+
+Yes. Every string is translatable and the plugin ships with a .pot template in the /languages folder.
+
+= Does it work with Full Site Editing (FSE) and block themes? =
+
+Yes. The General Slider block works in the block editor, the Site Editor and template parts, as well as in classic themes.
 
 = Can developers customise the output? =
 
-Yes. The plugin provides filters: `general_slider_settings` (a slider's resolved settings), `general_slider_slides` (the slides before rendering), `general_slider_config` (the Splide JS options), `general_slider_html` (the final markup) and `general_slider_presets` (register your own design preset).
+Yes. The plugin provides filters: `general_slider_settings` (a slider's resolved settings), `general_slider_slides` (the slides before rendering), `general_slider_config` (the Splide JS options), `general_slider_html` (the final markup) and `general_slider_presets` (register your own design preset). Full hook reference with code examples: https://github.com/devmonowar/general-slider/blob/main/docs/hooks.md
 
 = Where do the demos come from? =
 
@@ -112,6 +181,9 @@ These are plain, read-only requests for files. No personal data is collected or 
 6. Per-slider and global settings: presets, transitions, overlay, image fit and accent colour.
 
 == Changelog ==
+
+= 2.3.5 =
+* Documentation: clearer description with "Why General Slider?", "Perfect for" and grouped features, plus new FAQs (RTL, translation, Full Site Editing, duplicating sliders and using multiple sliders per page). No functional changes.
 
 = 2.3.4 =
 * Fix: "Export Slider" now downloads correctly — the auto-download link was being HTML-encoded and failed with an expired-link error.
