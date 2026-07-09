@@ -110,4 +110,32 @@
 	} else {
 		document.addEventListener( 'DOMContentLoaded', initAll );
 	}
+
+	// Elementor editor/preview: widgets (re-)render via AJAX after page load,
+	// so initialise each one as Elementor announces it ready. initSlider()'s
+	// gsMounted guard makes repeat calls harmless. Register immediately when
+	// elementorFrontend already exists (our script may load after its init
+	// event has fired), otherwise wait for the init event.
+	function onElementorElementReady( $scope ) {
+		var root = ( $scope && $scope[ 0 ] ) ? $scope[ 0 ] : ( $scope instanceof Element ? $scope : null );
+		if ( ! root ) {
+			return;
+		}
+		var nodes = root.querySelectorAll( '.gs-slider' );
+		for ( var i = 0; i < nodes.length; i++ ) {
+			initSlider( nodes[ i ] );
+		}
+	}
+
+	function registerElementorHook() {
+		if ( ! window.elementorFrontend || ! window.elementorFrontend.hooks ) {
+			return false;
+		}
+		window.elementorFrontend.hooks.addAction( 'frontend/element_ready/general_slider.default', onElementorElementReady );
+		return true;
+	}
+
+	if ( ! registerElementorHook() ) {
+		window.addEventListener( 'elementor/frontend/init', registerElementorHook );
+	}
 } )();

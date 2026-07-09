@@ -44,6 +44,45 @@ class Data {
 	}
 
 	/**
+	 * Available navigation & frame skins as key => label.
+	 *
+	 * Presets control the LAYOUT of a slide; skins control the CHROME — the
+	 * look of the arrows, dots and slider frame. Any skin works with any
+	 * preset. Single source of truth: the settings UIs, the sanitiser and the
+	 * wrapper class all read this list, so a new skin only needs an entry
+	 * here plus a `.gs-skin-{key}` block in frontend.css.
+	 *
+	 * @return array<string,string> key => label.
+	 */
+	public static function skins() {
+		/**
+		 * Filter the available navigation & frame skins.
+		 *
+		 * @param array<string,string> $skins key => label. Add your own skin
+		 *                                    and provide a `.gs-skin-{key}` stylesheet.
+		 */
+		return apply_filters(
+			'general_slider_skins',
+			array(
+				'classic' => __( 'Classic', 'general-slider' ),
+				'soft'    => __( 'Soft', 'general-slider' ),
+				'stories' => __( 'Stories', 'general-slider' ),
+				'progress' => __( 'Stories Progress', 'general-slider' ),
+				'numbers' => __( 'Numbers', 'general-slider' ),
+				'vertical' => __( 'Vertical', 'general-slider' ),
+				'corner'  => __( 'Corner', 'general-slider' ),
+				'neon'    => __( 'Neon', 'general-slider' ),
+				'minimal' => __( 'Minimal', 'general-slider' ),
+				'pill'    => __( 'Pill', 'general-slider' ),
+				'outline' => __( 'Outline', 'general-slider' ),
+				'retro'   => __( 'Retro', 'general-slider' ),
+				'glass'   => __( 'Glass', 'general-slider' ),
+				'dark'    => __( 'Dark', 'general-slider' ),
+			)
+		);
+	}
+
+	/**
 	 * Available slide transitions.
 	 *
 	 * @return array<string,string>
@@ -100,6 +139,7 @@ class Data {
 	public static function default_settings() {
 		return array(
 			'preset'     => 'hero',
+			'skin'       => 'classic',
 			'autoplay'   => false,
 			'speed'      => 5000,
 			'loop'       => true,
@@ -131,6 +171,7 @@ class Data {
 		$input = is_array( $input ) ? $input : array();
 		return array(
 			'preset'     => array_key_exists( ( $input['preset'] ?? '' ), self::presets() ) ? $input['preset'] : 'hero',
+			'skin'       => array_key_exists( ( $input['skin'] ?? '' ), self::skins() ) ? $input['skin'] : 'classic',
 			'transition' => array_key_exists( ( $input['transition'] ?? '' ), self::transitions() ) ? $input['transition'] : 'slide',
 			'autoplay'   => ! empty( $input['autoplay'] ),
 			'speed'      => max( 1000, absint( $input['speed'] ?? 5000 ) ),

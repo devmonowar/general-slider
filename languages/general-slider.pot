@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: General Slider 2.3.4\n"
+"Project-Id-Version: General Slider 2.3.6\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/general-slider\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-06-30T18:39:54+02:00\n"
+"POT-Creation-Date: 2026-07-08T20:33:45+02:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: general-slider\n"
@@ -37,29 +37,29 @@ msgstr ""
 msgid "Monowar"
 msgstr ""
 
-#: includes/Assets.php:80
+#: includes/Assets.php:96
 #: includes/Slides_Meta.php:84
 msgid "Choose image"
 msgstr ""
 
-#: includes/Assets.php:81
+#: includes/Assets.php:97
 msgid "Use this image"
 msgstr ""
 
-#: includes/Assets.php:82
+#: includes/Assets.php:98
 msgid "Choose video"
 msgstr ""
 
-#: includes/Assets.php:83
+#: includes/Assets.php:99
 msgid "Use this video"
 msgstr ""
 
-#: includes/Assets.php:84
+#: includes/Assets.php:100
 #: includes/Slides_Meta.php:123
 msgid "Remove slide"
 msgstr ""
 
-#: includes/Assets.php:85
+#: includes/Assets.php:101
 msgid "Remove this slide?"
 msgstr ""
 
@@ -87,39 +87,95 @@ msgstr ""
 msgid "Fullscreen"
 msgstr ""
 
-#: includes/Data.php:53
-msgid "Slide"
-msgstr ""
-
-#: includes/Data.php:54
-msgid "Fade"
-msgstr ""
-
-#: includes/Data.php:65
-msgid "Center"
-msgstr ""
-
-#: includes/Data.php:66
-msgid "Top"
-msgstr ""
-
 #: includes/Data.php:67
-msgid "Bottom"
+msgid "Classic"
+msgstr ""
+
+#: includes/Data.php:68
+msgid "Soft"
+msgstr ""
+
+#: includes/Data.php:69
+msgid "Stories"
+msgstr ""
+
+#: includes/Data.php:70
+msgid "Stories Progress"
+msgstr ""
+
+#: includes/Data.php:71
+msgid "Numbers"
+msgstr ""
+
+#: includes/Data.php:72
+msgid "Vertical"
+msgstr ""
+
+#: includes/Data.php:73
+msgid "Corner"
+msgstr ""
+
+#: includes/Data.php:74
+msgid "Neon"
+msgstr ""
+
+#: includes/Data.php:75
+msgid "Minimal"
+msgstr ""
+
+#: includes/Data.php:76
+msgid "Pill"
+msgstr ""
+
+#: includes/Data.php:77
+msgid "Outline"
 msgstr ""
 
 #: includes/Data.php:78
-msgid "Cover (fill the slide)"
+msgid "Retro"
 msgstr ""
 
 #: includes/Data.php:79
+msgid "Glass"
+msgstr ""
+
+#: includes/Data.php:80
+msgid "Dark"
+msgstr ""
+
+#: includes/Data.php:92
+msgid "Slide"
+msgstr ""
+
+#: includes/Data.php:93
+msgid "Fade"
+msgstr ""
+
+#: includes/Data.php:104
+msgid "Center"
+msgstr ""
+
+#: includes/Data.php:105
+msgid "Top"
+msgstr ""
+
+#: includes/Data.php:106
+msgid "Bottom"
+msgstr ""
+
+#: includes/Data.php:117
+msgid "Cover (fill the slide)"
+msgstr ""
+
+#: includes/Data.php:118
 msgid "Contain (show whole image)"
 msgstr ""
 
-#: includes/Data.php:90
+#: includes/Data.php:129
 msgid "Solid"
 msgstr ""
 
-#: includes/Data.php:91
+#: includes/Data.php:130
 msgid "Gradient"
 msgstr ""
 
@@ -138,7 +194,7 @@ msgstr ""
 #: includes/Demo_Export.php:91
 #: includes/Demo_Importer.php:45
 #: includes/Demo_Library.php:314
-#: includes/Demo_Library.php:584
+#: includes/Demo_Library.php:594
 #: includes/Duplicator.php:54
 #: includes/Tools.php:59
 #: includes/Tools.php:98
@@ -149,7 +205,7 @@ msgstr ""
 msgid "Export Slider needs the PHP Zip extension, which is not available on this server."
 msgstr ""
 
-#: includes/Demo_Export.php:181
+#: includes/Demo_Export.php:185
 msgid "Could not create the demo ZIP."
 msgstr ""
 
@@ -251,11 +307,11 @@ msgstr ""
 msgid "Imported demo"
 msgstr ""
 
-#: includes/Demo_Library.php:708
+#: includes/Demo_Library.php:718
 msgid "Demo imported. Review it below, then publish and embed it with the block or shortcode."
 msgstr ""
 
-#: includes/Demo_Library.php:710
+#: includes/Demo_Library.php:720
 msgid "Sorry, that demo could not be imported. Please try again."
 msgstr ""
 
@@ -299,12 +355,12 @@ msgid "Slides"
 msgstr ""
 
 #: includes/Post_Type.php:58
-#: includes/Slides_Meta.php:237
+#: includes/Slides_Meta.php:246
 msgid "Click to copy"
 msgstr ""
 
 #: includes/Post_Type.php:59
-#: includes/Slides_Meta.php:237
+#: includes/Slides_Meta.php:246
 msgid "Copied!"
 msgstr ""
 
@@ -347,7 +403,7 @@ msgid "Create your first slider"
 msgstr ""
 
 #: includes/Post_Type.php:82
-#: includes/Settings.php:197
+#: includes/Settings.php:208
 msgid "Browse Demo Library"
 msgstr ""
 
@@ -367,11 +423,11 @@ msgstr ""
 msgid "General Slider: this slider has no slides yet."
 msgstr ""
 
-#: includes/Renderer.php:128
+#: includes/Renderer.php:135
 msgid "Pause or play the slider"
 msgstr ""
 
-#: includes/Renderer.php:135
+#: includes/Renderer.php:142
 msgid "Slider thumbnails"
 msgstr ""
 
@@ -394,114 +450,123 @@ msgid "Default design preset"
 msgstr ""
 
 #: includes/Settings.php:104
-msgid "Default transition"
+msgid "Default navigation & frame skin"
 msgstr ""
 
-#: includes/Settings.php:114
-#: includes/Slides_Meta.php:153
-msgid "Autoplay"
+#: includes/Settings.php:111
+#: includes/Slides_Meta.php:151
+msgid "The look of the arrows, dots and slider frame — works with any preset."
 msgstr ""
 
 #: includes/Settings.php:115
-msgid "Play slides automatically"
-msgstr ""
-
-#: includes/Settings.php:118
-#: includes/Slides_Meta.php:156
-msgid "Autoplay speed (ms)"
-msgstr ""
-
-#: includes/Settings.php:122
-msgid "Controls"
-msgstr ""
-
-#: includes/Settings.php:124
-#: includes/Slides_Meta.php:159
-msgid "Loop"
+msgid "Default transition"
 msgstr ""
 
 #: includes/Settings.php:125
-#: includes/Slides_Meta.php:160
-msgid "Show arrows"
+#: includes/Slides_Meta.php:162
+msgid "Autoplay"
 msgstr ""
 
 #: includes/Settings.php:126
-#: includes/Slides_Meta.php:161
+msgid "Play slides automatically"
+msgstr ""
+
+#: includes/Settings.php:129
+#: includes/Slides_Meta.php:165
+msgid "Autoplay speed (ms)"
+msgstr ""
+
+#: includes/Settings.php:133
+msgid "Controls"
+msgstr ""
+
+#: includes/Settings.php:135
+#: includes/Slides_Meta.php:168
+msgid "Loop"
+msgstr ""
+
+#: includes/Settings.php:136
+#: includes/Slides_Meta.php:169
+msgid "Show arrows"
+msgstr ""
+
+#: includes/Settings.php:137
+#: includes/Slides_Meta.php:170
 msgid "Show dots"
 msgstr ""
 
-#: includes/Settings.php:130
-#: includes/Slides_Meta.php:163
+#: includes/Settings.php:141
+#: includes/Slides_Meta.php:172
 msgid "Slide height (px)"
 msgstr ""
 
-#: includes/Settings.php:134
-#: includes/Slides_Meta.php:167
+#: includes/Settings.php:145
+#: includes/Slides_Meta.php:176
 msgid "Image fit"
-msgstr ""
-
-#: includes/Settings.php:144
-#: includes/Slides_Meta.php:175
-msgid "Image focus"
-msgstr ""
-
-#: includes/Settings.php:151
-msgid "For \"Cover\" fit, use \"Top\" to keep faces from being cropped on wide slides."
 msgstr ""
 
 #: includes/Settings.php:155
 #: includes/Slides_Meta.php:184
+msgid "Image focus"
+msgstr ""
+
+#: includes/Settings.php:162
+msgid "For \"Cover\" fit, use \"Top\" to keep faces from being cropped on wide slides."
+msgstr ""
+
+#: includes/Settings.php:166
+#: includes/Slides_Meta.php:193
 msgid "Overlay darkness (%)"
 msgstr ""
 
-#: includes/Settings.php:159
-#: includes/Slides_Meta.php:188
+#: includes/Settings.php:170
+#: includes/Slides_Meta.php:197
 msgid "Overlay style"
 msgstr ""
 
-#: includes/Settings.php:169
-#: includes/Slides_Meta.php:197
+#: includes/Settings.php:180
+#: includes/Slides_Meta.php:206
 msgid "Slides per view"
-msgstr ""
-
-#: includes/Settings.php:173
-#: includes/Slides_Meta.php:201
-msgid "Gap between slides (px)"
-msgstr ""
-
-#: includes/Settings.php:177
-#: includes/Slides_Meta.php:205
-msgid "Accent color"
-msgstr ""
-
-#: includes/Settings.php:181
-msgid "Effects"
-msgstr ""
-
-#: includes/Settings.php:183
-#: includes/Slides_Meta.php:209
-msgid "Ken Burns zoom"
 msgstr ""
 
 #: includes/Settings.php:184
 #: includes/Slides_Meta.php:210
-msgid "Animate text in"
+msgid "Gap between slides (px)"
 msgstr ""
 
-#: includes/Settings.php:185
-#: includes/Slides_Meta.php:211
-msgid "Show thumbnails"
+#: includes/Settings.php:188
+#: includes/Slides_Meta.php:214
+msgid "Accent color"
 msgstr ""
 
-#: includes/Settings.php:193
-msgid "Demo slider"
+#: includes/Settings.php:192
+msgid "Effects"
 msgstr ""
 
 #: includes/Settings.php:194
+#: includes/Slides_Meta.php:218
+msgid "Ken Burns zoom"
+msgstr ""
+
+#: includes/Settings.php:195
+#: includes/Slides_Meta.php:219
+msgid "Animate text in"
+msgstr ""
+
+#: includes/Settings.php:196
+#: includes/Slides_Meta.php:220
+msgid "Show thumbnails"
+msgstr ""
+
+#: includes/Settings.php:204
+msgid "Demo slider"
+msgstr ""
+
+#: includes/Settings.php:205
 msgid "New here? Create the bundled starter slider, or browse the online Demo Library for more."
 msgstr ""
 
-#: includes/Settings.php:201
+#: includes/Settings.php:212
 msgid "Import / Export"
 msgstr ""
 
@@ -570,18 +635,22 @@ msgid "Design preset"
 msgstr ""
 
 #: includes/Slides_Meta.php:145
+msgid "Navigation & frame skin"
+msgstr ""
+
+#: includes/Slides_Meta.php:154
 msgid "Transition"
 msgstr ""
 
-#: includes/Slides_Meta.php:181
+#: includes/Slides_Meta.php:190
 msgid "For \"Cover\" fit, use \"Top\" to keep faces from being cropped."
 msgstr ""
 
-#: includes/Slides_Meta.php:223
+#: includes/Slides_Meta.php:232
 msgid "CSS applied only to this slider. Use the scope selector shown in the placeholder."
 msgstr ""
 
-#: includes/Slides_Meta.php:236
+#: includes/Slides_Meta.php:245
 msgid "Add the \"General Slider\" block to any page and pick this slider, or paste this shortcode:"
 msgstr ""
 

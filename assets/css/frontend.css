@@ -154,6 +154,422 @@
 .gs-slider .splide__arrow:hover:not(:disabled) { background: var(--gs-accent, #2196f3); }
 .gs-preset-split .splide__arrow { background: rgba(0, 0, 0, .35); }
 
+/* ---------- Skins (.gs-skin-{key}) ----------
+   Presets control the slide LAYOUT; skins control the CHROME — arrows, dots
+   and the slider frame. "classic" = the defaults above (no extra CSS).
+   Adding a skin = one entry in Data::skins() + one block here. */
+
+/* Soft: floating-card frame, plush white controls */
+.gs-skin-soft.gs-slider {
+	border-radius: 20px;
+	overflow: hidden;
+	box-shadow: 0 18px 45px rgba(15, 23, 42, .16), 0 4px 12px rgba(15, 23, 42, .08);
+}
+.gs-skin-soft .splide__arrow {
+	background: #ffffff;
+	width: 2.8em;
+	height: 2.8em;
+	box-shadow: 0 4px 16px rgba(15, 23, 42, .22);
+	opacity: 1;
+	transition: background .18s ease, transform .18s ease, box-shadow .18s ease;
+}
+.gs-skin-soft .splide__arrow svg { fill: #334155; transition: fill .18s ease; }
+.gs-skin-soft .splide__arrow:hover:not(:disabled) {
+	background: var(--gs-accent, #2196f3);
+	transform: translateY(-50%) scale(1.08);
+	box-shadow: 0 8px 22px rgba(15, 23, 42, .3);
+}
+.gs-skin-soft .splide__arrow:hover:not(:disabled) svg { fill: #ffffff; }
+.gs-skin-soft .splide__arrow:disabled { opacity: .5; }
+.gs-skin-soft .splide__pagination { bottom: 16px; }
+.gs-skin-soft .splide__pagination__page {
+	width: 9px;
+	height: 9px;
+	background: rgba(255, 255, 255, .85);
+	box-shadow: 0 2px 6px rgba(15, 23, 42, .3);
+	opacity: 1;
+	transition: transform .18s ease, background .18s ease;
+}
+.gs-skin-soft .splide__pagination__page.is-active {
+	background: var(--gs-accent, #2196f3);
+	transform: scale(1.35);
+}
+.gs-skin-soft .gs-toggle { border-radius: 50%; }
+
+/* Stories: segmented progress lines across the top (seen = white,
+   current = accent, upcoming = dim), app-style frosted arrows */
+.gs-skin-stories .splide__pagination {
+	top: 12px;
+	bottom: auto;
+	left: 14px;
+	right: 14px;
+	width: auto;
+	display: flex;
+	gap: 6px;
+	padding: 0;
+}
+.gs-skin-stories .splide__pagination li {
+	flex: 1 1 0;
+	display: block;
+	margin: 0;
+	line-height: 0;
+}
+.gs-skin-stories .splide__pagination__page {
+	display: block;
+	width: 100%;
+	height: 4px;
+	margin: 0;
+	border-radius: 2px;
+	background: rgba(255, 255, 255, .9);
+	box-shadow: 0 1px 2px rgba(0, 0, 0, .25);
+	opacity: 1;
+	transform: none;
+	transition: background .2s ease;
+}
+.gs-skin-stories .splide__pagination li:has(.is-active) ~ li .splide__pagination__page {
+	background: rgba(255, 255, 255, .35);
+}
+.gs-skin-stories .splide__pagination__page.is-active {
+	background: var(--gs-accent, #2196f3);
+	transform: none;
+}
+.gs-skin-stories .splide__arrow {
+	background: rgba(255, 255, 255, .25);
+	border-radius: 12px;
+	width: 2.2em;
+	height: 2.2em;
+	-webkit-backdrop-filter: blur(6px);
+	backdrop-filter: blur(6px);
+}
+.gs-skin-stories .splide__arrow:hover:not(:disabled) { background: var(--gs-accent, #2196f3); }
+
+/* Stories Progress: like Stories, but the current segment FILLS over the
+   slide's autoplay interval (--gs-interval, set inline by the renderer).
+   Without autoplay the current segment simply shows full accent. */
+.gs-skin-progress .splide__pagination {
+	top: 12px;
+	bottom: auto;
+	left: 14px;
+	right: 14px;
+	width: auto;
+	display: flex;
+	gap: 6px;
+	padding: 0;
+}
+.gs-skin-progress .splide__pagination li {
+	flex: 1 1 0;
+	display: block;
+	margin: 0;
+	line-height: 0;
+}
+.gs-skin-progress .splide__pagination__page {
+	display: block;
+	position: relative;
+	overflow: hidden;
+	width: 100%;
+	height: 4px;
+	margin: 0;
+	border-radius: 2px;
+	background: rgba(255, 255, 255, .9);
+	box-shadow: 0 1px 2px rgba(0, 0, 0, .25);
+	opacity: 1;
+	transform: none;
+	transition: background .2s ease;
+}
+.gs-skin-progress .splide__pagination li:has(.is-active) ~ li .splide__pagination__page {
+	background: rgba(255, 255, 255, .35);
+}
+.gs-skin-progress .splide__pagination__page.is-active {
+	background: rgba(255, 255, 255, .35);
+	transform: none;
+}
+.gs-skin-progress .splide__pagination__page.is-active::after {
+	content: '';
+	position: absolute;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	border-radius: 2px;
+	background: var(--gs-accent, #2196f3);
+}
+.gs-autoplay.gs-skin-progress .splide__pagination__page.is-active::after {
+	right: 100%;
+	animation: gs-story-fill var(--gs-interval, 5000ms) linear forwards;
+}
+@keyframes gs-story-fill {
+	to { right: 0; }
+}
+/* Splide pauses autoplay on hover by default — pause the fill with it. */
+.gs-skin-progress:hover .splide__pagination__page.is-active::after {
+	animation-play-state: paused;
+}
+@media (prefers-reduced-motion: reduce) {
+	.gs-skin-progress .splide__pagination__page.is-active::after { animation: none; right: 0; }
+}
+.gs-skin-progress .splide__arrow {
+	background: rgba(255, 255, 255, .25);
+	border-radius: 12px;
+	width: 2.2em;
+	height: 2.2em;
+	-webkit-backdrop-filter: blur(6px);
+	backdrop-filter: blur(6px);
+}
+.gs-skin-progress .splide__arrow:hover:not(:disabled) { background: var(--gs-accent, #2196f3); }
+
+/* Numbers: editorial "01 02 03" pagination via CSS counters */
+.gs-skin-numbers .splide__pagination {
+	counter-reset: gs-num;
+	bottom: 12px;
+	gap: 14px;
+	padding: 0;
+}
+.gs-skin-numbers .splide__pagination li {
+	counter-increment: gs-num;
+	line-height: 0;
+}
+.gs-skin-numbers .splide__pagination__page {
+	position: relative;
+	width: auto;
+	min-width: 24px;
+	height: 26px;
+	margin: 0;
+	background: transparent;
+	border-radius: 0;
+	opacity: .7;
+	transform: none;
+	transition: opacity .18s ease;
+}
+.gs-skin-numbers .splide__pagination__page::after {
+	content: counter( gs-num, decimal-leading-zero );
+	position: absolute;
+	inset: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 14px;
+	font-weight: 600;
+	letter-spacing: .06em;
+	color: #ffffff;
+	text-shadow: 0 1px 3px rgba( 0, 0, 0, .55 );
+}
+.gs-skin-numbers .splide__pagination__page:hover { opacity: 1; }
+.gs-skin-numbers .splide__pagination__page.is-active {
+	opacity: 1;
+	transform: none;
+	background: transparent;
+	border-bottom: 2px solid var(--gs-accent, #2196f3);
+}
+.gs-skin-numbers .splide__pagination__page.is-active::after {
+	color: var(--gs-accent, #2196f3);
+	font-size: 15px;
+	text-shadow: 0 1px 3px rgba( 0, 0, 0, .35 );
+}
+.gs-skin-numbers .splide__arrow {
+	background: transparent;
+	width: 3em;
+	height: 3em;
+}
+.gs-skin-numbers .splide__arrow svg {
+	fill: #ffffff;
+	width: 1.6em;
+	height: 1.6em;
+	filter: drop-shadow( 0 1px 3px rgba( 0, 0, 0, .5 ) );
+}
+.gs-skin-numbers .splide__arrow:hover:not(:disabled) { background: transparent; }
+.gs-skin-numbers .splide__arrow:hover:not(:disabled) svg { fill: var(--gs-accent, #2196f3); }
+
+/* Vertical: dots stacked on the right edge (active grows into a pill),
+   arrows paired in the bottom-left corner so the right edge stays clear */
+.gs-skin-vertical .splide__pagination {
+	left: auto;
+	right: 14px;
+	top: 50%;
+	bottom: auto;
+	width: auto;
+	transform: translateY( -50% );
+	flex-direction: column;
+	gap: 8px;
+	padding: 0;
+}
+.gs-skin-vertical .splide__pagination li {
+	margin: 0;
+	line-height: 0;
+}
+.gs-skin-vertical .splide__pagination__page {
+	width: 9px;
+	height: 9px;
+	margin: 0;
+	border-radius: 999px;
+	background: rgba( 255, 255, 255, .65 );
+	box-shadow: 0 1px 3px rgba( 0, 0, 0, .35 );
+	opacity: 1;
+	transform: none;
+	transition: height .25s ease, background .2s ease;
+}
+.gs-skin-vertical .splide__pagination__page.is-active {
+	height: 26px;
+	background: var(--gs-accent, #2196f3);
+	transform: none;
+}
+.gs-skin-vertical .splide__arrow {
+	top: auto;
+	bottom: 14px;
+	transform: none;
+	background: rgba( 17, 24, 39, .5 );
+	width: 2.4em;
+	height: 2.4em;
+}
+.gs-skin-vertical .splide__arrow--prev { left: 14px; }
+.gs-skin-vertical .splide__arrow--next { left: calc( 14px + 2.4em + 8px ); right: auto; }
+/* With autoplay on, the play/pause toggle sits bottom-left — shift the
+   arrow pair right so they don't overlap it. */
+.gs-autoplay.gs-skin-vertical .splide__arrow--prev { left: 58px; }
+.gs-autoplay.gs-skin-vertical .splide__arrow--next { left: calc( 58px + 2.4em + 8px ); }
+.gs-skin-vertical .splide__arrow:hover:not(:disabled) { background: var(--gs-accent, #2196f3); }
+
+/* Corner: square arrow blocks glued to the bottom-right corner (agency
+   look), small square dots bottom-left */
+.gs-skin-corner .splide__arrow {
+	top: auto;
+	bottom: 0;
+	transform: none;
+	width: 3em;
+	height: 3em;
+	border-radius: 0;
+	background: rgba( 17, 24, 39, .85 );
+	opacity: 1;
+	transition: background .18s ease;
+}
+.gs-skin-corner .splide__arrow--prev {
+	left: auto;
+	right: 3em;
+	border-right: 1px solid rgba( 255, 255, 255, .18 );
+}
+.gs-skin-corner .splide__arrow--next { right: 0; }
+.gs-skin-corner .splide__arrow:hover:not(:disabled) { background: var(--gs-accent, #2196f3); }
+.gs-skin-corner .splide__pagination {
+	left: 16px;
+	right: auto;
+	bottom: 16px;
+	width: auto;
+	justify-content: flex-start;
+	gap: 6px;
+	padding: 0;
+}
+/* With autoplay on, the play/pause toggle sits bottom-left — start the
+   dots to its right so they don't overlap it. */
+.gs-autoplay.gs-skin-corner .splide__pagination { left: 58px; bottom: 22px; }
+.gs-skin-corner .splide__pagination li {
+	margin: 0;
+	line-height: 0;
+}
+.gs-skin-corner .splide__pagination__page {
+	width: 8px;
+	height: 8px;
+	margin: 0;
+	border-radius: 0;
+	background: rgba( 255, 255, 255, .6 );
+	box-shadow: 0 1px 2px rgba( 0, 0, 0, .3 );
+	opacity: 1;
+	transform: none;
+	transition: width .2s ease, background .2s ease;
+}
+.gs-skin-corner .splide__pagination__page.is-active {
+	width: 20px;
+	background: var(--gs-accent, #2196f3);
+	transform: none;
+}
+
+/* Neon: accent-glow chrome for dark/tech sites (color-mix derives the
+   glow from the accent; a plain fallback shadow covers older browsers) */
+.gs-skin-neon.gs-slider {
+	box-shadow: 0 0 26px rgba( 33, 150, 243, .28 );
+	box-shadow: 0 0 26px color-mix( in srgb, var(--gs-accent, #2196f3) 30%, transparent );
+	border-radius: 10px;
+	overflow: hidden;
+}
+.gs-skin-neon .splide__arrow {
+	background: rgba( 10, 14, 25, .55 );
+	border: 1px solid var(--gs-accent, #2196f3);
+	box-shadow: 0 0 12px rgba( 33, 150, 243, .55 );
+	box-shadow: 0 0 12px color-mix( in srgb, var(--gs-accent, #2196f3) 60%, transparent );
+	opacity: 1;
+	transition: background .18s ease, box-shadow .18s ease;
+}
+.gs-skin-neon .splide__arrow svg { fill: var(--gs-accent, #2196f3); transition: fill .18s ease; }
+.gs-skin-neon .splide__arrow:hover:not(:disabled) {
+	background: var(--gs-accent, #2196f3);
+	box-shadow: 0 0 20px rgba( 33, 150, 243, .85 );
+	box-shadow: 0 0 20px color-mix( in srgb, var(--gs-accent, #2196f3) 90%, transparent );
+}
+.gs-skin-neon .splide__arrow:hover:not(:disabled) svg { fill: #ffffff; }
+.gs-skin-neon .splide__pagination__page {
+	background: rgba( 10, 14, 25, .55 );
+	border: 1px solid var(--gs-accent, #2196f3);
+	box-shadow: 0 0 8px rgba( 33, 150, 243, .5 );
+	box-shadow: 0 0 8px color-mix( in srgb, var(--gs-accent, #2196f3) 55%, transparent );
+	opacity: 1;
+	transition: box-shadow .2s ease, background .2s ease, transform .2s ease;
+}
+.gs-skin-neon .splide__pagination__page.is-active {
+	background: var(--gs-accent, #2196f3);
+	box-shadow: 0 0 16px rgba( 33, 150, 243, .9 );
+	box-shadow: 0 0 16px color-mix( in srgb, var(--gs-accent, #2196f3) 95%, transparent );
+	transform: scale( 1.25 );
+}
+.gs-skin-neon .gs-toggle {
+	border: 1px solid var(--gs-accent, #2196f3);
+	box-shadow: 0 0 12px rgba( 33, 150, 243, .55 );
+	box-shadow: 0 0 12px color-mix( in srgb, var(--gs-accent, #2196f3) 60%, transparent );
+}
+
+/* Minimal: bare chevrons, thin line-dots */
+.gs-skin-minimal .splide__arrow { background: transparent; width: 3em; height: 3em; }
+.gs-skin-minimal .splide__arrow svg { fill: #fff; width: 1.7em; height: 1.7em; filter: drop-shadow(0 1px 3px rgba(0, 0, 0, .5)); }
+.gs-skin-minimal .splide__arrow:hover:not(:disabled) { background: transparent; }
+.gs-skin-minimal .splide__arrow:hover:not(:disabled) svg { fill: var(--gs-accent, #2196f3); }
+.gs-skin-minimal .splide__pagination__page { width: 22px; height: 3px; border-radius: 2px; background: rgba(255, 255, 255, .55); box-shadow: 0 0 2px rgba(0, 0, 0, .35); }
+.gs-skin-minimal .splide__pagination__page.is-active { background: var(--gs-accent, #2196f3); transform: none; }
+
+/* Pill: both arrows grouped in a capsule, bottom-right */
+.gs-skin-pill .splide__arrows { position: absolute; right: 16px; bottom: 12px; z-index: 5; display: flex; gap: 4px; background: rgba(17, 24, 39, .55); padding: 5px; border-radius: 999px; -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px); }
+.gs-skin-pill .splide__arrow { position: static; transform: none; width: 2.1em; height: 2.1em; background: transparent; }
+.gs-skin-pill .splide__arrow:hover:not(:disabled) { background: var(--gs-accent, #2196f3); }
+.gs-skin-pill .splide__pagination { bottom: 20px; }
+.gs-skin-pill .splide__pagination__page { border-radius: 999px; }
+.gs-skin-pill .splide__pagination__page.is-active { width: 20px; transform: none; }
+
+/* Outline: ring arrows and dots, thin frame */
+.gs-skin-outline.gs-slider { border: 2px solid var(--gs-accent, #2196f3); border-radius: 10px; overflow: hidden; }
+.gs-skin-outline .splide__arrow { background: transparent; border: 2px solid #fff; box-shadow: 0 0 4px rgba(0, 0, 0, .3); }
+.gs-skin-outline .splide__arrow:hover:not(:disabled) { background: transparent; border-color: var(--gs-accent, #2196f3); }
+.gs-skin-outline .splide__arrow:hover:not(:disabled) svg { fill: var(--gs-accent, #2196f3); }
+.gs-skin-outline .splide__pagination__page { background: transparent; border: 2px solid #fff; box-shadow: 0 0 2px rgba(0, 0, 0, .35); opacity: 1; }
+.gs-skin-outline .splide__pagination__page.is-active { background: var(--gs-accent, #2196f3); border-color: var(--gs-accent, #2196f3); transform: scale(1.2); }
+
+/* Retro: square controls, thick ink border + hard offset shadow */
+.gs-skin-retro.gs-slider { border: 3px solid #111827; border-radius: 6px; box-shadow: 6px 6px 0 #111827; overflow: hidden; }
+.gs-skin-retro .splide__arrow { background: #ffffff; border: 2px solid #111827; border-radius: 6px; box-shadow: 3px 3px 0 #111827; opacity: 1; }
+.gs-skin-retro .splide__arrow svg { fill: #111827; }
+.gs-skin-retro .splide__arrow:hover:not(:disabled) { background: var(--gs-accent, #2196f3); }
+.gs-skin-retro .splide__arrow:hover:not(:disabled) svg { fill: #fff; }
+.gs-skin-retro .splide__pagination__page { border-radius: 2px; background: #ffffff; border: 2px solid #111827; opacity: 1; }
+.gs-skin-retro .splide__pagination__page.is-active { background: var(--gs-accent, #2196f3); transform: none; }
+
+/* Glass: frosted translucent controls */
+.gs-skin-glass .splide__arrow { background: rgba(255, 255, 255, .22); border: 1px solid rgba(255, 255, 255, .45); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
+.gs-skin-glass .splide__arrow:hover:not(:disabled) { background: rgba(255, 255, 255, .4); }
+.gs-skin-glass .splide__pagination { background: rgba(255, 255, 255, .18); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); border-radius: 999px; padding: 4px 10px; left: 50%; transform: translateX(-50%); width: auto; }
+.gs-skin-glass .splide__pagination__page { background: rgba(255, 255, 255, .6); }
+.gs-skin-glass .splide__pagination__page.is-active { background: #fff; }
+
+/* Dark: muted charcoal chrome, white active dot */
+.gs-skin-dark .splide__arrow { background: rgba(17, 24, 39, .85); }
+.gs-skin-dark .splide__arrow:hover:not(:disabled) { background: #111827; }
+.gs-skin-dark .splide__pagination__page { background: rgba(255, 255, 255, .35); }
+.gs-skin-dark .splide__pagination__page.is-active { background: #ffffff; transform: scale(1.3); }
+
 /* ---------- Responsive ---------- */
 @media (max-width: 782px) {
 	.gs-preset-hero .gs-slide { min-height: 360px; }

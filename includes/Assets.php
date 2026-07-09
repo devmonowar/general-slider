@@ -26,13 +26,29 @@ class Assets {
 	 * Register (but do not enqueue) the front-end assets.
 	 */
 	public static function register_frontend() {
-		$ver = GENERAL_SLIDER_VERSION;
-
 		wp_register_style( 'splide', GENERAL_SLIDER_URL . 'assets/vendor/splide/splide.min.css', array(), '4.1.4' );
-		wp_register_style( 'general-slider', GENERAL_SLIDER_URL . 'assets/css/frontend.css', array( 'splide' ), $ver );
+		wp_register_style( 'general-slider', GENERAL_SLIDER_URL . 'assets/css/frontend.css', array( 'splide' ), self::version( 'assets/css/frontend.css' ) );
 
 		wp_register_script( 'splide', GENERAL_SLIDER_URL . 'assets/vendor/splide/splide.min.js', array(), '4.1.4', true );
-		wp_register_script( 'general-slider', GENERAL_SLIDER_URL . 'assets/js/frontend.js', array( 'splide' ), $ver, true );
+		wp_register_script( 'general-slider', GENERAL_SLIDER_URL . 'assets/js/frontend.js', array( 'splide' ), self::version( 'assets/js/frontend.js' ), true );
+	}
+
+	/**
+	 * Cache-busting version for a plugin asset: the file's modification time,
+	 * so any CSS/JS change busts caches even within the same plugin version.
+	 *
+	 * @param string $relative Path relative to the plugin root.
+	 * @return string
+	 */
+	private static function version( $relative ) {
+		$path = GENERAL_SLIDER_DIR . $relative;
+		if ( is_readable( $path ) ) {
+			$mtime = filemtime( $path );
+			if ( $mtime ) {
+				return (string) $mtime;
+			}
+		}
+		return GENERAL_SLIDER_VERSION;
 	}
 
 	/**

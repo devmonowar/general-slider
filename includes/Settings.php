@@ -101,6 +101,17 @@ class Settings {
 						</td>
 					</tr>
 					<tr>
+						<th scope="row"><label for="gs-skin"><?php esc_html_e( 'Default navigation & frame skin', 'general-slider' ); ?></label></th>
+						<td>
+							<select id="gs-skin" name="<?php echo esc_attr( Data::OPTION_KEY ); ?>[skin]">
+								<?php foreach ( Data::skins() as $key => $label ) : ?>
+									<option value="<?php echo esc_attr( $key ); ?>" <?php selected( $s['skin'] ?? 'classic', $key ); ?>><?php echo esc_html( $label ); ?></option>
+								<?php endforeach; ?>
+							</select>
+							<p class="description"><?php esc_html_e( 'The look of the arrows, dots and slider frame — works with any preset.', 'general-slider' ); ?></p>
+						</td>
+					</tr>
+					<tr>
 						<th scope="row"><label for="gs-transition"><?php esc_html_e( 'Default transition', 'general-slider' ); ?></label></th>
 						<td>
 							<select id="gs-transition" name="<?php echo esc_attr( Data::OPTION_KEY ); ?>[transition]">

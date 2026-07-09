@@ -16,6 +16,9 @@
 
 /* The carousel JS does not run in the editor, so the server-rendered preview
    would stack every slide. Collapse it to a tidy single-slide preview. */
+/* Splide's own CSS keeps sliders hidden until its JS initialises — which
+   never happens in the editor. Force the preview visible. */
+.gs-slider.splide { visibility: visible; }
 .gs-slider .splide__track { overflow: hidden; }
 .gs-slider .splide__list { display: block; margin: 0; padding: 0; }
 .gs-slider .splide__slide { display: none; list-style: none; }

@@ -13,6 +13,7 @@ All filters are prefixed `general_slider_`.
 | [`general_slider_config`](#general_slider_config) | Tweak the front-end (Splide) behaviour |
 | [`general_slider_html`](#general_slider_html) | Alter the final rendered HTML |
 | [`general_slider_presets`](#general_slider_presets) | Register your own design preset |
+| [`general_slider_skins`](#general_slider_skins) | Register your own navigation & frame skin |
 | [`general_slider_demo_library_url`](#general_slider_demo_library_url) | Point the Demo Library at a custom manifest |
 
 ---
@@ -111,6 +112,26 @@ add_filter( 'general_slider_presets', function ( $presets ) {
 } );
 
 // Then enqueue a stylesheet that targets `.gs-preset-spotlight`.
+```
+
+## `general_slider_skins`
+
+Register your own navigation & frame skin. Skins style the slider's chrome — the
+arrows, dots and frame — and work with every design preset. Add a `key => label`
+pair, then ship a matching `.gs-skin-{key}` stylesheet.
+
+**Parameters**
+
+- `array $skins` — `skin_key => label` pairs. Built-ins include `classic`, `soft`, `stories`, `progress`, `numbers`, `vertical`, `corner`, `neon`, `minimal`, `pill`, `outline`, `retro`, `glass` and `dark`.
+
+```php
+add_filter( 'general_slider_skins', function ( $skins ) {
+	$skins['brutal'] = 'Brutal';
+	return $skins;
+} );
+
+// Then enqueue a stylesheet that targets `.gs-skin-brutal`
+// (e.g. `.gs-skin-brutal .splide__arrow { … }`).
 ```
 
 ## `general_slider_demo_library_url`

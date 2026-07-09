@@ -142,6 +142,15 @@ class Slides_Meta {
 			</select>
 		</p>
 		<p>
+			<label for="gs-skin"><strong><?php esc_html_e( 'Navigation & frame skin', 'general-slider' ); ?></strong></label><br />
+			<select id="gs-skin" name="gs_settings[skin]" style="width:100%">
+				<?php foreach ( Data::skins() as $key => $label ) : ?>
+					<option value="<?php echo esc_attr( $key ); ?>" <?php selected( $s['skin'] ?? 'classic', $key ); ?>><?php echo esc_html( $label ); ?></option>
+				<?php endforeach; ?>
+			</select>
+			<span class="description"><?php esc_html_e( 'The look of the arrows, dots and slider frame — works with any preset.', 'general-slider' ); ?></span>
+		</p>
+		<p>
 			<label for="gs-transition"><strong><?php esc_html_e( 'Transition', 'general-slider' ); ?></strong></label><br />
 			<select id="gs-transition" name="gs_settings[transition]" style="width:100%">
 				<?php foreach ( Data::transitions() as $key => $label ) : ?>

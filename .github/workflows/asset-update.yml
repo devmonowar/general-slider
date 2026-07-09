@@ -1,0 +1,30 @@
+name: Update WP.org assets & readme
+
+# Pushing changes to .wordpress-org/ (banner, icon, screenshots) or
+# readme.txt on main syncs ONLY those to WordPress.org SVN — no plugin
+# release, no tag needed. Code changes still deploy via deploy.yml (tags).
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - ".wordpress-org/**"
+      - "readme.txt"
+  workflow_dispatch:
+
+jobs:
+  assets:
+    name: Sync assets and readme
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: WordPress.org plugin asset/readme update
+        uses: 10up/action-wordpress-plugin-asset-update@stable
+        env:
+          SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
+          SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
+          SLUG: general-slider
+          ASSETS_DIR: .wordpress-org

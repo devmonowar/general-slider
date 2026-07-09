@@ -58,7 +58,8 @@ class Renderer {
 		 */
 		$config = apply_filters( 'general_slider_config', $config, $post_id );
 
-		$classes = sprintf( 'splide gs-slider gs-preset-%s', esc_attr( $preset ) );
+		$skin    = array_key_exists( $settings['skin'] ?? '', Data::skins() ) ? $settings['skin'] : 'classic';
+		$classes = sprintf( 'splide gs-slider gs-preset-%s gs-skin-%s', esc_attr( $preset ), esc_attr( $skin ) );
 		if ( $per_page > 1 ) {
 			$classes .= ' gs-multi';
 		}
@@ -71,16 +72,22 @@ class Renderer {
 		if ( 'gradient' === ( $settings['overlay_style'] ?? 'solid' ) ) {
 			$classes .= ' gs-overlay-gradient';
 		}
+		if ( ! empty( $settings['autoplay'] ) ) {
+			// Lets skins style/animate based on autoplay (e.g. the Stories
+			// Progress fill runs for exactly one autoplay interval).
+			$classes .= ' gs-autoplay';
+		}
 		$focus  = array_key_exists( $settings['focus'], Data::focus_positions() ) ? $settings['focus'] : 'center';
 		$fit    = array_key_exists( $settings['fit'], Data::image_fits() ) ? $settings['fit'] : 'cover';
 		$accent = sanitize_hex_color( $settings['accent'] ) ? sanitize_hex_color( $settings['accent'] ) : '#2196f3';
 		$style  = sprintf(
-			'--gs-overlay:%s;--gs-min-h:%dpx;--gs-focus:%s;--gs-fit:%s;--gs-accent:%s;',
+			'--gs-overlay:%s;--gs-min-h:%dpx;--gs-focus:%s;--gs-fit:%s;--gs-accent:%s;--gs-interval:%dms;',
 			round( min( 100, absint( $settings['overlay'] ) ) / 100, 2 ),
 			max( 120, absint( $settings['height'] ) ),
 			$focus,
 			$fit,
-			$accent
+			$accent,
+			max( 1000, absint( $settings['speed'] ) )
 		);
 
 		$custom_css = (string) get_post_meta( $post_id, Data::META_CSS, true );
@@ -144,7 +151,7 @@ class Renderer {
 										'thumbnail',
 										false,
 										array(
-											'class' => 'gs-thumb__img',
+											'class'   => 'gs-thumb__img',
 											'loading' => 'lazy',
 										)
 									); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped

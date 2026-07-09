@@ -4,7 +4,7 @@ Tags: slider, carousel, elementor, testimonial, slideshow
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 2.3.5
+Stable tag: 2.3.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -15,6 +15,8 @@ Create beautiful, reusable carousel sliders in minutes — lightweight, block-re
 General Slider is a fast, modern slider for WordPress. Create a slider once, then place it anywhere with a block or shortcode — no page builder and no coding required.
 
 Use it as a hero slider, image carousel, testimonial slider, logo carousel, product showcase or fullscreen banner, in the block editor, with a shortcode, or as an Elementor widget — on any block or classic theme.
+
+**[Browse the demo gallery](https://devmonowar.github.io/wp-plugin-demo-library/general-slider/)** — see every ready-made slider you can import in one click · **[Development on GitHub](https://github.com/devmonowar/general-slider)** — report issues or contribute.
 
 = Why General Slider? =
 
@@ -53,6 +55,7 @@ Use it as a hero slider, image carousel, testimonial slider, logo carousel, prod
 
 * Gutenberg block, shortcode and Elementor widget
 * Five design presets — Hero, Split, Minimal, Testimonial and Fullscreen
+* Navigation & frame skins — Classic, Soft, Stories, Stories Progress (auto-filling segments), Numbers, Vertical, Corner, Neon, Minimal, Pill, Outline, Retro, Glass and Dark looks for the arrows, dots and slider frame; mix any skin with any preset
 * Slide or fade transitions, autoplay with a pause control
 * Multiple slides per view (carousel) with adjustable gap
 * Thumbnail navigation, Ken Burns zoom and text entrance animations
@@ -74,8 +77,8 @@ Use it as a hero slider, image carousel, testimonial slider, logo carousel, prod
 
 **For developers**
 
-* Filters: `general_slider_settings`, `general_slider_slides`, `general_slider_config`, `general_slider_html` and `general_slider_presets`
-* Register your own design preset
+* Filters: `general_slider_settings`, `general_slider_slides`, `general_slider_config`, `general_slider_html`, `general_slider_presets` and `general_slider_skins`
+* Register your own design preset or navigation skin
 
 **Demos & migration**
 
@@ -96,6 +99,10 @@ Use it as a hero slider, image carousel, testimonial slider, logo carousel, prod
 
 Add the "General Slider" block to any page and pick your slider, or paste the shortcode `[general_slider id="123"]` (the exact shortcode is shown on each slider's edit screen).
 
+= Why is my slider not showing? =
+
+Check these in order: (1) the slider has at least one slide and is **published**; (2) the block or shortcode actually points to that slider — the exact shortcode is shown on the slider's edit screen; (3) if you use a caching or optimization plugin, clear its cache — and if it defers/combines JavaScript, exclude `splide` and `general-slider`; (4) another slider plugin on the same page can conflict — try disabling it. Still stuck? Ask in the support forum with your page link.
+
 = Do I need to write any code? =
 
 No. Everything is done from the WordPress admin.
@@ -103,6 +110,18 @@ No. Everything is done from the WordPress admin.
 = Does it load jQuery? =
 
 No. The front end uses the lightweight, dependency-free Splide engine.
+
+= Will it slow down my site? =
+
+No. There is no jQuery and no external libraries; CSS/JS load only on pages that actually contain a slider, images are lazy-loaded (the first slide is prioritised for a better LCP), and sliders initialise only when scrolled into view.
+
+= Can I change the look of the arrows and dots? =
+
+Yes — pick a **navigation & frame skin** in the slider's settings box, or set a site-wide default under **General Slider → Settings**. Skins change the chrome (arrows, dots, frame) and work with every design preset: Classic, Soft (floating card), Stories and Stories Progress (segmented top lines — Progress fills over the autoplay interval), Numbers (editorial 01 02 03), Vertical (right-edge dots), Corner (square corner arrows), Neon (accent glow), Minimal, Pill, Outline, Retro, Glass and Dark. Developers can register their own via the `general_slider_skins` filter.
+
+= How can I style the slider? =
+
+Three layers, no code needed: pick a **design preset** (the slide layout), a **navigation & frame skin** (the chrome) and your **accent colour** — all in the slider's settings box, with site-wide defaults under **General Slider → Settings**. Overlay darkness/style, height, image fit and focus are per-slider too. For anything beyond that, each slider has its own **Custom CSS** box.
 
 = Does it work with Elementor and page builders? =
 
@@ -154,24 +173,24 @@ Yes. The General Slider block works in the block editor, the Site Editor and tem
 
 = Can developers customise the output? =
 
-Yes. The plugin provides filters: `general_slider_settings` (a slider's resolved settings), `general_slider_slides` (the slides before rendering), `general_slider_config` (the Splide JS options), `general_slider_html` (the final markup) and `general_slider_presets` (register your own design preset). Full hook reference with code examples: https://github.com/devmonowar/general-slider/blob/main/docs/hooks.md
+Yes. The plugin provides filters: `general_slider_settings` (a slider's resolved settings), `general_slider_slides` (the slides before rendering), `general_slider_config` (the Splide JS options), `general_slider_html` (the final markup), `general_slider_presets` (register your own design preset) and `general_slider_skins` (register your own navigation & frame skin). [Full hook reference with code examples](https://github.com/devmonowar/general-slider/blob/main/docs/hooks.md).
 
 = Where do the demos come from? =
 
 The Demo Library loads ready-made sliders from an online library so new demos can be added without updating the plugin. It only connects when you open the Demo Library screen or import a demo. See "External services" below.
 
-You can also browse the demos online before installing: https://devmonowar.github.io/wp-plugin-demo-library/general-slider/
+You can also [browse the demos online](https://devmonowar.github.io/wp-plugin-demo-library/general-slider/) before installing.
 
 == External services ==
 
-This plugin includes an optional **Demo Library** that loads ready-made sliders from a remote service hosted on GitHub Pages: https://devmonowar.github.io/wp-plugin-demo-library/
+This plugin includes an optional **Demo Library** that loads ready-made sliders from a remote service hosted on GitHub Pages: [devmonowar.github.io/wp-plugin-demo-library](https://devmonowar.github.io/wp-plugin-demo-library/)
 
 It connects to this service only when you:
 
 * open the **Demo Library** screen — to download the list of demos and show their preview images; and
 * click **Import Demo** — to download that demo's data and images into your site's Media Library.
 
-These are plain, read-only requests for files. No personal data is collected or sent, and no request is made unless you use the Demo Library. The service is provided by GitHub Pages (GitHub, Inc.) — terms of service: https://docs.github.com/site-policy/github-terms/github-terms-of-service — privacy statement: https://docs.github.com/site-policy/privacy-policies/github-privacy-statement
+These are plain, read-only requests for files. No personal data is collected or sent, and no request is made unless you use the Demo Library. The service is provided by GitHub Pages (GitHub, Inc.) — [terms of service](https://docs.github.com/site-policy/github-terms/github-terms-of-service) — [privacy statement](https://docs.github.com/site-policy/privacy-policies/github-privacy-statement).
 
 == Screenshots ==
 
@@ -181,8 +200,16 @@ These are plain, read-only requests for files. No personal data is collected or 
 4. Demo Library — import a ready-made slider in one click, images included.
 5. Reusable sliders, each with a click-to-copy shortcode.
 6. Per-slider and global settings: presets, transitions, overlay, image fit and accent colour.
+7. Navigation & frame skins — the same slider wearing Soft, Stories, Numbers, Corner, Neon and Retro.
+8. Skins in action — cycling through the navigation & frame skins (animated).
 
 == Changelog ==
+
+= 2.3.6 =
+* New: navigation & frame skins — Classic, Soft, Stories, Stories Progress, Numbers, Vertical, Corner, Neon, Minimal, Pill, Outline, Retro, Glass and Dark looks for the arrows, dots and slider frame. Pick one per slider or set a site-wide default; every skin works with every design preset. Developers can add their own via the `general_slider_skins` filter.
+* New: the Stories Progress skin fills the current segment over the slide's autoplay time and pauses with it on hover.
+* Improved: CSS/JS cache-busting now uses file modification times, so style/script updates always reach visitors immediately.
+* Improved: sliders now initialise inside the Elementor editor preview.
 
 = 2.3.5 =
 * Documentation: clearer description with "Why General Slider?", "Perfect for" and grouped features, plus new FAQs (RTL, translation, Full Site Editing, duplicating sliders and using multiple sliders per page). No functional changes.

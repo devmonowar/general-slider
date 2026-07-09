@@ -15,6 +15,7 @@ Built on the lightweight [Splide](https://splidejs.com/) engine — **no jQuery*
 - Reusable sliders — build once, use anywhere
 - Gutenberg block, shortcode and **Elementor** widget
 - Five design presets — Hero, Split, Minimal, Testimonial, Fullscreen
+- Navigation & frame skins — Classic, Soft, Stories, Stories Progress, Numbers, Vertical, Corner, Neon, Minimal, Pill, Outline, Retro, Glass, Dark — any skin with any preset
 - Per-slide image **or background video** (self-hosted MP4/WebM, YouTube or Vimeo)
 - Multiple slides per view (carousel), thumbnail navigation, Ken Burns zoom and text animations
 - Per-slider settings: autoplay (+ pause button), loop, arrows, dots, slide/fade, height, overlay (solid or gradient), image fit/focus and accent colour
@@ -66,6 +67,9 @@ add_filter( 'general_slider_html', function ( $html, $post_id, $settings ) { ret
 
 // Register your own design preset (also provide a `.gs-preset-{key}` stylesheet).
 add_filter( 'general_slider_presets', function ( $presets ) { return $presets; } );
+
+// Register your own navigation & frame skin (also provide a `.gs-skin-{key}` stylesheet).
+add_filter( 'general_slider_skins', function ( $skins ) { return $skins; } );
 
 // Point the Demo Library at a different manifest (dev / staging).
 add_filter( 'general_slider_demo_library_url', function ( $url ) { return $url; } );
