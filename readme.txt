@@ -255,12 +255,11 @@ These are plain, read-only requests for files. No personal data is collected or 
 * Performance: first slide image now loads eagerly with high fetch priority (better LCP); RTL ready.
 
 = 2.0.0 =
-* Complete rewrite. Modern, object-oriented codebase.
+* A brand-new, modern General Slider.
 * New: reusable slider post type with a native slide editor (no third-party libraries).
 * New: Gutenberg block to embed sliders.
 * New: three design presets (Hero, Split, Minimal).
 * New: per-slider image fit, image focus, height and overlay controls.
 * New: one-click demo slider importer.
 * New: global default settings page.
-* Switched the front-end engine to Splide — no jQuery, accessible, lazy-loaded images.
-* Note: this is a ground-up rebuild and does not migrate data from the 1.x series.
+* Front-end engine: Splide — no jQuery, accessible, lazy-loaded images.
