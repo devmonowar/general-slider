@@ -58,5 +58,8 @@ final class Plugin {
 		( new Duplicator() )->hooks();
 		( new Tools() )->hooks();
 		( new Elementor() )->hooks();
+		if ( is_admin() ) {
+			( new Review_Notice() )->hooks();
+		}
 	}
 }

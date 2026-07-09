@@ -202,6 +202,8 @@ These are plain, read-only requests for files. No personal data is collected or 
 6. Per-slider and global settings: presets, transitions, overlay, image fit and accent colour.
 7. Navigation & frame skins — the same slider wearing Soft, Stories, Numbers, Corner, Neon and Retro.
 8. Skins in action — cycling through the navigation & frame skins (animated).
+9. Thumbnail navigation — a clickable thumbnail strip under the slider.
+10. Background video slides — muted, looped video behind your content (animated).
 
 == Changelog ==
 
