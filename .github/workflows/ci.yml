@@ -21,6 +21,21 @@ jobs:
       - name: Lint PHP files
         run: find . -path ./assets/vendor -prune -o -name '*.php' -print0 | xargs -0 -n1 -P4 php -l
 
+  phpstan:
+    name: Static analysis (PHPStan)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          coverage: none
+          tools: composer
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress
+      - name: Run PHPStan
+        run: composer stan
+
   phpcs:
     name: Coding standards
     runs-on: ubuntu-latest
