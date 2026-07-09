@@ -28,3 +28,6 @@ jobs:
           SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
           SLUG: general-slider
           ASSETS_DIR: .wordpress-org
+          # A push may mix code changes with readme/asset changes; code ships
+          # via tags (deploy.yml), so sync the assets anyway instead of failing.
+          IGNORE_OTHER_FILES: "true"
