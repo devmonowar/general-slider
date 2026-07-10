@@ -1,6 +1,7 @@
 # Dependencies / build
 node_modules/
 /vendor/
+.phpunit.result.cache
 
 # OS / editor
 .DS_Store
