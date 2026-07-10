@@ -48,6 +48,7 @@ final class Plugin {
 		( new Post_Type() )->hooks();
 		( new Taxonomy() )->hooks();
 		( new Slides_Meta() )->hooks();
+		( new Dynamic_Slides() )->hooks();
 		( new Demo_Library() )->hooks();
 		( new Settings() )->hooks();
 		( new Assets() )->hooks();

@@ -4,8 +4,17 @@ parameters:
 		- general-slider.php
 		- uninstall.php
 		- includes
+	excludePaths:
+		# Elementor integration extends third-party classes we don't bundle;
+		# it is guarded at runtime by did_action( 'elementor/loaded' ). Scanned
+		# for its class symbols, but its own errors are not reported.
+		analyse:
+			- includes/Elementor.php
+			- includes/Elementor_Widget.php
 	bootstrapFiles:
 		- tests/phpstan-bootstrap.php
 	scanFiles:
 		- vendor/php-stubs/wordpress-stubs/wordpress-stubs.php
 	treatPhpDocTypesAsCertain: false
+	parallel:
+		maximumNumberOfProcesses: 2

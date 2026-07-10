@@ -64,8 +64,79 @@
 		frame.open();
 	}
 
+	// ---- Dynamic "slides source" panel ----
+	function option( value, label, selected ) {
+		var o = document.createElement( 'option' );
+		o.value = value;
+		o.textContent = label;
+		if ( selected ) {
+			o.selected = true;
+		}
+		return o;
+	}
+
+	function postTypeEntry( postType ) {
+		var data = L.sourceData || {};
+		return data[ postType ] || { taxonomies: [] };
+	}
+
+	function fillTerms( taxEntry ) {
+		var $term = $( '#gs-source-term' );
+		var want = String( $term.data( 'selected' ) || '' );
+		$term.empty();
+		$term.append( option( '0', L.anyTerm || 'All', ! want || '0' === want ) );
+		if ( taxEntry && taxEntry.terms ) {
+			taxEntry.terms.forEach( function ( t ) {
+				$term.append( option( String( t.id ), t.name, want === String( t.id ) ) );
+			} );
+		}
+	}
+
+	function fillTaxonomies() {
+		var $tax = $( '#gs-source-taxonomy' );
+		var $term = $( '#gs-source-term' );
+		if ( ! $tax.length ) {
+			return;
+		}
+		var entry = postTypeEntry( $( '#gs-source-post-type' ).val() );
+		var want = String( $tax.data( 'selected' ) || '' );
+		$tax.empty();
+		$tax.append( option( '', L.anyTerm || 'All', ! want ) );
+		( entry.taxonomies || [] ).forEach( function ( tx ) {
+			$tax.append( option( tx.tax, tx.label, want === tx.tax ) );
+		} );
+		var current = $tax.val();
+		var match = ( entry.taxonomies || [] ).filter( function ( tx ) { return tx.tax === current; } )[ 0 ];
+		fillTerms( match );
+		$term.data( 'selected', $term.val() );
+	}
+
 	$( function () {
 		$( '#gs-add-slide' ).on( 'click', addSlide );
+
+		// Manual / dynamic source toggle.
+		$( 'input[name="gs_settings[source][type]"]' ).on( 'change', function () {
+			var dynamic = 'dynamic' === $( this ).val() && this.checked;
+			$( '#gs-source-panel' ).toggle( dynamic );
+			$( '#gs-repeater' ).toggle( ! dynamic );
+		} );
+
+		// Cascade: post type -> taxonomies -> terms.
+		if ( $( '#gs-source-post-type' ).length ) {
+			$( '#gs-source-post-type' ).on( 'change', function () {
+				$( '#gs-source-taxonomy' ).data( 'selected', '' );
+				$( '#gs-source-term' ).data( 'selected', '' );
+				fillTaxonomies();
+			} );
+			$( '#gs-source-taxonomy' ).on( 'change', function () {
+				var entry = postTypeEntry( $( '#gs-source-post-type' ).val() );
+				var current = $( this ).val();
+				var match = ( entry.taxonomies || [] ).filter( function ( tx ) { return tx.tax === current; } )[ 0 ];
+				$( '#gs-source-term' ).data( 'selected', '' );
+				fillTerms( match );
+			} );
+			fillTaxonomies();
+		}
 
 		$( '#gs-repeater' ).on( 'click', '.gs-remove-slide', function () {
 			removeSlide( $( this ).closest( '.gs-slide-row' ) );

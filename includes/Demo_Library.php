@@ -354,8 +354,17 @@ class Demo_Library {
 	 * @return int New slider ID, or 0 on failure.
 	 */
 	private static function build_slider( $demo, $status, $source, $demo_id, $resolve_image ) {
-		if ( ! is_array( $demo ) || empty( $demo['slides'] ) || ! is_array( $demo['slides'] ) ) {
+		if ( ! is_array( $demo ) ) {
 			return 0;
+		}
+		// Dynamic demos generate their slides from a query, so they may ship
+		// with no manual slides; every other demo must have some.
+		$is_dynamic = isset( $demo['settings']['source']['type'] ) && 'dynamic' === $demo['settings']['source']['type'];
+		if ( ! $is_dynamic && ( empty( $demo['slides'] ) || ! is_array( $demo['slides'] ) ) ) {
+			return 0;
+		}
+		if ( empty( $demo['slides'] ) || ! is_array( $demo['slides'] ) ) {
+			$demo['slides'] = array();
 		}
 
 		$title   = ! empty( $demo['title'] ) ? sanitize_text_field( $demo['title'] ) : __( 'Imported demo', 'general-slider' );
@@ -444,7 +453,12 @@ class Demo_Library {
 			return 0;
 		}
 		$data = json_decode( wp_remote_retrieve_body( $response ), true );
-		if ( ! is_array( $data ) || empty( $data['slides'] ) || ! is_array( $data['slides'] ) ) {
+		if ( ! is_array( $data ) ) {
+			return 0;
+		}
+		// A demo needs either manual slides or a dynamic source.
+		$data_dynamic = isset( $data['settings']['source']['type'] ) && 'dynamic' === $data['settings']['source']['type'];
+		if ( ! $data_dynamic && ( empty( $data['slides'] ) || ! is_array( $data['slides'] ) ) ) {
 			return 0;
 		}
 
@@ -640,7 +654,9 @@ class Demo_Library {
 				continue;
 			}
 			$decoded = json_decode( $zip->getFromIndex( $i ), true );
-			if ( is_array( $decoded ) && ! empty( $decoded['slides'] ) && is_array( $decoded['slides'] ) ) {
+			// Accept a demo with manual slides, or a dynamic demo (which has none).
+			$decoded_dynamic = is_array( $decoded ) && isset( $decoded['settings']['source']['type'] ) && 'dynamic' === $decoded['settings']['source']['type'];
+			if ( is_array( $decoded ) && ( ( ! empty( $decoded['slides'] ) && is_array( $decoded['slides'] ) ) || $decoded_dynamic ) ) {
 				$data = $decoded;
 				break;
 			}

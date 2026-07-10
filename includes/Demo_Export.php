@@ -101,7 +101,12 @@ class Demo_Export {
 		$base        = trailingslashit( dirname( Demo_Library::manifest_url() ) );
 		$images_base = $base . 'assets/images/';
 
-		$slides     = Data::get_slides( $id );
+		// A dynamic slider builds its slides from a query at render time, so we
+		// export no frozen slides (and no snapshot images) — just the source
+		// config in the settings. It rebuilds itself on the destination site.
+		$settings   = Data::get_settings( $id );
+		$is_dynamic = 'dynamic' === ( $settings['source']['type'] ?? 'manual' );
+		$slides     = $is_dynamic ? array() : Data::get_slides( $id );
 		$slides_out = array();
 		$image_map  = array(); // zip-path => local file.
 		$first_img  = '';
@@ -142,7 +147,7 @@ class Demo_Export {
 			'version'        => '1.0',
 			'title'          => $post->post_title,
 			'slides'         => $slides_out,
-			'settings'       => Data::get_settings( $id ),
+			'settings'       => $settings,
 			'custom_css'     => (string) get_post_meta( $id, Data::META_CSS, true ),
 		);
 

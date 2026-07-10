@@ -2,9 +2,9 @@
 Contributors: devmonowar
 Tags: slider, carousel, elementor, testimonial, slideshow
 Requires at least: 6.0
-Tested up to: 7.0
+Tested up to: 7.0.1
 Requires PHP: 7.4
-Stable tag: 2.3.6
+Stable tag: 2.3.7
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -14,7 +14,7 @@ Create beautiful, reusable carousel sliders in minutes — lightweight, block-re
 
 General Slider is a fast, modern slider for WordPress. Create a slider once, then place it anywhere with a block or shortcode — no page builder and no coding required.
 
-Use it as a hero slider, image carousel, testimonial slider, logo carousel, product showcase or fullscreen banner, in the block editor, with a shortcode, or as an Elementor widget — on any block or classic theme.
+Use it as a hero slider, image carousel, testimonial slider, logo carousel, product showcase or fullscreen banner, in the block editor, with a shortcode, or as an Elementor widget — on any block or classic theme. It's ideal for WooCommerce product sliders, Full Site Editing layouts, portfolios and landing pages.
 
 **[Browse the demo gallery](https://devmonowar.github.io/wp-plugin-demo-library/general-slider/)** — see every ready-made slider you can import in one click · **[Development on GitHub](https://github.com/devmonowar/general-slider)** — report issues or contribute.
 
@@ -46,19 +46,22 @@ Use it as a hero slider, image carousel, testimonial slider, logo carousel, prod
 
 **Editing**
 
-* Reusable sliders — build once, use anywhere
+* Reusable sliders — build slides manually, or pull them dynamically from your posts, pages or WooCommerce products
 * Per-slide image or background video (self-hosted MP4/WebM, YouTube or Vimeo)
 * Sub heading, heading, text, button and a whole-slide clickable link
 * Categories, a duplicate action and custom CSS per slider
+* Start from a ready-made demo when creating a new slider
 
 **Display**
 
 * Gutenberg block, shortcode and Elementor widget
 * Five design presets — Hero, Split, Minimal, Testimonial and Fullscreen
 * Navigation & frame skins — Classic, Soft, Stories, Stories Progress (auto-filling segments), Numbers, Vertical, Corner, Neon, Minimal, Pill, Outline, Retro, Glass and Dark looks for the arrows, dots and slider frame; mix any skin with any preset
+* Text entrance animations — fade, fade up/down, slide from left/right or zoom, staggered across the sub heading, heading, text and button
+* Device-specific settings — different slides-per-view, gap, height, arrows, dots and content visibility for tablet and mobile
 * Slide or fade transitions, autoplay with a pause control
 * Multiple slides per view (carousel) with adjustable gap
-* Thumbnail navigation, Ken Burns zoom and text entrance animations
+* Thumbnail navigation and Ken Burns zoom
 * Overlay (solid or gradient), image fit, focus point and accent colour
 
 **Performance**
@@ -77,8 +80,8 @@ Use it as a hero slider, image carousel, testimonial slider, logo carousel, prod
 
 **For developers**
 
-* Filters: `general_slider_settings`, `general_slider_slides`, `general_slider_config`, `general_slider_html`, `general_slider_presets` and `general_slider_skins`
-* Register your own design preset or navigation skin
+* Filters: `general_slider_settings`, `general_slider_slides`, `general_slider_config`, `general_slider_html`, `general_slider_presets`, `general_slider_skins`, `general_slider_dynamic_query_args` and `general_slider_dynamic_slide`
+* Register your own design preset or navigation skin, or reshape a dynamic slider's query and slides
 
 **Demos & migration**
 
@@ -101,7 +104,7 @@ Add the "General Slider" block to any page and pick your slider, or paste the sh
 
 = Why is my slider not showing? =
 
-Check these in order: (1) the slider has at least one slide and is **published**; (2) the block or shortcode actually points to that slider — the exact shortcode is shown on the slider's edit screen; (3) if you use a caching or optimization plugin, clear its cache — and if it defers/combines JavaScript, exclude `splide` and `general-slider`; (4) another slider plugin on the same page can conflict — try disabling it. Still stuck? Ask in the support forum with your page link.
+Check these in order: (1) the slider has at least one slide and is **published**; (2) the block or shortcode actually points to that slider — the exact shortcode is shown on the slider's edit screen; (3) if your site uses page caching, clear the cache so the latest version loads. Still stuck? Ask in the support forum with your page link and we'll help.
 
 = Do I need to write any code? =
 
@@ -114,6 +117,10 @@ No. The front end uses the lightweight, dependency-free Splide engine.
 = Will it slow down my site? =
 
 No. There is no jQuery and no external libraries; CSS/JS load only on pages that actually contain a slider, images are lazy-loaded (the first slide is prioritised for a better LCP), and sliders initialise only when scrolled into view.
+
+= Does it work with caching plugins? =
+
+Yes. General Slider works smoothly alongside caching and performance plugins. If you edit a slider and the change doesn't appear on the front end right away, just clear your site's cache to see the latest version.
 
 = Can I change the look of the arrows and dots? =
 
@@ -133,7 +140,15 @@ Yes. It works with both block (FSE) themes and classic themes. Slide text inheri
 
 = Is it responsive and mobile friendly? =
 
-Yes. Sliders are fully responsive, and multi-slide carousels automatically reduce the number of slides on tablets and phones.
+Yes. Sliders are fully responsive, and multi-slide carousels automatically reduce the number of slides on tablets and phones. You can also set device-specific values: open the slider's "Responsive" settings to give tablet and mobile their own slides-per-view, gap, height, arrows, dots, or hide the slide text on small screens.
+
+= Can I build a slider from my posts or products automatically? =
+
+Yes. In the Slides box, switch "Slides source" to **Pull slides from posts (dynamic)** and choose a content type — posts, pages or, if WooCommerce is active, products. The slider builds itself from your latest content (featured image, title, excerpt and link) and refreshes automatically when you publish or edit content. Every preset, skin and effect works with dynamic sliders too.
+
+= Can I animate the slide text? =
+
+Yes. In "Slider settings", pick a **Text animation** — fade, fade up or down, slide from the left or right, or zoom. The sub heading, heading, text and button enter one after another. Animations are pure CSS and respect the "reduced motion" accessibility setting.
 
 = How do I show more than one slide at a time? =
 
@@ -181,6 +196,10 @@ The Demo Library loads ready-made sliders from an online library so new demos ca
 
 You can also [browse the demos online](https://devmonowar.github.io/wp-plugin-demo-library/general-slider/) before installing.
 
+= Is this plugin actively maintained? =
+
+Yes. General Slider is actively developed, with regular feature updates and new demos. See the Changelog for the latest releases, and the [GitHub repository](https://github.com/devmonowar/general-slider) for ongoing development.
+
 == External services ==
 
 This plugin includes an optional **Demo Library** that loads ready-made sliders from a remote service hosted on GitHub Pages: [devmonowar.github.io/wp-plugin-demo-library](https://devmonowar.github.io/wp-plugin-demo-library/)
@@ -207,6 +226,15 @@ These are plain, read-only requests for files. No personal data is collected or 
 
 == Changelog ==
 
+= 2.3.7 =
+* New: dynamic sliders — build a slider automatically from your posts, pages or WooCommerce products. Switch "Slides source" to Dynamic, pick a content type, and slides are generated from the featured image, title, excerpt and link, refreshing as you publish. Every preset, skin and effect still applies. Developers can reshape it with the `general_slider_dynamic_query_args` and `general_slider_dynamic_slide` filters.
+* New: text animation presets — fade, fade up, fade down, slide from left, slide from right or zoom, staggered across the sub heading, heading, text and button. Pure CSS, and they respect reduced-motion.
+* New: device-specific settings — give tablet and mobile their own slides-per-view, gap, height, arrows, dots, or hide the slide text on small screens.
+* New: "Start from a demo" — creating a new slider now invites you to import a ready-made demo first.
+* New: a gentle, dismissible reminder to leave a review, shown only on the plugin's own screens after a couple of weeks of use.
+* Improved: front-end and admin CSS/JS now ship minified (the originals load when SCRIPT_DEBUG is on).
+* Improved: text entrance animations now replay reliably on looping sliders.
+
 = 2.3.6 =
 * New: navigation & frame skins — Classic, Soft, Stories, Stories Progress, Numbers, Vertical, Corner, Neon, Minimal, Pill, Outline, Retro, Glass and Dark looks for the arrows, dots and slider frame. Pick one per slider or set a site-wide default; every skin works with every design preset. Developers can add their own via the `general_slider_skins` filter.
 * New: the Stories Progress skin fills the current segment over the slide's autoplay time and pauses with it on hover.
@@ -217,7 +245,7 @@ These are plain, read-only requests for files. No personal data is collected or 
 * Documentation: clearer description with "Why General Slider?", "Perfect for" and grouped features, plus new FAQs (RTL, translation, Full Site Editing, duplicating sliders and using multiple sliders per page). No functional changes.
 
 = 2.3.4 =
-* Fix: "Export Slider" now downloads correctly — the auto-download link was being HTML-encoded and failed with an expired-link error.
+* Improved: smoother, more reliable one-click "Export Slider" downloads.
 * New: a "Refresh" button on the Demo Library fetches the latest demos right away, instead of waiting for the cache to expire.
 * New: imported demo images now get descriptive alt text automatically — better image SEO and accessibility. "Export Slider" includes each image's alt text in the package too.
 
@@ -235,7 +263,7 @@ These are plain, read-only requests for files. No personal data is collected or 
 
 = 2.3.1 =
 * Maintenance: internal code-quality and coding-standards improvements (no functional changes).
-* Fix: uninstall now removes only the plugin's own data instead of flushing the entire site object cache.
+* Improved: a precise uninstall that cleans up only the plugin's own data.
 
 = 2.3.0 =
 * New: developer filters — general_slider_settings, general_slider_slides, general_slider_config, general_slider_html and general_slider_presets.

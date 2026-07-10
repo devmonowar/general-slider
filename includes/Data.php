@@ -83,6 +83,42 @@ class Data {
 	}
 
 	/**
+	 * Available text entrance-animation presets.
+	 *
+	 * Each preset staggers the sub-heading, heading, text and button in one
+	 * after another; only the movement differs. Purely CSS-driven.
+	 *
+	 * @return array<string,string>
+	 */
+	public static function animations() {
+		return array(
+			'none'        => __( 'None', 'general-slider' ),
+			'fade'        => __( 'Fade in', 'general-slider' ),
+			'fade-up'     => __( 'Fade up', 'general-slider' ),
+			'fade-down'   => __( 'Fade down', 'general-slider' ),
+			'slide-left'  => __( 'Slide from left', 'general-slider' ),
+			'slide-right' => __( 'Slide from right', 'general-slider' ),
+			'zoom'        => __( 'Zoom in', 'general-slider' ),
+		);
+	}
+
+	/**
+	 * Resolve the effective animation preset from settings, honouring the
+	 * legacy `animate` boolean (true → "fade-up") for sliders saved before
+	 * presets existed.
+	 *
+	 * @param array $settings Resolved settings.
+	 * @return string A key from self::animations().
+	 */
+	public static function resolve_animation( $settings ) {
+		$animation = is_string( $settings['animation'] ?? null ) ? $settings['animation'] : 'none';
+		if ( ( '' === $animation || 'none' === $animation ) && ! empty( $settings['animate'] ) ) {
+			$animation = 'fade-up';
+		}
+		return array_key_exists( $animation, self::animations() ) ? $animation : 'none';
+	}
+
+	/**
 	 * Available slide transitions.
 	 *
 	 * @return array<string,string>
@@ -156,8 +192,105 @@ class Data {
 			'accent'     => '#2196f3',
 			'ken_burns'  => false,
 			'animate'    => false,
+			'animation'  => 'none',
 			'thumbnails' => false,
+			'responsive' => array(
+				'tablet' => array(),
+				'mobile' => array(),
+			),
+			'source'     => self::default_source(),
 		);
+	}
+
+	/**
+	 * Default "slides source" config — a manual slider by default.
+	 *
+	 * @return array
+	 */
+	public static function default_source() {
+		return array(
+			'type'          => 'manual',
+			'post_type'     => 'post',
+			'taxonomy'      => '',
+			'term'          => 0,
+			'orderby'       => 'date',
+			'order'         => 'DESC',
+			'count'         => 6,
+			'show_excerpt'  => true,
+			'excerpt_words' => 20,
+			'button_text'   => '',
+		);
+	}
+
+	/**
+	 * Allowed "orderby" values for a dynamic slider.
+	 *
+	 * @return array<string,string>
+	 */
+	public static function source_orderbys() {
+		return array(
+			'date'       => __( 'Date', 'general-slider' ),
+			'title'      => __( 'Title', 'general-slider' ),
+			'menu_order' => __( 'Menu order', 'general-slider' ),
+			'rand'       => __( 'Random', 'general-slider' ),
+		);
+	}
+
+	/**
+	 * Sanitise the "slides source" config.
+	 *
+	 * @param mixed $input Raw source input.
+	 * @return array
+	 */
+	public static function sanitize_source( $input ) {
+		$input = is_array( $input ) ? $input : array();
+		return array(
+			'type'          => 'dynamic' === ( $input['type'] ?? '' ) ? 'dynamic' : 'manual',
+			'post_type'     => ( '' !== ( $input['post_type'] ?? '' ) ) ? sanitize_key( $input['post_type'] ) : 'post',
+			'taxonomy'      => sanitize_key( $input['taxonomy'] ?? '' ),
+			'term'          => absint( $input['term'] ?? 0 ),
+			'orderby'       => array_key_exists( ( $input['orderby'] ?? '' ), self::source_orderbys() ) ? $input['orderby'] : 'date',
+			'order'         => 'ASC' === strtoupper( (string) ( $input['order'] ?? '' ) ) ? 'ASC' : 'DESC',
+			'count'         => min( 20, max( 1, absint( $input['count'] ?? 6 ) ) ),
+			'show_excerpt'  => ! empty( $input['show_excerpt'] ),
+			'excerpt_words' => min( 100, max( 0, absint( $input['excerpt_words'] ?? 20 ) ) ),
+			'button_text'   => sanitize_text_field( $input['button_text'] ?? '' ),
+		);
+	}
+
+	/**
+	 * Sanitise one breakpoint's overrides (tablet or mobile).
+	 *
+	 * Every field is optional — an unset field means "inherit the desktop
+	 * value", so only fields the user actually touched are stored.
+	 *
+	 * @param mixed $input Raw breakpoint input.
+	 * @return array
+	 */
+	private static function sanitize_responsive_bp( $input ) {
+		$input = is_array( $input ) ? $input : array();
+		$out   = array();
+
+		if ( '' !== ( $input['per_page'] ?? '' ) ) {
+			$out['per_page'] = min( 6, max( 1, absint( $input['per_page'] ) ) );
+		}
+		if ( '' !== ( $input['gap'] ?? '' ) ) {
+			$out['gap'] = min( 100, absint( $input['gap'] ) );
+		}
+		if ( '' !== ( $input['height'] ?? '' ) ) {
+			$out['height'] = min( 1200, max( 120, absint( $input['height'] ) ) );
+		}
+		if ( in_array( ( $input['arrows'] ?? '' ), array( 'show', 'hide' ), true ) ) {
+			$out['arrows'] = 'show' === $input['arrows'];
+		}
+		if ( in_array( ( $input['dots'] ?? '' ), array( 'show', 'hide' ), true ) ) {
+			$out['dots'] = 'show' === $input['dots'];
+		}
+		if ( ! empty( $input['hide_content'] ) ) {
+			$out['hide_content'] = true;
+		}
+
+		return $out;
 	}
 
 	/**
@@ -169,6 +302,13 @@ class Data {
 	 */
 	public static function sanitize_settings( $input ) {
 		$input = is_array( $input ) ? $input : array();
+
+		// Animation preset, with backward compatibility for the old boolean.
+		$anim_in   = $input['animation'] ?? '';
+		$animation = array_key_exists( $anim_in, self::animations() )
+			? $anim_in
+			: ( ! empty( $input['animate'] ) ? 'fade-up' : 'none' );
+
 		return array(
 			'preset'     => array_key_exists( ( $input['preset'] ?? '' ), self::presets() ) ? $input['preset'] : 'hero',
 			'skin'       => array_key_exists( ( $input['skin'] ?? '' ), self::skins() ) ? $input['skin'] : 'classic',
@@ -187,8 +327,14 @@ class Data {
 			'gap'        => min( 100, absint( $input['gap'] ?? 16 ) ),
 			'accent'     => sanitize_hex_color( $input['accent'] ?? '' ) ? sanitize_hex_color( $input['accent'] ) : '#2196f3',
 			'ken_burns'  => ! empty( $input['ken_burns'] ),
-			'animate'    => ! empty( $input['animate'] ),
+			'animation'  => $animation,
+			'animate'    => 'none' !== $animation,
 			'thumbnails' => ! empty( $input['thumbnails'] ),
+			'responsive' => array(
+				'tablet' => self::sanitize_responsive_bp( $input['responsive']['tablet'] ?? array() ),
+				'mobile' => self::sanitize_responsive_bp( $input['responsive']['mobile'] ?? array() ),
+			),
+			'source'     => self::sanitize_source( $input['source'] ?? array() ),
 		);
 	}
 
@@ -229,10 +375,19 @@ class Data {
 	 * @return array<int,array>
 	 */
 	public static function get_slides( $post_id ) {
-		$slides = get_post_meta( $post_id, self::META_SLIDES, true );
-		$slides = ( empty( $slides ) || ! is_array( $slides ) )
-			? array()
-			: array_values( array_filter( array_map( array( __CLASS__, 'normalise_slide' ), $slides ) ) );
+		$settings = self::get_settings( $post_id );
+		$source   = is_array( $settings['source'] ?? null ) ? $settings['source'] : array();
+
+		if ( 'dynamic' === ( $source['type'] ?? 'manual' ) ) {
+			// Dynamic sliders build their slides from a WP_Query, mapped onto
+			// the same slide structure so every preset and skin still applies.
+			$slides = Dynamic_Slides::get( $post_id, $source );
+		} else {
+			$slides = get_post_meta( $post_id, self::META_SLIDES, true );
+			$slides = ( empty( $slides ) || ! is_array( $slides ) )
+				? array()
+				: array_values( array_filter( array_map( array( __CLASS__, 'normalise_slide' ), $slides ) ) );
+		}
 
 		/**
 		 * Filter the slides of a slider before they are rendered.

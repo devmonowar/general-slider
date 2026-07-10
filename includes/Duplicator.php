@@ -64,7 +64,10 @@ class Duplicator {
 		);
 
 		if ( $new_id && ! is_wp_error( $new_id ) ) {
-			update_post_meta( $new_id, Data::META_SLIDES, Data::get_slides( $id ) );
+			// Copy the raw stored slides, not resolved ones — a dynamic slider
+			// has no manual slides and re-queries from its copied settings.
+			$raw_slides = get_post_meta( $id, Data::META_SLIDES, true );
+			update_post_meta( $new_id, Data::META_SLIDES, is_array( $raw_slides ) ? $raw_slides : array() );
 			update_post_meta( $new_id, Data::META_SETTINGS, get_post_meta( $id, Data::META_SETTINGS, true ) );
 
 			$css = get_post_meta( $id, Data::META_CSS, true );

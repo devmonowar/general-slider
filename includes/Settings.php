@@ -192,10 +192,27 @@ class Settings {
 						<th scope="row"><?php esc_html_e( 'Effects', 'general-slider' ); ?></th>
 						<td>
 							<label><input type="checkbox" name="<?php echo esc_attr( Data::OPTION_KEY ); ?>[ken_burns]" value="1" <?php checked( ! empty( $s['ken_burns'] ) ); ?> /> <?php esc_html_e( 'Ken Burns zoom', 'general-slider' ); ?></label><br />
-							<label><input type="checkbox" name="<?php echo esc_attr( Data::OPTION_KEY ); ?>[animate]" value="1" <?php checked( ! empty( $s['animate'] ) ); ?> /> <?php esc_html_e( 'Animate text in', 'general-slider' ); ?></label><br />
 							<label><input type="checkbox" name="<?php echo esc_attr( Data::OPTION_KEY ); ?>[thumbnails]" value="1" <?php checked( ! empty( $s['thumbnails'] ) ); ?> /> <?php esc_html_e( 'Show thumbnails', 'general-slider' ); ?></label>
+							<p style="margin:8px 0 0">
+								<label for="gs-animation"><?php esc_html_e( 'Text animation', 'general-slider' ); ?></label><br />
+								<select id="gs-animation" name="<?php echo esc_attr( Data::OPTION_KEY ); ?>[animation]">
+									<?php $gs_anim = Data::resolve_animation( $s ); ?>
+									<?php foreach ( Data::animations() as $key => $label ) : ?>
+										<option value="<?php echo esc_attr( $key ); ?>" <?php selected( $gs_anim, $key ); ?>><?php echo esc_html( $label ); ?></option>
+									<?php endforeach; ?>
+								</select>
+							</p>
 						</td>
 					</tr>
+				</table>
+				<h2><?php esc_html_e( 'Responsive', 'general-slider' ); ?></h2>
+				<p class="description"><?php esc_html_e( 'Default overrides for tablet and mobile. Leave a field blank to keep the desktop value on that device. Each slider can still override these individually.', 'general-slider' ); ?></p>
+				<table class="form-table" role="presentation">
+					<?php
+					$responsive = is_array( $s['responsive'] ?? null ) ? $s['responsive'] : array();
+					$this->responsive_rows( __( 'Tablet', 'general-slider' ), 'tablet', is_array( $responsive['tablet'] ?? null ) ? $responsive['tablet'] : array() );
+					$this->responsive_rows( __( 'Mobile', 'general-slider' ), 'mobile', is_array( $responsive['mobile'] ?? null ) ? $responsive['mobile'] : array() );
+					?>
 				</table>
 				<?php submit_button(); ?>
 			</form>
@@ -213,6 +230,57 @@ class Settings {
 			<?php Tools::ui(); ?>
 			<?php Tools::file_required_script(); ?>
 		</div>
+		<?php
+	}
+
+	/**
+	 * Render one breakpoint's row of default-responsive fields.
+	 *
+	 * @param string $label Human label ("Tablet" / "Mobile").
+	 * @param string $key   Settings key ("tablet" / "mobile").
+	 * @param array  $bp    That breakpoint's saved overrides.
+	 */
+	private function responsive_rows( $label, $key, $bp ) {
+		$name = Data::OPTION_KEY . '[responsive][' . $key . ']';
+		?>
+		<tr>
+			<th scope="row"><?php echo esc_html( $label ); ?></th>
+			<td>
+				<label><?php esc_html_e( 'Slides per view', 'general-slider' ); ?>
+					<input type="number" name="<?php echo esc_attr( $name ); ?>[per_page]" value="<?php echo isset( $bp['per_page'] ) ? esc_attr( $bp['per_page'] ) : ''; ?>" min="1" max="6" class="small-text" placeholder="<?php esc_attr_e( 'Same as desktop', 'general-slider' ); ?>" />
+				</label>
+				&nbsp; <label><?php esc_html_e( 'Gap (px)', 'general-slider' ); ?>
+					<input type="number" name="<?php echo esc_attr( $name ); ?>[gap]" value="<?php echo isset( $bp['gap'] ) ? esc_attr( $bp['gap'] ) : ''; ?>" min="0" max="100" class="small-text" placeholder="<?php esc_attr_e( 'Same as desktop', 'general-slider' ); ?>" />
+				</label>
+				&nbsp; <label><?php esc_html_e( 'Height (px)', 'general-slider' ); ?>
+					<input type="number" name="<?php echo esc_attr( $name ); ?>[height]" value="<?php echo isset( $bp['height'] ) ? esc_attr( $bp['height'] ) : ''; ?>" min="120" max="1200" class="small-text" placeholder="<?php esc_attr_e( 'Same as desktop', 'general-slider' ); ?>" /></label>
+				<br />
+				<label><input type="checkbox" name="<?php echo esc_attr( $name ); ?>[hide_content]" value="1" <?php checked( ! empty( $bp['hide_content'] ) ); ?> /> <?php esc_html_e( 'Hide text & button', 'general-slider' ); ?></label>
+				&nbsp; <label><?php esc_html_e( 'Arrows:', 'general-slider' ); ?>
+					<?php $this->inherit_select( $name . '[arrows]', $bp['arrows'] ?? null ); ?>
+				</label>
+				&nbsp; <label><?php esc_html_e( 'Dots:', 'general-slider' ); ?>
+					<?php $this->inherit_select( $name . '[dots]', $bp['dots'] ?? null ); ?>
+				</label>
+			</td>
+		</tr>
+		<?php
+	}
+
+	/**
+	 * A tri-state Inherit / Show / Hide select.
+	 *
+	 * @param string    $name  Field name.
+	 * @param bool|null $value Saved value, or null when unset (inherit).
+	 */
+	private function inherit_select( $name, $value ) {
+		$current = null === $value ? 'inherit' : ( $value ? 'show' : 'hide' );
+		?>
+		<select name="<?php echo esc_attr( $name ); ?>">
+			<option value="inherit" <?php selected( $current, 'inherit' ); ?>><?php esc_html_e( 'Same as desktop', 'general-slider' ); ?></option>
+			<option value="show" <?php selected( $current, 'show' ); ?>><?php esc_html_e( 'Show', 'general-slider' ); ?></option>
+			<option value="hide" <?php selected( $current, 'hide' ); ?>><?php esc_html_e( 'Hide', 'general-slider' ); ?></option>
+		</select>
 		<?php
 	}
 }

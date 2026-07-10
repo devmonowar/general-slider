@@ -38,8 +38,9 @@ class Renderer {
 		// Tell the assets to actually load on this request.
 		Assets::mark_needed();
 
-		$per_page = 'fade' === $settings['transition'] ? 1 : min( 6, max( 1, absint( $settings['per_page'] ) ) );
-		$config   = array(
+		$per_page   = 'fade' === $settings['transition'] ? 1 : min( 6, max( 1, absint( $settings['per_page'] ) ) );
+		$responsive = is_array( $settings['responsive'] ?? null ) ? $settings['responsive'] : array();
+		$config     = array(
 			'type'       => 'fade' === $settings['transition'] ? 'fade' : ( $settings['loop'] ? 'loop' : 'slide' ),
 			'autoplay'   => (bool) $settings['autoplay'],
 			'interval'   => max( 1000, absint( $settings['speed'] ) ),
@@ -49,6 +50,11 @@ class Renderer {
 			'gap'        => absint( $settings['gap'] ) . 'px',
 			'direction'  => is_rtl() ? 'rtl' : 'ltr',
 		);
+
+		$breakpoints = self::responsive_breakpoints( $responsive, $per_page );
+		if ( ! empty( $breakpoints ) ) {
+			$config['breakpoints'] = $breakpoints;
+		}
 
 		/**
 		 * Filter the Splide configuration passed to the front-end script.
@@ -66,8 +72,9 @@ class Renderer {
 		if ( ! empty( $settings['ken_burns'] ) ) {
 			$classes .= ' gs-kenburns';
 		}
-		if ( ! empty( $settings['animate'] ) ) {
-			$classes .= ' gs-animate';
+		$animation = Data::resolve_animation( $settings );
+		if ( 'none' !== $animation ) {
+			$classes .= ' gs-animate gs-anim-' . $animation;
 		}
 		if ( 'gradient' === ( $settings['overlay_style'] ?? 'solid' ) ) {
 			$classes .= ' gs-overlay-gradient';
@@ -90,12 +97,16 @@ class Renderer {
 			max( 1000, absint( $settings['speed'] ) )
 		);
 
-		$custom_css = (string) get_post_meta( $post_id, Data::META_CSS, true );
+		$custom_css     = (string) get_post_meta( $post_id, Data::META_CSS, true );
+		$responsive_css = self::responsive_css( $post_id, $responsive );
 
 		ob_start();
 		?>
 		<?php if ( '' !== trim( $custom_css ) ) : ?>
 		<style id="gs-slider-css-<?php echo (int) $post_id; ?>"><?php echo Tools::clean_css( $custom_css ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></style>
+		<?php endif; ?>
+		<?php if ( '' !== $responsive_css ) : ?>
+		<style id="gs-slider-responsive-<?php echo (int) $post_id; ?>"><?php echo $responsive_css; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></style>
 		<?php endif; ?>
 		<div id="gs-slider-<?php echo (int) $post_id; ?>" class="<?php echo esc_attr( $classes ); ?>" style="<?php echo esc_attr( $style ); ?>" role="region" aria-roledescription="carousel" aria-label="<?php echo esc_attr( get_the_title( $post_id ) ); ?>" data-gs="<?php echo esc_attr( wp_json_encode( $config ) ); ?>">
 			<div class="splide__track">
@@ -176,6 +187,84 @@ class Renderer {
 		 * @param array  $settings Resolved settings.
 		 */
 		return apply_filters( 'general_slider_html', $html, $post_id, $settings );
+	}
+
+	/**
+	 * Device breakpoints (max-width in px) mapped to their settings key.
+	 *
+	 * @var array<int,string>
+	 */
+	const BREAKPOINTS = array(
+		782 => 'tablet',
+		600 => 'mobile',
+	);
+
+	/**
+	 * Build Splide's native `breakpoints` option from the resolved
+	 * "responsive" settings. Only breakpoints with an actual override are
+	 * included — everything else inherits the desktop config.
+	 *
+	 * @param array $responsive Resolved responsive settings (tablet/mobile).
+	 * @param int   $per_page   Desktop "slides per view", used as a ceiling.
+	 * @return array<int,array>
+	 */
+	private static function responsive_breakpoints( $responsive, $per_page ) {
+		// For multi-slide carousels, keep the sensible default of showing fewer
+		// slides on smaller screens; explicit overrides below layer on top.
+		$defaults = $per_page > 1
+			? array(
+				782 => array( 'perPage' => min( $per_page, 2 ) ),
+				600 => array( 'perPage' => 1 ),
+			)
+			: array();
+
+		$breakpoints = array();
+		foreach ( self::BREAKPOINTS as $bp_px => $bp_key ) {
+			$bp    = is_array( $responsive[ $bp_key ] ?? null ) ? $responsive[ $bp_key ] : array();
+			$entry = $defaults[ $bp_px ] ?? array();
+			if ( isset( $bp['per_page'] ) ) {
+				$entry['perPage'] = min( $per_page, absint( $bp['per_page'] ) );
+			}
+			if ( isset( $bp['gap'] ) ) {
+				$entry['gap'] = absint( $bp['gap'] ) . 'px';
+			}
+			if ( isset( $bp['arrows'] ) ) {
+				$entry['arrows'] = (bool) $bp['arrows'];
+			}
+			if ( isset( $bp['dots'] ) ) {
+				$entry['pagination'] = (bool) $bp['dots'];
+			}
+			if ( ! empty( $entry ) ) {
+				$breakpoints[ $bp_px ] = $entry;
+			}
+		}
+		return $breakpoints;
+	}
+
+	/**
+	 * Build the scoped `<style>` rules for per-breakpoint height and
+	 * "hide content" overrides — things Splide's JS options can't express.
+	 *
+	 * @param int   $post_id    Slider ID.
+	 * @param array $responsive Resolved responsive settings (tablet/mobile).
+	 * @return string CSS (without the wrapping <style> tag), or '' if nothing to output.
+	 */
+	private static function responsive_css( $post_id, $responsive ) {
+		$css = '';
+		foreach ( self::BREAKPOINTS as $bp_px => $bp_key ) {
+			$bp    = is_array( $responsive[ $bp_key ] ?? null ) ? $responsive[ $bp_key ] : array();
+			$rules = '';
+			if ( isset( $bp['height'] ) ) {
+				$rules .= sprintf( '#gs-slider-%d{--gs-min-h:%dpx}', $post_id, absint( $bp['height'] ) );
+			}
+			if ( ! empty( $bp['hide_content'] ) ) {
+				$rules .= sprintf( '#gs-slider-%d .gs-slide__content{display:none}', $post_id );
+			}
+			if ( '' !== $rules ) {
+				$css .= '@media (max-width:' . absint( $bp_px ) . 'px){' . $rules . '}';
+			}
+		}
+		return $css;
 	}
 
 	/**

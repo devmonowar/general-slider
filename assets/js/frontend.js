@@ -32,7 +32,7 @@
 			speed: reduceMotion ? 0 : 600,
 			drag: true,
 			keyboard: 'focused',
-			breakpoints: {
+			breakpoints: opts.breakpoints || {
 				782: { perPage: Math.min( perPage, 2 ) },
 				600: { perPage: 1 }
 			}
@@ -45,7 +45,9 @@
 		// Entrance animations: restart them whenever the active slide changes.
 		if ( el.classList.contains( 'gs-animate' ) && ! reduceMotion ) {
 			var animate = function () {
-				var active = el.querySelector( '.splide__slide.is-active .gs-slide__content' );
+				// In loop mode Splide marks clone slides is-active too; target the
+				// real (non-clone) active slide so the visible content animates.
+				var active = el.querySelector( '.splide__slide.is-active:not(.splide__slide--clone) .gs-slide__content' );
 				if ( active ) {
 					active.classList.remove( 'gs-anim' );
 					void active.offsetWidth;
@@ -55,7 +57,8 @@
 			splide.on( 'mounted moved', animate );
 		}
 
-		// Thumbnail navigation: sync a second slider if present.
+		// Thumbnail navigation: sync a second slider if present. Mount the main
+		// carousel first, then the thumbnails (Splide's documented order).
 		var thumbEl = el.nextElementSibling;
 		if ( thumbEl && thumbEl.classList && thumbEl.classList.contains( 'gs-thumbnails' ) ) {
 			var thumb = new Splide( thumbEl, {
@@ -71,10 +74,11 @@
 				breakpoints: { 600: { fixedWidth: 72, fixedHeight: 46 } }
 			} );
 			splide.sync( thumb );
+			splide.mount();
 			thumb.mount();
+		} else {
+			splide.mount();
 		}
-
-		splide.mount();
 
 		el.dataset.gsMounted = '1';
 	}
@@ -95,7 +99,11 @@
 			entries.forEach( function ( entry ) {
 				if ( entry.isIntersecting ) {
 					initSlider( entry.target );
-					obs.unobserve( entry.target );
+					// Stop observing only once it actually mounted, so a slider
+					// isn't dropped if Splide wasn't ready on the first pass.
+					if ( entry.target.dataset.gsMounted ) {
+						obs.unobserve( entry.target );
+					}
 				}
 			} );
 		}, { rootMargin: '200px' } );

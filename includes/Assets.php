@@ -26,11 +26,33 @@ class Assets {
 	 * Register (but do not enqueue) the front-end assets.
 	 */
 	public static function register_frontend() {
+		$css = self::asset( 'assets/css/frontend.css' );
+		$js  = self::asset( 'assets/js/frontend.js' );
+
 		wp_register_style( 'splide', GENERAL_SLIDER_URL . 'assets/vendor/splide/splide.min.css', array(), '4.1.4' );
-		wp_register_style( 'general-slider', GENERAL_SLIDER_URL . 'assets/css/frontend.css', array( 'splide' ), self::version( 'assets/css/frontend.css' ) );
+		wp_register_style( 'general-slider', GENERAL_SLIDER_URL . $css, array( 'splide' ), self::version( $css ) );
 
 		wp_register_script( 'splide', GENERAL_SLIDER_URL . 'assets/vendor/splide/splide.min.js', array(), '4.1.4', true );
-		wp_register_script( 'general-slider', GENERAL_SLIDER_URL . 'assets/js/frontend.js', array( 'splide' ), self::version( 'assets/js/frontend.js' ), true );
+		wp_register_script( 'general-slider', GENERAL_SLIDER_URL . $js, array( 'splide' ), self::version( $js ), true );
+	}
+
+	/**
+	 * Resolve an asset to its minified sibling when available and not debugging.
+	 *
+	 * `assets/css/frontend.css` becomes `assets/css/frontend.min.css` on normal
+	 * loads, and stays unminified when SCRIPT_DEBUG is on (or no .min exists).
+	 *
+	 * @param string $relative Path to the source asset, relative to the plugin root.
+	 * @return string
+	 */
+	private static function asset( $relative ) {
+		if ( ! ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ) {
+			$min = preg_replace( '/\.(css|js)$/', '.min.$1', $relative );
+			if ( is_string( $min ) && $min !== $relative && is_readable( GENERAL_SLIDER_DIR . $min ) ) {
+				return $min;
+			}
+		}
+		return $relative;
 	}
 
 	/**
@@ -78,8 +100,10 @@ class Assets {
 
 		// Shortcode click-to-copy + admin styles: on the sliders list and the editor.
 		if ( in_array( $hook, array( 'edit.php', 'post.php', 'post-new.php' ), true ) ) {
-			wp_enqueue_style( 'general-slider-admin', GENERAL_SLIDER_URL . 'assets/css/admin.css', array(), GENERAL_SLIDER_VERSION );
-			wp_enqueue_script( 'general-slider-admin-copy', GENERAL_SLIDER_URL . 'assets/js/admin-copy.js', array(), GENERAL_SLIDER_VERSION, true );
+			$admin_css = self::asset( 'assets/css/admin.css' );
+			$copy_js   = self::asset( 'assets/js/admin-copy.js' );
+			wp_enqueue_style( 'general-slider-admin', GENERAL_SLIDER_URL . $admin_css, array(), self::version( $admin_css ) );
+			wp_enqueue_script( 'general-slider-admin-copy', GENERAL_SLIDER_URL . $copy_js, array(), self::version( $copy_js ), true );
 		}
 
 		// The slide editor (repeater + media picker) only.
@@ -87,8 +111,9 @@ class Assets {
 			return;
 		}
 
+		$admin_js = self::asset( 'assets/js/admin.js' );
 		wp_enqueue_media();
-		wp_enqueue_script( 'general-slider-admin', GENERAL_SLIDER_URL . 'assets/js/admin.js', array( 'jquery', 'jquery-ui-sortable' ), GENERAL_SLIDER_VERSION, true );
+		wp_enqueue_script( 'general-slider-admin', GENERAL_SLIDER_URL . $admin_js, array( 'jquery', 'jquery-ui-sortable' ), self::version( $admin_js ), true );
 		wp_localize_script(
 			'general-slider-admin',
 			'GeneralSliderAdmin',
@@ -99,6 +124,8 @@ class Assets {
 				'useVideo'    => __( 'Use this video', 'general-slider' ),
 				'removeText'  => __( 'Remove slide', 'general-slider' ),
 				'confirm'     => __( 'Remove this slide?', 'general-slider' ),
+				'sourceData'  => Dynamic_Slides::ui_data(),
+				'anyTerm'     => __( 'All', 'general-slider' ),
 			)
 		);
 	}

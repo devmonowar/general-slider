@@ -586,11 +586,48 @@
 @keyframes gs-kb { from { transform: scale(1); } to { transform: scale(1.12); } }
 
 /* ---------- Entrance animations ---------- */
-.gs-animate .gs-slide__content.gs-anim .gs-slide__sub { animation: gs-up .6s .10s both; }
-.gs-animate .gs-slide__content.gs-anim .gs-slide__title { animation: gs-up .6s .25s both; }
-.gs-animate .gs-slide__content.gs-anim .gs-slide__text { animation: gs-up .6s .40s both; }
-.gs-animate .gs-slide__content.gs-anim .gs-slide__btn { animation: gs-up .6s .55s both; }
+/* Shared stagger: each element enters a beat after the previous one. The
+   preset class (.gs-anim-*) only swaps which keyframe runs. */
+.gs-animate .gs-slide__content.gs-anim .gs-slide__sub,
+.gs-animate .gs-slide__content.gs-anim .gs-slide__title,
+.gs-animate .gs-slide__content.gs-anim .gs-slide__text,
+.gs-animate .gs-slide__content.gs-anim .gs-slide__btn { animation-duration: .6s; animation-fill-mode: both; }
+.gs-animate .gs-slide__content.gs-anim .gs-slide__sub { animation-delay: .10s; }
+.gs-animate .gs-slide__content.gs-anim .gs-slide__title { animation-delay: .25s; }
+.gs-animate .gs-slide__content.gs-anim .gs-slide__text { animation-delay: .40s; }
+.gs-animate .gs-slide__content.gs-anim .gs-slide__btn { animation-delay: .55s; }
+
+.gs-anim-fade .gs-slide__content.gs-anim .gs-slide__sub,
+.gs-anim-fade .gs-slide__content.gs-anim .gs-slide__title,
+.gs-anim-fade .gs-slide__content.gs-anim .gs-slide__text,
+.gs-anim-fade .gs-slide__content.gs-anim .gs-slide__btn { animation-name: gs-fade; }
+.gs-anim-fade-up .gs-slide__content.gs-anim .gs-slide__sub,
+.gs-anim-fade-up .gs-slide__content.gs-anim .gs-slide__title,
+.gs-anim-fade-up .gs-slide__content.gs-anim .gs-slide__text,
+.gs-anim-fade-up .gs-slide__content.gs-anim .gs-slide__btn { animation-name: gs-up; }
+.gs-anim-fade-down .gs-slide__content.gs-anim .gs-slide__sub,
+.gs-anim-fade-down .gs-slide__content.gs-anim .gs-slide__title,
+.gs-anim-fade-down .gs-slide__content.gs-anim .gs-slide__text,
+.gs-anim-fade-down .gs-slide__content.gs-anim .gs-slide__btn { animation-name: gs-down; }
+.gs-anim-slide-left .gs-slide__content.gs-anim .gs-slide__sub,
+.gs-anim-slide-left .gs-slide__content.gs-anim .gs-slide__title,
+.gs-anim-slide-left .gs-slide__content.gs-anim .gs-slide__text,
+.gs-anim-slide-left .gs-slide__content.gs-anim .gs-slide__btn { animation-name: gs-left; }
+.gs-anim-slide-right .gs-slide__content.gs-anim .gs-slide__sub,
+.gs-anim-slide-right .gs-slide__content.gs-anim .gs-slide__title,
+.gs-anim-slide-right .gs-slide__content.gs-anim .gs-slide__text,
+.gs-anim-slide-right .gs-slide__content.gs-anim .gs-slide__btn { animation-name: gs-right; }
+.gs-anim-zoom .gs-slide__content.gs-anim .gs-slide__sub,
+.gs-anim-zoom .gs-slide__content.gs-anim .gs-slide__title,
+.gs-anim-zoom .gs-slide__content.gs-anim .gs-slide__text,
+.gs-anim-zoom .gs-slide__content.gs-anim .gs-slide__btn { animation-name: gs-zoom; }
+
+@keyframes gs-fade { from { opacity: 0; } to { opacity: 1; } }
 @keyframes gs-up { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
+@keyframes gs-down { from { opacity: 0; transform: translateY(-24px); } to { opacity: 1; transform: none; } }
+@keyframes gs-left { from { opacity: 0; transform: translateX(-32px); } to { opacity: 1; transform: none; } }
+@keyframes gs-right { from { opacity: 0; transform: translateX(32px); } to { opacity: 1; transform: none; } }
+@keyframes gs-zoom { from { opacity: 0; transform: scale(.9); } to { opacity: 1; transform: none; } }
 
 /* ---------- Thumbnail navigation ---------- */
 .gs-thumbnails { margin-top: 10px; }

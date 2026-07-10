@@ -27,6 +27,14 @@ function general_slider_uninstall() {
 
 	delete_option( 'general_slider_settings' );
 	delete_option( 'general_slider_demo_installed' );
+	delete_option( 'general_slider_review' );
+	delete_option( 'general_slider_dynamic_cache_v' );
+
+	// Remove any leftover dynamic-slider slide caches (transients).
+	global $wpdb;
+	$wpdb->query( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+		"DELETE FROM {$wpdb->options} WHERE option_name LIKE '\_transient\_gs\_dyn\_%' OR option_name LIKE '\_transient\_timeout\_gs\_dyn\_%'"
+	);
 }
 
 general_slider_uninstall();

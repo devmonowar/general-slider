@@ -14,6 +14,8 @@ All filters are prefixed `general_slider_`.
 | [`general_slider_html`](#general_slider_html) | Alter the final rendered HTML |
 | [`general_slider_presets`](#general_slider_presets) | Register your own design preset |
 | [`general_slider_skins`](#general_slider_skins) | Register your own navigation & frame skin |
+| [`general_slider_dynamic_query_args`](#general_slider_dynamic_query_args) | Change the `WP_Query` for a dynamic slider |
+| [`general_slider_dynamic_slide`](#general_slider_dynamic_slide) | Map a post onto a dynamic slide |
 | [`general_slider_demo_library_url`](#general_slider_demo_library_url) | Point the Demo Library at a custom manifest |
 
 ---
@@ -132,6 +134,49 @@ add_filter( 'general_slider_skins', function ( $skins ) {
 
 // Then enqueue a stylesheet that targets `.gs-skin-brutal`
 // (e.g. `.gs-skin-brutal .splide__arrow { … }`).
+```
+
+## `general_slider_dynamic_query_args`
+
+Reshape the `WP_Query` a **dynamic** slider runs to gather its slides — filter by
+meta, add a `tax_query`, change ordering, and so on. Applies only to sliders whose
+"Slides source" is set to Dynamic.
+
+**Parameters**
+
+- `array $args` — `WP_Query` arguments (post type, status, `posts_per_page`, `orderby`, `order`, optional `tax_query`).
+- `int   $post_id` — The slider ID.
+- `array $source` — The slider's resolved source config.
+
+```php
+add_filter( 'general_slider_dynamic_query_args', function ( $args, $post_id, $source ) {
+	// Only show posts flagged as featured.
+	$args['meta_key']   = 'is_featured';
+	$args['meta_value'] = '1';
+	return $args;
+}, 10, 3 );
+```
+
+## `general_slider_dynamic_slide`
+
+Change how a single post is mapped onto a dynamic slide — override the heading,
+text, button, image or whole-slide link before the slide is rendered.
+
+**Parameters**
+
+- `array    $slide` — The slide (`image_id`, `sub_heading`, `heading`, `text`, `btn_text`, `btn_url`, `link`, …).
+- `WP_Post  $post` — The source post.
+- `array    $source` — The slider's resolved source config.
+
+```php
+add_filter( 'general_slider_dynamic_slide', function ( $slide, $post, $source ) {
+	// Use the category name as the sub-heading.
+	$cats = get_the_category( $post->ID );
+	if ( $cats ) {
+		$slide['sub_heading'] = $cats[0]->name;
+	}
+	return $slide;
+}, 10, 3 );
 ```
 
 ## `general_slider_demo_library_url`
