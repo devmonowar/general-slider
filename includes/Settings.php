@@ -246,22 +246,26 @@ class Settings {
 		<tr>
 			<th scope="row"><?php echo esc_html( $label ); ?></th>
 			<td>
-				<label><?php esc_html_e( 'Slides per view', 'general-slider' ); ?>
-					<input type="number" name="<?php echo esc_attr( $name ); ?>[per_page]" value="<?php echo isset( $bp['per_page'] ) ? esc_attr( $bp['per_page'] ) : ''; ?>" min="1" max="6" class="small-text" placeholder="<?php esc_attr_e( 'Same as desktop', 'general-slider' ); ?>" />
-				</label>
-				&nbsp; <label><?php esc_html_e( 'Gap (px)', 'general-slider' ); ?>
-					<input type="number" name="<?php echo esc_attr( $name ); ?>[gap]" value="<?php echo isset( $bp['gap'] ) ? esc_attr( $bp['gap'] ) : ''; ?>" min="0" max="100" class="small-text" placeholder="<?php esc_attr_e( 'Same as desktop', 'general-slider' ); ?>" />
-				</label>
-				&nbsp; <label><?php esc_html_e( 'Height (px)', 'general-slider' ); ?>
-					<input type="number" name="<?php echo esc_attr( $name ); ?>[height]" value="<?php echo isset( $bp['height'] ) ? esc_attr( $bp['height'] ) : ''; ?>" min="120" max="1200" class="small-text" placeholder="<?php esc_attr_e( 'Same as desktop', 'general-slider' ); ?>" /></label>
-				<br />
-				<label><input type="checkbox" name="<?php echo esc_attr( $name ); ?>[hide_content]" value="1" <?php checked( ! empty( $bp['hide_content'] ) ); ?> /> <?php esc_html_e( 'Hide text & button', 'general-slider' ); ?></label>
-				&nbsp; <label><?php esc_html_e( 'Arrows:', 'general-slider' ); ?>
-					<?php $this->inherit_select( $name . '[arrows]', $bp['arrows'] ?? null ); ?>
-				</label>
-				&nbsp; <label><?php esc_html_e( 'Dots:', 'general-slider' ); ?>
-					<?php $this->inherit_select( $name . '[dots]', $bp['dots'] ?? null ); ?>
-				</label>
+				<div style="display:flex;flex-wrap:wrap;gap:10px 20px;align-items:center;">
+					<label><?php esc_html_e( 'Slides per view', 'general-slider' ); ?>
+						<input type="number" name="<?php echo esc_attr( $name ); ?>[per_page]" value="<?php echo isset( $bp['per_page'] ) ? esc_attr( $bp['per_page'] ) : ''; ?>" min="1" max="6" class="small-text" placeholder="<?php esc_attr_e( 'Same as desktop', 'general-slider' ); ?>" />
+					</label>
+					<label><?php esc_html_e( 'Gap (px)', 'general-slider' ); ?>
+						<input type="number" name="<?php echo esc_attr( $name ); ?>[gap]" value="<?php echo isset( $bp['gap'] ) ? esc_attr( $bp['gap'] ) : ''; ?>" min="0" max="100" class="small-text" placeholder="<?php esc_attr_e( 'Same as desktop', 'general-slider' ); ?>" />
+					</label>
+					<label><?php esc_html_e( 'Height (px)', 'general-slider' ); ?>
+						<input type="number" name="<?php echo esc_attr( $name ); ?>[height]" value="<?php echo isset( $bp['height'] ) ? esc_attr( $bp['height'] ) : ''; ?>" min="120" max="1200" class="small-text" placeholder="<?php esc_attr_e( 'Same as desktop', 'general-slider' ); ?>" />
+					</label>
+				</div>
+				<div style="display:flex;flex-wrap:wrap;gap:10px 20px;align-items:center;margin-top:10px;">
+					<label><input type="checkbox" name="<?php echo esc_attr( $name ); ?>[hide_content]" value="1" <?php checked( ! empty( $bp['hide_content'] ) ); ?> /> <?php esc_html_e( 'Hide text & button', 'general-slider' ); ?></label>
+					<label><?php esc_html_e( 'Arrows:', 'general-slider' ); ?>
+						<?php $this->inherit_select( $name . '[arrows]', $bp['arrows'] ?? null ); ?>
+					</label>
+					<label><?php esc_html_e( 'Dots:', 'general-slider' ); ?>
+						<?php $this->inherit_select( $name . '[dots]', $bp['dots'] ?? null ); ?>
+					</label>
+				</div>
 			</td>
 		</tr>
 		<?php
