@@ -44,6 +44,7 @@ class Renderer {
 			'type'       => 'fade' === $settings['transition'] ? 'fade' : ( $settings['loop'] ? 'loop' : 'slide' ),
 			'autoplay'   => (bool) $settings['autoplay'],
 			'interval'   => max( 1000, absint( $settings['speed'] ) ),
+			'speed'      => min( 3000, max( 100, absint( $settings['transition_speed'] ?? 600 ) ) ),
 			'arrows'     => (bool) $settings['arrows'],
 			'pagination' => (bool) $settings['dots'],
 			'perPage'    => $per_page,

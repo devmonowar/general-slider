@@ -122,6 +122,13 @@ class Settings {
 						</td>
 					</tr>
 					<tr>
+						<th scope="row"><label for="gs-transition-speed"><?php esc_html_e( 'Transition speed (ms)', 'general-slider' ); ?></label></th>
+						<td>
+							<input type="number" id="gs-transition-speed" name="<?php echo esc_attr( Data::OPTION_KEY ); ?>[transition_speed]" value="<?php echo esc_attr( $s['transition_speed'] ?? 600 ); ?>" min="100" max="3000" step="50" class="small-text" />
+							<p class="description"><?php esc_html_e( 'How long one slide takes to change. Lower = snappier.', 'general-slider' ); ?></p>
+						</td>
+					</tr>
+					<tr>
 						<th scope="row"><?php esc_html_e( 'Autoplay', 'general-slider' ); ?></th>
 						<td><label><input type="checkbox" name="<?php echo esc_attr( Data::OPTION_KEY ); ?>[autoplay]" value="1" <?php checked( $s['autoplay'] ); ?> /> <?php esc_html_e( 'Play slides automatically', 'general-slider' ); ?></label></td>
 					</tr>

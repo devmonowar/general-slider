@@ -29,7 +29,7 @@
 			pauseOnFocus: true,
 			arrows: opts.arrows !== false,
 			pagination: opts.pagination !== false,
-			speed: reduceMotion ? 0 : 600,
+			speed: reduceMotion ? 0 : ( opts.speed || 600 ),
 			drag: true,
 			keyboard: 'focused',
 			breakpoints: opts.breakpoints || {

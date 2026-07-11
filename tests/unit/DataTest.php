@@ -60,6 +60,13 @@ class DataTest extends TestCase {
 		$this->assertSame( 100, $s['gap'] );
 	}
 
+	public function test_transition_speed_default_and_clamp() {
+		$this->assertSame( 600, Data::sanitize_settings( array() )['transition_speed'] );
+		$this->assertSame( 100, Data::sanitize_settings( array( 'transition_speed' => 10 ) )['transition_speed'] );
+		$this->assertSame( 3000, Data::sanitize_settings( array( 'transition_speed' => 99999 ) )['transition_speed'] );
+		$this->assertSame( 450, Data::sanitize_settings( array( 'transition_speed' => 450 ) )['transition_speed'] );
+	}
+
 	public function test_accent_colour_validated() {
 		$this->assertSame( '#abcdef', Data::sanitize_settings( array( 'accent' => '#abcdef' ) )['accent'] );
 		$this->assertSame( '#2196f3', Data::sanitize_settings( array( 'accent' => 'red' ) )['accent'] );

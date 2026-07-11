@@ -4,7 +4,7 @@ Tags: slider, carousel, elementor, testimonial, slideshow
 Requires at least: 6.0
 Tested up to: 7.0.1
 Requires PHP: 7.4
-Stable tag: 2.3.7
+Stable tag: 2.3.8
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -142,6 +142,14 @@ Yes. It works with both block (FSE) themes and classic themes. Slide text inheri
 
 Yes. Sliders are fully responsive, and multi-slide carousels automatically reduce the number of slides on tablets and phones. You can also set device-specific values: open the slider's "Responsive" settings to give tablet and mobile their own slides-per-view, gap, height, arrows, dots, or hide the slide text on small screens.
 
+= How do I change the slider height? =
+
+Each slider has a "Slide height (px)" setting in its settings box — set the height you want. You can also give tablet and mobile their own heights in the "Responsive" settings, so the slider fits every screen.
+
+= Can I change the slide transition speed? =
+
+Yes. In the slider's settings box, set "Transition speed (ms)" to control how quickly one slide changes into the next — lower is snappier, higher is more gradual. This is separate from "Autoplay speed", which is how long each slide stays before advancing.
+
 = Can I build a slider from my posts or products automatically? =
 
 Yes. In the Slides box, switch "Slides source" to **Pull slides from posts (dynamic)** and choose a content type — posts, pages or, if WooCommerce is active, products. The slider builds itself from your latest content (featured image, title, excerpt and link) and refreshes automatically when you publish or edit content. Every preset, skin and effect works with dynamic sliders too.
@@ -225,6 +233,10 @@ These are plain, read-only requests for files. No personal data is collected or 
 10. Background video slides — muted, looped video behind your content (animated).
 
 == Changelog ==
+
+= 2.3.8 =
+* New: a "Transition speed" control — set how quickly one slide changes into the next, separately from the autoplay wait time.
+* Improved: tidier layout for the tablet and mobile options on the Settings screen.
 
 = 2.3.7 =
 * New: dynamic sliders — build a slider automatically from your posts, pages or WooCommerce products. Switch "Slides source" to Dynamic, pick a content type, and slides are generated from the featured image, title, excerpt and link, refreshing as you publish. Every preset, skin and effect still applies. Developers can reshape it with the `general_slider_dynamic_query_args` and `general_slider_dynamic_slide` filters.

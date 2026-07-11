@@ -255,6 +255,11 @@ class Slides_Meta {
 			</select>
 		</p>
 		<p>
+			<label for="gs-transition-speed"><?php esc_html_e( 'Transition speed (ms)', 'general-slider' ); ?></label>
+			<input type="number" id="gs-transition-speed" name="gs_settings[transition_speed]" value="<?php echo esc_attr( $s['transition_speed'] ?? 600 ); ?>" min="100" max="3000" step="50" style="width:100%" />
+			<span class="description"><?php esc_html_e( 'How long one slide takes to change. Lower = snappier.', 'general-slider' ); ?></span>
+		</p>
+		<p>
 			<label><input type="checkbox" name="gs_settings[autoplay]" value="1" <?php checked( $s['autoplay'] ); ?> /> <?php esc_html_e( 'Autoplay', 'general-slider' ); ?></label>
 		</p>
 		<p>
