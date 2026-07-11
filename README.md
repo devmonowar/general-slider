@@ -12,15 +12,17 @@ Built on the lightweight [Splide](https://splidejs.com/) engine — **no jQuery*
 
 ## Features
 
-- Reusable sliders — build once, use anywhere
+- Reusable sliders — build slides manually, or **dynamically from your posts, pages or WooCommerce products**
 - Gutenberg block, shortcode and **Elementor** widget
 - Five design presets — Hero, Split, Minimal, Testimonial, Fullscreen
 - Navigation & frame skins — Classic, Soft, Stories, Stories Progress, Numbers, Vertical, Corner, Neon, Minimal, Pill, Outline, Retro, Glass, Dark — any skin with any preset
 - Per-slide image **or background video** (self-hosted MP4/WebM, YouTube or Vimeo)
-- Multiple slides per view (carousel), thumbnail navigation, Ken Burns zoom and text animations
-- Per-slider settings: autoplay (+ pause button), loop, arrows, dots, slide/fade, height, overlay (solid or gradient), image fit/focus and accent colour
+- **Text entrance animations** (fade, fade up/down, slide, zoom — staggered) and Ken Burns zoom
+- **Device-specific settings** — different slides-per-view, gap, height, arrows, dots or hidden text for tablet and mobile
+- Multiple slides per view (carousel) with thumbnail navigation
+- Per-slider settings: autoplay (+ pause button), loop, arrows, dots, slide/fade, **transition speed**, height, overlay (solid or gradient), image fit/focus and accent colour
 - Custom CSS, categories, duplicate and JSON import / export
-- **Demo Library** — one-click ready-made sliders (a starter demo ships with the plugin)
+- **Demo Library** — one-click ready-made sliders (a starter demo ships with the plugin); start a new slider from a demo
 - Responsive, **accessible** (keyboard + screen reader, pause control), respects reduced-motion
 - Performance friendly: lazy-loaded images, viewport lazy-init, RTL ready
 
@@ -71,9 +73,17 @@ add_filter( 'general_slider_presets', function ( $presets ) { return $presets; }
 // Register your own navigation & frame skin (also provide a `.gs-skin-{key}` stylesheet).
 add_filter( 'general_slider_skins', function ( $skins ) { return $skins; } );
 
+// Reshape the WP_Query a dynamic slider runs.
+add_filter( 'general_slider_dynamic_query_args', function ( $args, $post_id, $source ) { return $args; }, 10, 3 );
+
+// Change how a post maps onto a dynamic slide.
+add_filter( 'general_slider_dynamic_slide', function ( $slide, $post, $source ) { return $slide; }, 10, 3 );
+
 // Point the Demo Library at a different manifest (dev / staging).
 add_filter( 'general_slider_demo_library_url', function ( $url ) { return $url; } );
 ```
+
+See [`docs/hooks.md`](docs/hooks.md) for the full hook reference with examples.
 
 ## Screenshots
 
@@ -83,7 +93,7 @@ add_filter( 'general_slider_demo_library_url', function ( $url ) { return $url; 
 
 ## Development
 
-This is the development repository. The released plugin lives on [WordPress.org](https://wordpress.org/plugins/general-slider/). Front-end assets ship un-minified; the only bundled third-party library is Splide (`assets/vendor/splide`, MIT).
+This is the development repository. The released plugin lives on [WordPress.org](https://wordpress.org/plugins/general-slider/). Front-end and admin CSS/JS ship minified (the un-minified sources load when `SCRIPT_DEBUG` is on); the only bundled third-party library is Splide (`assets/vendor/splide`, MIT). Quality gates run in CI — PHP lint, PHPCS, PHPStan and PHPUnit.
 
 ## License
 
