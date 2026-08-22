@@ -2,9 +2,9 @@
 Contributors: kstmonowar, ksthannan
 Tags: slider, carousel, elementor, testimonial, slideshow
 Requires at least: 6.0
-Tested up to: 7.0.1
+Tested up to: 7.0.4
 Requires PHP: 7.4
-Stable tag: 2.3.8
+Stable tag: 2.3.10
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -16,7 +16,7 @@ General Slider is a fast, modern slider for WordPress. Create a slider once, the
 
 Use it as a hero slider, image carousel, testimonial slider, logo carousel, product showcase or fullscreen banner, in the block editor, with a shortcode, or as an Elementor widget — on any block or classic theme. It's ideal for WooCommerce product sliders, Full Site Editing layouts, portfolios and landing pages.
 
-**[Browse the demo gallery](https://devmonowar.github.io/wp-plugin-demo-library/general-slider/)** — see every ready-made slider you can import in one click · **[Development on GitHub](https://github.com/devmonowar/general-slider)** — report issues or contribute.
+**[Browse the demo gallery](https://devmonowar.github.io/wp-plugin-demo-library/general-slider/)** — see every ready-made slider you can import in one click · **[Read the full guide](https://devmonowar.github.io/blog/general-slider-fast-accessible-wordpress-slider/)** — setting up a slider, the block and shortcode options, and how the assets stay off pages that have no slider · **[Development on GitHub](https://github.com/devmonowar/general-slider)** — report issues or contribute.
 
 = Why General Slider? =
 
@@ -233,6 +233,13 @@ These are plain, read-only requests for files. No personal data is collected or 
 10. Background video slides — muted, looped video behind your content (animated).
 
 == Changelog ==
+
+= 2.3.10 =
+* Fixed: the author link on the Plugins screen led back to this plugin's own directory page. It now opens devmonowar.github.io.
+* Added: a link to the full guide in the plugin description.
+
+= 2.3.9 =
+* Tested up to WordPress 7.0.4.
 
 = 2.3.8 =
 * New: a "Transition speed" control — set how quickly one slide changes into the next, separately from the autoplay wait time.
