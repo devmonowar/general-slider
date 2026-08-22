@@ -2,7 +2,7 @@
 Contributors: kstmonowar, ksthannan
 Tags: slider, carousel, elementor, testimonial, slideshow
 Requires at least: 6.0
-Tested up to: 7.0.4
+Tested up to: 7.1
 Requires PHP: 7.4
 Stable tag: 2.3.10
 License: GPLv2 or later
