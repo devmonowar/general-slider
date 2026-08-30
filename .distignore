@@ -3,6 +3,7 @@
 /.github
 /.wordpress-org
 /node_modules
+/build
 /.gitignore
 /.gitattributes
 /.distignore
@@ -11,6 +12,7 @@
 /phpcs.xml.dist
 /phpstan.neon.dist
 /phpunit.xml.dist
+/.phpunit.result.cache
 /tests
 /vendor
 /README.md
