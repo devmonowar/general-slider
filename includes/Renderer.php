@@ -15,6 +15,16 @@ defined( 'ABSPATH' ) || exit;
 class Renderer {
 
 	/**
+	 * How many times each slider has already been rendered on this request.
+	 *
+	 * A slider can appear twice on one page (two shortcodes, or a shortcode plus
+	 * the block); the counter keeps every element ID unique.
+	 *
+	 * @var array<int,int>
+	 */
+	private static $instances = array();
+
+	/**
 	 * Render a slider.
 	 *
 	 * @param int   $post_id   Slider post ID.
@@ -88,28 +98,47 @@ class Renderer {
 		$focus  = array_key_exists( $settings['focus'], Data::focus_positions() ) ? $settings['focus'] : 'center';
 		$fit    = array_key_exists( $settings['fit'], Data::image_fits() ) ? $settings['fit'] : 'cover';
 		$accent = sanitize_hex_color( $settings['accent'] ) ? sanitize_hex_color( $settings['accent'] ) : '#2196f3';
-		$style  = sprintf(
-			'--gs-overlay:%s;--gs-min-h:%dpx;--gs-focus:%s;--gs-fit:%s;--gs-accent:%s;--gs-interval:%dms;',
+
+		// Only the first instance of a slider keeps the plain "gs-slider-{id}"
+		// element ID, so existing custom CSS and anchors stay valid; a second
+		// embed of the same slider is suffixed to keep every ID unique.
+		self::$instances[ $post_id ] = isset( self::$instances[ $post_id ] ) ? self::$instances[ $post_id ] + 1 : 1;
+		$instance                    = self::$instances[ $post_id ];
+		$uid                         = $instance > 1 ? $post_id . '-' . $instance : (string) $post_id;
+
+		// A per-breakpoint height cannot override an inline custom property, so
+		// when one is set the base height moves into the <style> block beside it.
+		$base_height    = max( 120, absint( $settings['height'] ) );
+		$bp_height      = self::has_breakpoint_height( $responsive );
+		$responsive_css = self::responsive_css( $uid, $responsive, $bp_height ? $base_height : 0 );
+
+		$style = sprintf(
+			'--gs-overlay:%s;--gs-focus:%s;--gs-fit:%s;--gs-accent:%s;--gs-interval:%dms;',
 			round( min( 100, absint( $settings['overlay'] ) ) / 100, 2 ),
-			max( 120, absint( $settings['height'] ) ),
 			$focus,
 			$fit,
 			$accent,
 			max( 1000, absint( $settings['speed'] ) )
 		);
+		if ( ! $bp_height ) {
+			$style = sprintf( '--gs-min-h:%dpx;', $base_height ) . $style;
+		}
 
-		$custom_css     = (string) get_post_meta( $post_id, Data::META_CSS, true );
-		$responsive_css = self::responsive_css( $post_id, $responsive );
+		$custom_css = (string) get_post_meta( $post_id, Data::META_CSS, true );
+		if ( $instance > 1 && '' !== $custom_css ) {
+			// Re-scope this slider's own CSS onto the second instance's ID.
+			$custom_css = (string) preg_replace( '/#gs-slider-' . $post_id . '(?!\d)/', '#gs-slider-' . $uid, $custom_css );
+		}
 
 		ob_start();
 		?>
 		<?php if ( '' !== trim( $custom_css ) ) : ?>
-		<style id="gs-slider-css-<?php echo (int) $post_id; ?>"><?php echo Tools::clean_css( $custom_css ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></style>
+		<style id="gs-slider-css-<?php echo esc_attr( $uid ); ?>"><?php echo Tools::clean_css( $custom_css ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></style>
 		<?php endif; ?>
 		<?php if ( '' !== $responsive_css ) : ?>
-		<style id="gs-slider-responsive-<?php echo (int) $post_id; ?>"><?php echo $responsive_css; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></style>
+		<style id="gs-slider-responsive-<?php echo esc_attr( $uid ); ?>"><?php echo $responsive_css; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></style>
 		<?php endif; ?>
-		<div id="gs-slider-<?php echo (int) $post_id; ?>" class="<?php echo esc_attr( $classes ); ?>" style="<?php echo esc_attr( $style ); ?>" role="region" aria-roledescription="carousel" aria-label="<?php echo esc_attr( get_the_title( $post_id ) ); ?>" data-gs="<?php echo esc_attr( wp_json_encode( $config ) ); ?>">
+		<div id="gs-slider-<?php echo esc_attr( $uid ); ?>" class="<?php echo esc_attr( $classes ); ?>" style="<?php echo esc_attr( $style ); ?>" role="region" aria-roledescription="carousel" aria-label="<?php echo esc_attr( get_the_title( $post_id ) ); ?>" data-gs="<?php echo esc_attr( wp_json_encode( $config ) ); ?>">
 			<div class="splide__track">
 				<ul class="splide__list">
 					<?php foreach ( $slides as $gs_index => $slide ) : ?>
@@ -246,26 +275,46 @@ class Renderer {
 	 * Build the scoped `<style>` rules for per-breakpoint height and
 	 * "hide content" overrides — things Splide's JS options can't express.
 	 *
-	 * @param int   $post_id    Slider ID.
-	 * @param array $responsive Resolved responsive settings (tablet/mobile).
+	 * @param string $uid         Element ID of this slider instance.
+	 * @param array  $responsive  Resolved responsive settings (tablet/mobile).
+	 * @param int    $base_height Base height to emit alongside the overrides, or 0 to leave it inline.
 	 * @return string CSS (without the wrapping <style> tag), or '' if nothing to output.
 	 */
-	private static function responsive_css( $post_id, $responsive ) {
+	private static function responsive_css( $uid, $responsive, $base_height = 0 ) {
 		$css = '';
+		if ( $base_height ) {
+			$css .= sprintf( '#gs-slider-%s{--gs-min-h:%dpx}', $uid, absint( $base_height ) );
+		}
 		foreach ( self::BREAKPOINTS as $bp_px => $bp_key ) {
 			$bp    = is_array( $responsive[ $bp_key ] ?? null ) ? $responsive[ $bp_key ] : array();
 			$rules = '';
 			if ( isset( $bp['height'] ) ) {
-				$rules .= sprintf( '#gs-slider-%d{--gs-min-h:%dpx}', $post_id, absint( $bp['height'] ) );
+				$rules .= sprintf( '#gs-slider-%s{--gs-min-h:%dpx}', $uid, absint( $bp['height'] ) );
 			}
 			if ( ! empty( $bp['hide_content'] ) ) {
-				$rules .= sprintf( '#gs-slider-%d .gs-slide__content{display:none}', $post_id );
+				$rules .= sprintf( '#gs-slider-%s .gs-slide__content{display:none}', $uid );
 			}
 			if ( '' !== $rules ) {
 				$css .= '@media (max-width:' . absint( $bp_px ) . 'px){' . $rules . '}';
 			}
 		}
 		return $css;
+	}
+
+	/**
+	 * Whether any breakpoint overrides the slider height.
+	 *
+	 * @param array $responsive Resolved responsive settings (tablet/mobile).
+	 * @return bool
+	 */
+	private static function has_breakpoint_height( $responsive ) {
+		foreach ( self::BREAKPOINTS as $bp_key ) {
+			$bp = is_array( $responsive[ $bp_key ] ?? null ) ? $responsive[ $bp_key ] : array();
+			if ( isset( $bp['height'] ) ) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	/**
@@ -283,7 +332,7 @@ class Renderer {
 			}
 			// Self-hosted file.
 			$poster = ! empty( $slide['image_id'] ) ? wp_get_attachment_image_url( $slide['image_id'], 'full' ) : '';
-			$type   = ( false !== strpos( strtolower( $slide['video'] ), '.webm' ) ) ? 'video/webm' : 'video/mp4';
+			$type   = ( '.webm' === strtolower( substr( (string) wp_parse_url( $slide['video'], PHP_URL_PATH ), -5 ) ) ) ? 'video/webm' : 'video/mp4';
 			$html   = '<div class="gs-slide__media"><video class="gs-slide__video" autoplay muted loop playsinline preload="metadata" aria-hidden="true"';
 			$html  .= $poster ? ' poster="' . esc_url( $poster ) . '"' : '';
 			$html  .= '><source src="' . esc_url( $slide['video'] ) . '" type="' . esc_attr( $type ) . '"></video></div>';

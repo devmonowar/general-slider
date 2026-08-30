@@ -27,6 +27,9 @@ class Demo_Library {
 	/** admin-post action for importing a demo package (.zip) exported with "Export Slider". */
 	const ZIP_ACTION = 'gs_demo_import_zip';
 
+	/** Largest single entry read out of an uploaded .zip, in bytes (10 MB). */
+	const MAX_ZIP_ENTRY = 10485760;
+
 	/**
 	 * Register hooks.
 	 */
@@ -649,8 +652,12 @@ class Demo_Library {
 		$data  = null;
 		$count = $zip->count();
 		for ( $i = 0; $i < $count; $i++ ) {
-			$name = $zip->getNameIndex( $i );
+			$name = (string) $zip->getNameIndex( $i );
 			if ( '.json' !== substr( $name, -5 ) || 'manifest-entry.json' === basename( $name ) ) {
+				continue;
+			}
+			$stat = $zip->statIndex( $i );
+			if ( ! is_array( $stat ) || $stat['size'] > self::MAX_ZIP_ENTRY ) {
 				continue;
 			}
 			$decoded = json_decode( $zip->getFromIndex( $i ), true );
@@ -676,8 +683,15 @@ class Demo_Library {
 				if ( empty( $raw['image_url'] ) ) {
 					return 0;
 				}
-				$base  = basename( (string) wp_parse_url( $raw['image_url'], PHP_URL_PATH ) );
-				$bytes = $base ? $zip->getFromName( 'assets/images/' . $base ) : false;
+				$base = basename( (string) wp_parse_url( $raw['image_url'], PHP_URL_PATH ) );
+				if ( ! $base ) {
+					return 0;
+				}
+				$stat = $zip->statName( 'assets/images/' . $base );
+				if ( ! is_array( $stat ) || $stat['size'] > self::MAX_ZIP_ENTRY ) {
+					return 0;
+				}
+				$bytes = $zip->getFromName( 'assets/images/' . $base );
 				return ( false !== $bytes ) ? self::sideload_bytes( $bytes, $base, $pid ) : 0;
 			}
 		);

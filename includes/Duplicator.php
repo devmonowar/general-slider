@@ -32,7 +32,7 @@ class Duplicator {
 	 * @return array
 	 */
 	public function row_action( $actions, $post ) {
-		if ( Post_Type::SLUG === $post->post_type && current_user_can( 'edit_posts' ) ) {
+		if ( Post_Type::SLUG === $post->post_type && current_user_can( 'edit_post', $post->ID ) ) {
 			$url                     = wp_nonce_url(
 				admin_url( 'admin.php?action=' . self::ACTION . '&post=' . $post->ID ),
 				self::ACTION . '_' . $post->ID
@@ -50,7 +50,7 @@ class Duplicator {
 		check_admin_referer( self::ACTION . '_' . $id );
 
 		$post = $id ? get_post( $id ) : null;
-		if ( ! $post || Post_Type::SLUG !== $post->post_type || ! current_user_can( 'edit_posts' ) ) {
+		if ( ! $post || Post_Type::SLUG !== $post->post_type || ! current_user_can( 'edit_post', $id ) ) {
 			wp_die( esc_html__( 'You are not allowed to do this.', 'general-slider' ) );
 		}
 

@@ -4,7 +4,7 @@ Tags: slider, carousel, elementor, testimonial, slideshow
 Requires at least: 6.0
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 2.3.10
+Stable tag: 2.3.11
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -233,6 +233,15 @@ These are plain, read-only requests for files. No personal data is collected or 
 10. Background video slides — muted, looped video behind your content (animated).
 
 == Changelog ==
+
+= 2.3.11 =
+* Fixed: the tablet and mobile height settings had no effect — sliders always used the desktop height.
+* Fixed: showing the same slider twice on one page created duplicate element IDs, and the second copy lost its custom CSS.
+* Fixed: the Duplicate link now checks permission for that specific slider rather than a generic one.
+* Fixed: uninstalling now also removes trashed sliders and slider categories, and on multisite it cleans every site.
+* Improved: the block editor's slider list is no longer built on front-end requests, and the sliders screen no longer runs a query per row.
+* Improved: a video URL with ".webm" in its query string is no longer served as WebM.
+* Improved: entries inside an imported .zip are size-checked before being read.
 
 = 2.3.10 =
 * Fixed: the author link on the Plugins screen led back to this plugin's own directory page. It now opens devmonowar.github.io.

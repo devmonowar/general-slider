@@ -173,7 +173,10 @@ class Dynamic_Slides {
 		);
 
 		if ( ! empty( $source['taxonomy'] ) && ! empty( $source['term'] ) && taxonomy_exists( $source['taxonomy'] ) ) {
-			$args['tax_query'] = array(
+			// One taxonomy and one term_id — no slug lookup — over at most 20 posts
+			// with no_found_rows, and get() caches the whole result for six hours,
+			// so this runs on a cache miss only.
+			$args['tax_query'] = array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query -- bounded and cached, see above.
 				array(
 					'taxonomy' => $source['taxonomy'],
 					'field'    => 'term_id',

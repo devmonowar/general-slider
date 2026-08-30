@@ -19,6 +19,7 @@ class Block {
 	 */
 	public function hooks() {
 		add_action( 'init', array( $this, 'register' ) );
+		add_action( 'enqueue_block_editor_assets', array( $this, 'editor_data' ) );
 	}
 
 	/**
@@ -34,12 +35,6 @@ class Block {
 		);
 		wp_register_style( 'general-slider-block-editor', GENERAL_SLIDER_URL . 'block/editor.css', array(), GENERAL_SLIDER_VERSION );
 
-		wp_localize_script(
-			'general-slider-block-editor',
-			'GeneralSliderBlock',
-			array( 'sliders' => Data::get_slider_choices() )
-		);
-
 		if ( function_exists( 'wp_set_script_translations' ) ) {
 			wp_set_script_translations( 'general-slider-block-editor', 'general-slider', GENERAL_SLIDER_DIR . 'languages' );
 		}
@@ -47,6 +42,19 @@ class Block {
 		register_block_type(
 			GENERAL_SLIDER_DIR . 'block',
 			array( 'render_callback' => array( $this, 'render' ) )
+		);
+	}
+
+	/**
+	 * Hand the list of sliders to the block editor.
+	 *
+	 * Kept off `init` so the query never runs on a front-end request.
+	 */
+	public function editor_data() {
+		wp_localize_script(
+			'general-slider-block-editor',
+			'GeneralSliderBlock',
+			array( 'sliders' => Data::get_slider_choices() )
 		);
 	}
 

@@ -35,7 +35,7 @@
 			var att = frame.state().get( 'selection' ).first().toJSON();
 			var url = att.sizes && att.sizes.medium ? att.sizes.medium.url : att.url;
 			$row.find( '.gs-image-id' ).val( att.id );
-			$row.find( '.gs-slide-row__preview' ).html( '<img class="gs-slide-row__img" src="' + url + '" alt="" />' );
+			$row.find( '.gs-slide-row__preview' ).html( $( '<img/>', { 'class': 'gs-slide-row__img', src: url, alt: '' } ) );
 			$row.find( '.gs-remove-image' ).show();
 		} );
 

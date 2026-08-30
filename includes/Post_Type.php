@@ -51,7 +51,15 @@ class Post_Type {
 	 */
 	public function column_content( $column, $post_id ) {
 		if ( 'gs_slides' === $column ) {
-			echo (int) count( Data::get_slides( $post_id ) );
+			// Read the stored slides straight from meta: resolving them would run
+			// one WP_Query per dynamic slider just to fill in this column.
+			$settings = Data::get_settings( $post_id );
+			if ( 'dynamic' === ( $settings['source']['type'] ?? '' ) ) {
+				esc_html_e( 'Dynamic', 'general-slider' );
+			} else {
+				$stored = get_post_meta( $post_id, Data::META_SLIDES, true );
+				echo (int) ( is_array( $stored ) ? count( $stored ) : 0 );
+			}
 		} elseif ( 'gs_shortcode' === $column ) {
 			printf(
 				'<input type="text" class="gs-shortcode-copy" readonly onclick="this.select()" title="%1$s" data-copied="%2$s" value="%3$s" style="width:200px;max-width:100%%" />',

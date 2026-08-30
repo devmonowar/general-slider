@@ -1,15 +1,15 @@
-# Copyright (C) 2026 Monowar
+# Copyright (C) 2026 Monowar Hossain
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: General Slider 2.3.6\n"
+"Project-Id-Version: General Slider 2.3.11\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/general-slider\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-07-08T20:33:45+02:00\n"
+"POT-Creation-Date: 2026-08-30T18:09:55+02:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: general-slider\n"
@@ -17,12 +17,11 @@ msgstr ""
 #. Plugin Name of the plugin
 #: general-slider.php
 #: includes/Elementor_Widget.php:35
-#: includes/Post_Type.php:86
+#: includes/Post_Type.php:94
 msgid "General Slider"
 msgstr ""
 
 #. Plugin URI of the plugin
-#. Author URI of the plugin
 #: general-slider.php
 msgid "https://wordpress.org/plugins/general-slider/"
 msgstr ""
@@ -34,36 +33,45 @@ msgstr ""
 
 #. Author of the plugin
 #: general-slider.php
-msgid "Monowar"
+msgid "Monowar Hossain"
 msgstr ""
 
-#: includes/Assets.php:96
-#: includes/Slides_Meta.php:84
+#. Author URI of the plugin
+#: general-slider.php
+msgid "https://devmonowar.github.io/"
+msgstr ""
+
+#: includes/Assets.php:121
+#: includes/Slides_Meta.php:180
 msgid "Choose image"
 msgstr ""
 
-#: includes/Assets.php:97
+#: includes/Assets.php:122
 msgid "Use this image"
 msgstr ""
 
-#: includes/Assets.php:98
+#: includes/Assets.php:123
 msgid "Choose video"
 msgstr ""
 
-#: includes/Assets.php:99
+#: includes/Assets.php:124
 msgid "Use this video"
 msgstr ""
 
-#: includes/Assets.php:100
-#: includes/Slides_Meta.php:123
+#: includes/Assets.php:125
+#: includes/Slides_Meta.php:219
 msgid "Remove slide"
 msgstr ""
 
-#: includes/Assets.php:101
+#: includes/Assets.php:126
 msgid "Remove this slide?"
 msgstr ""
 
-#: includes/Block.php:63
+#: includes/Assets.php:128
+msgid "All"
+msgstr ""
+
+#: includes/Block.php:71
 msgid "General Slider: choose a slider in the block settings."
 msgstr ""
 
@@ -143,40 +151,84 @@ msgstr ""
 msgid "Dark"
 msgstr ""
 
-#: includes/Data.php:92
+#: includes/Data.php:95
+msgid "None"
+msgstr ""
+
+#: includes/Data.php:96
+msgid "Fade in"
+msgstr ""
+
+#: includes/Data.php:97
+msgid "Fade up"
+msgstr ""
+
+#: includes/Data.php:98
+msgid "Fade down"
+msgstr ""
+
+#: includes/Data.php:99
+msgid "Slide from left"
+msgstr ""
+
+#: includes/Data.php:100
+msgid "Slide from right"
+msgstr ""
+
+#: includes/Data.php:101
+msgid "Zoom in"
+msgstr ""
+
+#: includes/Data.php:128
 msgid "Slide"
 msgstr ""
 
-#: includes/Data.php:93
+#: includes/Data.php:129
 msgid "Fade"
 msgstr ""
 
-#: includes/Data.php:104
+#: includes/Data.php:140
 msgid "Center"
 msgstr ""
 
-#: includes/Data.php:105
+#: includes/Data.php:141
 msgid "Top"
 msgstr ""
 
-#: includes/Data.php:106
+#: includes/Data.php:142
 msgid "Bottom"
 msgstr ""
 
-#: includes/Data.php:117
+#: includes/Data.php:153
 msgid "Cover (fill the slide)"
 msgstr ""
 
-#: includes/Data.php:118
+#: includes/Data.php:154
 msgid "Contain (show whole image)"
 msgstr ""
 
-#: includes/Data.php:129
+#: includes/Data.php:165
 msgid "Solid"
 msgstr ""
 
-#: includes/Data.php:130
+#: includes/Data.php:166
 msgid "Gradient"
+msgstr ""
+
+#: includes/Data.php:233
+msgid "Date"
+msgstr ""
+
+#: includes/Data.php:234
+msgid "Title"
+msgstr ""
+
+#: includes/Data.php:235
+msgid "Menu order"
+msgstr ""
+
+#: includes/Data.php:236
+msgid "Random"
 msgstr ""
 
 #: includes/Demo_Export.php:45
@@ -193,8 +245,8 @@ msgstr ""
 
 #: includes/Demo_Export.php:91
 #: includes/Demo_Importer.php:45
-#: includes/Demo_Library.php:314
-#: includes/Demo_Library.php:594
+#: includes/Demo_Library.php:317
+#: includes/Demo_Library.php:611
 #: includes/Duplicator.php:54
 #: includes/Tools.php:59
 #: includes/Tools.php:98
@@ -205,7 +257,7 @@ msgstr ""
 msgid "Export Slider needs the PHP Zip extension, which is not available on this server."
 msgstr ""
 
-#: includes/Demo_Export.php:185
+#: includes/Demo_Export.php:190
 msgid "Could not create the demo ZIP."
 msgstr ""
 
@@ -221,97 +273,97 @@ msgstr ""
 msgid "Could not create the demo slider."
 msgstr ""
 
-#: includes/Demo_Library.php:46
-#: includes/Demo_Library.php:47
-#: includes/Demo_Library.php:172
+#: includes/Demo_Library.php:49
+#: includes/Demo_Library.php:50
+#: includes/Demo_Library.php:175
 msgid "Demo Library"
 msgstr ""
 
-#: includes/Demo_Library.php:99
+#: includes/Demo_Library.php:102
 msgid "The demo library could not be reached."
 msgstr ""
 
-#: includes/Demo_Library.php:120
+#: includes/Demo_Library.php:123
 msgid "The demo library response was not valid."
 msgstr ""
 
-#: includes/Demo_Library.php:123
+#: includes/Demo_Library.php:126
 msgid "The demo library is for a different plugin."
 msgstr ""
 
-#: includes/Demo_Library.php:151
+#: includes/Demo_Library.php:154
 msgid "The demo library is empty right now."
 msgstr ""
 
-#: includes/Demo_Library.php:173
+#: includes/Demo_Library.php:176
 msgid "Refresh"
 msgstr ""
 
-#: includes/Demo_Library.php:175
+#: includes/Demo_Library.php:178
 msgid "Import a ready-made slider with one click. Images are downloaded into your Media Library automatically."
 msgstr ""
 
-#: includes/Demo_Library.php:179
+#: includes/Demo_Library.php:182
 msgid "Unable to load the online demo library."
 msgstr ""
 
-#: includes/Demo_Library.php:181
+#: includes/Demo_Library.php:184
 msgid "You can still import the bundled starter demo below."
 msgstr ""
 
-#: includes/Demo_Library.php:196
+#: includes/Demo_Library.php:199
 msgid "Import a demo package"
 msgstr ""
 
-#: includes/Demo_Library.php:197
+#: includes/Demo_Library.php:200
 msgid "Have a .zip exported with \"Export Slider\"? Import it here — its images are included."
 msgstr ""
 
-#: includes/Demo_Library.php:202
+#: includes/Demo_Library.php:205
 msgid "Import package"
 msgstr ""
 
-#: includes/Demo_Library.php:223
+#: includes/Demo_Library.php:226
 msgid "Featured"
 msgstr ""
 
-#: includes/Demo_Library.php:225
+#: includes/Demo_Library.php:228
 msgid "New"
 msgstr ""
 
-#: includes/Demo_Library.php:243
 #: includes/Demo_Library.php:246
-#: includes/Demo_Library.php:288
+#: includes/Demo_Library.php:249
+#: includes/Demo_Library.php:291
 msgid "Import Demo"
 msgstr ""
 
 #. translators: %s: required plugin version.
-#: includes/Demo_Library.php:250
+#: includes/Demo_Library.php:253
 #, php-format
 msgid "Requires General Slider %s+"
 msgstr ""
 
-#: includes/Demo_Library.php:252
+#: includes/Demo_Library.php:255
 msgid "Update Needed"
 msgstr ""
 
-#: includes/Demo_Library.php:268
+#: includes/Demo_Library.php:271
 msgid "Starter demo"
 msgstr ""
 
-#: includes/Demo_Library.php:275
+#: includes/Demo_Library.php:278
 msgid "Starter"
 msgstr ""
 
-#: includes/Demo_Library.php:361
+#: includes/Demo_Library.php:373
 msgid "Imported demo"
 msgstr ""
 
-#: includes/Demo_Library.php:718
+#: includes/Demo_Library.php:748
 msgid "Demo imported. Review it below, then publish and embed it with the block or shortcode."
 msgstr ""
 
-#: includes/Demo_Library.php:720
+#: includes/Demo_Library.php:750
 msgid "Sorry, that demo could not be imported. Please try again."
 msgstr ""
 
@@ -326,7 +378,7 @@ msgid "%s (copy)"
 msgstr ""
 
 #: includes/Elementor_Widget.php:71
-#: includes/Post_Type.php:71
+#: includes/Post_Type.php:79
 #: block/editor.js:27
 msgid "Slider"
 msgstr ""
@@ -355,80 +407,118 @@ msgid "Slides"
 msgstr ""
 
 #: includes/Post_Type.php:58
-#: includes/Slides_Meta.php:246
+msgid "Dynamic"
+msgstr ""
+
+#: includes/Post_Type.php:66
+#: includes/Slides_Meta.php:420
 msgid "Click to copy"
 msgstr ""
 
-#: includes/Post_Type.php:59
-#: includes/Slides_Meta.php:246
+#: includes/Post_Type.php:67
+#: includes/Slides_Meta.php:420
 msgid "Copied!"
 msgstr ""
 
-#: includes/Post_Type.php:70
+#: includes/Post_Type.php:78
 msgid "Sliders"
 msgstr ""
 
-#: includes/Post_Type.php:72
+#: includes/Post_Type.php:80
 msgid "Add New"
 msgstr ""
 
-#: includes/Post_Type.php:73
+#: includes/Post_Type.php:81
 msgid "Add New Slider"
 msgstr ""
 
-#: includes/Post_Type.php:74
+#: includes/Post_Type.php:82
 msgid "Edit Slider"
 msgstr ""
 
-#: includes/Post_Type.php:75
+#: includes/Post_Type.php:83
 msgid "New Slider"
 msgstr ""
 
-#: includes/Post_Type.php:76
+#: includes/Post_Type.php:84
 msgid "View Slider"
 msgstr ""
 
-#: includes/Post_Type.php:77
+#: includes/Post_Type.php:85
 msgid "Search Sliders"
 msgstr ""
 
 #. translators: 1: "create a slider" button, 2: "browse demo library" button.
-#: includes/Post_Type.php:80
+#: includes/Post_Type.php:88
 #, php-format
 msgid "No sliders found. %1$s or %2$s"
 msgstr ""
 
-#: includes/Post_Type.php:81
+#: includes/Post_Type.php:89
 msgid "Create your first slider"
 msgstr ""
 
-#: includes/Post_Type.php:82
-#: includes/Settings.php:208
+#: includes/Post_Type.php:90
+#: includes/Settings.php:232
 msgid "Browse Demo Library"
 msgstr ""
 
-#: includes/Post_Type.php:84
+#: includes/Post_Type.php:92
 msgid "No sliders found in Trash"
 msgstr ""
 
-#: includes/Post_Type.php:85
+#: includes/Post_Type.php:93
 msgid "All Sliders"
 msgstr ""
 
-#: includes/Renderer.php:27
+#: includes/Renderer.php:37
 msgid "General Slider: please choose a slider."
 msgstr ""
 
-#: includes/Renderer.php:32
+#: includes/Renderer.php:42
 msgid "General Slider: this slider has no slides yet."
 msgstr ""
 
-#: includes/Renderer.php:135
+#: includes/Renderer.php:176
 msgid "Pause or play the slider"
 msgstr ""
 
-#: includes/Renderer.php:142
+#: includes/Renderer.php:183
 msgid "Slider thumbnails"
+msgstr ""
+
+#. translators: 1: opening link tag to the WordPress.org review form, 2: closing link tag.
+#: includes/Review_Notice.php:65
+#, php-format
+msgid "Enjoying General Slider? Leave us a %1$s&#9733;&#9733;&#9733;&#9733;&#9733; review%2$s — it keeps development going."
+msgstr ""
+
+#: includes/Review_Notice.php:127
+msgid "Enjoying General Slider?"
+msgstr ""
+
+#: includes/Review_Notice.php:128
+msgid "A quick 5-star review helps other people find the plugin and keeps development going. Thank you!"
+msgstr ""
+
+#: includes/Review_Notice.php:130
+msgid "Did you get a chance to leave that review?"
+msgstr ""
+
+#: includes/Review_Notice.php:131
+msgid "If you did — thank you! Confirm below and we will never ask again."
+msgstr ""
+
+#: includes/Review_Notice.php:139
+msgid "Yes, I left a review"
+msgstr ""
+
+#: includes/Review_Notice.php:143
+msgid "Maybe later"
+msgstr ""
+
+#: includes/Review_Notice.php:146
+msgid "Rate it ★★★★★"
 msgstr ""
 
 #: includes/Settings.php:35
@@ -454,7 +544,7 @@ msgid "Default navigation & frame skin"
 msgstr ""
 
 #: includes/Settings.php:111
-#: includes/Slides_Meta.php:151
+#: includes/Slides_Meta.php:247
 msgid "The look of the arrows, dots and slider frame — works with any preset."
 msgstr ""
 
@@ -463,111 +553,186 @@ msgid "Default transition"
 msgstr ""
 
 #: includes/Settings.php:125
-#: includes/Slides_Meta.php:162
+#: includes/Slides_Meta.php:258
+msgid "Transition speed (ms)"
+msgstr ""
+
+#: includes/Settings.php:128
+#: includes/Slides_Meta.php:260
+msgid "How long one slide takes to change. Lower = snappier."
+msgstr ""
+
+#: includes/Settings.php:132
+#: includes/Slides_Meta.php:263
 msgid "Autoplay"
 msgstr ""
 
-#: includes/Settings.php:126
+#: includes/Settings.php:133
 msgid "Play slides automatically"
 msgstr ""
 
-#: includes/Settings.php:129
-#: includes/Slides_Meta.php:165
+#: includes/Settings.php:136
+#: includes/Slides_Meta.php:266
 msgid "Autoplay speed (ms)"
 msgstr ""
 
-#: includes/Settings.php:133
+#: includes/Settings.php:140
 msgid "Controls"
 msgstr ""
 
-#: includes/Settings.php:135
-#: includes/Slides_Meta.php:168
+#: includes/Settings.php:142
+#: includes/Slides_Meta.php:269
 msgid "Loop"
 msgstr ""
 
-#: includes/Settings.php:136
-#: includes/Slides_Meta.php:169
+#: includes/Settings.php:143
+#: includes/Slides_Meta.php:270
 msgid "Show arrows"
 msgstr ""
 
-#: includes/Settings.php:137
-#: includes/Slides_Meta.php:170
+#: includes/Settings.php:144
+#: includes/Slides_Meta.php:271
 msgid "Show dots"
 msgstr ""
 
-#: includes/Settings.php:141
-#: includes/Slides_Meta.php:172
+#: includes/Settings.php:148
+#: includes/Slides_Meta.php:273
 msgid "Slide height (px)"
 msgstr ""
 
-#: includes/Settings.php:145
-#: includes/Slides_Meta.php:176
+#: includes/Settings.php:152
+#: includes/Slides_Meta.php:277
 msgid "Image fit"
 msgstr ""
 
-#: includes/Settings.php:155
-#: includes/Slides_Meta.php:184
+#: includes/Settings.php:162
+#: includes/Slides_Meta.php:285
 msgid "Image focus"
 msgstr ""
 
-#: includes/Settings.php:162
+#: includes/Settings.php:169
 msgid "For \"Cover\" fit, use \"Top\" to keep faces from being cropped on wide slides."
 msgstr ""
 
-#: includes/Settings.php:166
-#: includes/Slides_Meta.php:193
+#: includes/Settings.php:173
+#: includes/Slides_Meta.php:294
 msgid "Overlay darkness (%)"
 msgstr ""
 
-#: includes/Settings.php:170
-#: includes/Slides_Meta.php:197
+#: includes/Settings.php:177
+#: includes/Slides_Meta.php:298
 msgid "Overlay style"
 msgstr ""
 
-#: includes/Settings.php:180
-#: includes/Slides_Meta.php:206
+#: includes/Settings.php:187
+#: includes/Settings.php:257
+#: includes/Slides_Meta.php:307
+#: includes/Slides_Meta.php:353
 msgid "Slides per view"
 msgstr ""
 
-#: includes/Settings.php:184
-#: includes/Slides_Meta.php:210
+#: includes/Settings.php:191
+#: includes/Slides_Meta.php:311
 msgid "Gap between slides (px)"
 msgstr ""
 
-#: includes/Settings.php:188
-#: includes/Slides_Meta.php:214
+#: includes/Settings.php:195
+#: includes/Slides_Meta.php:315
 msgid "Accent color"
 msgstr ""
 
-#: includes/Settings.php:192
+#: includes/Settings.php:199
 msgid "Effects"
 msgstr ""
 
-#: includes/Settings.php:194
-#: includes/Slides_Meta.php:218
+#: includes/Settings.php:201
+#: includes/Slides_Meta.php:319
 msgid "Ken Burns zoom"
 msgstr ""
 
-#: includes/Settings.php:195
-#: includes/Slides_Meta.php:219
-msgid "Animate text in"
-msgstr ""
-
-#: includes/Settings.php:196
-#: includes/Slides_Meta.php:220
+#: includes/Settings.php:202
+#: includes/Slides_Meta.php:330
 msgid "Show thumbnails"
 msgstr ""
 
 #: includes/Settings.php:204
+#: includes/Slides_Meta.php:321
+msgid "Text animation"
+msgstr ""
+
+#: includes/Settings.php:215
+#: includes/Slides_Meta.php:332
+msgid "Responsive"
+msgstr ""
+
+#: includes/Settings.php:216
+msgid "Default overrides for tablet and mobile. Leave a field blank to keep the desktop value on that device. Each slider can still override these individually."
+msgstr ""
+
+#: includes/Settings.php:220
+#: includes/Slides_Meta.php:336
+msgid "Tablet"
+msgstr ""
+
+#: includes/Settings.php:221
+#: includes/Slides_Meta.php:337
+msgid "Mobile"
+msgstr ""
+
+#: includes/Settings.php:228
 msgid "Demo slider"
 msgstr ""
 
-#: includes/Settings.php:205
+#: includes/Settings.php:229
 msgid "New here? Create the bundled starter slider, or browse the online Demo Library for more."
 msgstr ""
 
-#: includes/Settings.php:212
+#: includes/Settings.php:236
 msgid "Import / Export"
+msgstr ""
+
+#: includes/Settings.php:258
+#: includes/Settings.php:261
+#: includes/Settings.php:264
+#: includes/Settings.php:291
+#: includes/Slides_Meta.php:354
+#: includes/Slides_Meta.php:357
+#: includes/Slides_Meta.php:362
+#: includes/Slides_Meta.php:391
+msgid "Same as desktop"
+msgstr ""
+
+#: includes/Settings.php:260
+#: includes/Slides_Meta.php:356
+msgid "Gap (px)"
+msgstr ""
+
+#: includes/Settings.php:263
+#: includes/Slides_Meta.php:361
+msgid "Height (px)"
+msgstr ""
+
+#: includes/Settings.php:268
+#: includes/Slides_Meta.php:366
+msgid "Hide text & button"
+msgstr ""
+
+#: includes/Settings.php:269
+msgid "Arrows:"
+msgstr ""
+
+#: includes/Settings.php:272
+msgid "Dots:"
+msgstr ""
+
+#: includes/Settings.php:292
+#: includes/Slides_Meta.php:392
+msgid "Show"
+msgstr ""
+
+#: includes/Settings.php:293
+#: includes/Slides_Meta.php:393
+msgid "Hide"
 msgstr ""
 
 #: includes/Slides_Meta.php:30
@@ -582,75 +747,163 @@ msgstr ""
 msgid "How to embed"
 msgstr ""
 
-#: includes/Slides_Meta.php:55
+#: includes/Slides_Meta.php:68
 msgid "Add slide"
 msgstr ""
 
-#: includes/Slides_Meta.php:77
-msgid "Drag to reorder"
-msgstr ""
-
-#: includes/Slides_Meta.php:85
-msgid "Remove"
+#: includes/Slides_Meta.php:87
+msgid "Want a head start?"
 msgstr ""
 
 #: includes/Slides_Meta.php:88
-msgid "Sub heading"
+msgid "Import a ready-made slider from the Demo Library — images included — then tweak it here."
 msgstr ""
 
-#: includes/Slides_Meta.php:91
-msgid "Heading"
-msgstr ""
-
-#: includes/Slides_Meta.php:94
-msgid "Text"
-msgstr ""
-
-#: includes/Slides_Meta.php:98
-msgid "Button text"
-msgstr ""
-
-#: includes/Slides_Meta.php:101
-msgid "Button URL"
+#: includes/Slides_Meta.php:90
+msgid "Browse demos"
 msgstr ""
 
 #: includes/Slides_Meta.php:106
-msgid "Whole-slide link (optional)"
+msgid "Build slides manually"
+msgstr ""
+
+#: includes/Slides_Meta.php:108
+msgid "Pull slides from posts (dynamic)"
 msgstr ""
 
 #: includes/Slides_Meta.php:111
-msgid "Open link in new tab"
+msgid "Slides are generated from your published content — the featured image, title, excerpt and link. Every preset and skin still applies."
 msgstr ""
 
-#: includes/Slides_Meta.php:115
-msgid "Background video (MP4/WebM, YouTube or Vimeo URL)"
+#: includes/Slides_Meta.php:113
+msgid "Content type"
 msgstr ""
 
-#: includes/Slides_Meta.php:119
-msgid "Choose file"
+#: includes/Slides_Meta.php:120
+msgid "Filter by"
 msgstr ""
 
-#: includes/Slides_Meta.php:137
-msgid "Design preset"
+#: includes/Slides_Meta.php:123
+msgid "Term"
 msgstr ""
 
-#: includes/Slides_Meta.php:145
-msgid "Navigation & frame skin"
+#: includes/Slides_Meta.php:126
+msgid "How many"
 msgstr ""
 
-#: includes/Slides_Meta.php:154
-msgid "Transition"
+#: includes/Slides_Meta.php:129
+msgid "Order by"
+msgstr ""
+
+#: includes/Slides_Meta.php:136
+msgid "Order"
+msgstr ""
+
+#: includes/Slides_Meta.php:138
+msgid "Newest first"
+msgstr ""
+
+#: includes/Slides_Meta.php:139
+msgid "Oldest first"
+msgstr ""
+
+#: includes/Slides_Meta.php:144
+msgid "Show excerpt"
+msgstr ""
+
+#: includes/Slides_Meta.php:146
+msgid "Excerpt words"
+msgstr ""
+
+#: includes/Slides_Meta.php:151
+msgid "Button text (leave blank for no button)"
+msgstr ""
+
+#: includes/Slides_Meta.php:152
+msgid "e.g. Read more"
+msgstr ""
+
+#: includes/Slides_Meta.php:173
+msgid "Drag to reorder"
+msgstr ""
+
+#: includes/Slides_Meta.php:181
+msgid "Remove"
+msgstr ""
+
+#: includes/Slides_Meta.php:184
+msgid "Sub heading"
+msgstr ""
+
+#: includes/Slides_Meta.php:187
+msgid "Heading"
 msgstr ""
 
 #: includes/Slides_Meta.php:190
+msgid "Text"
+msgstr ""
+
+#: includes/Slides_Meta.php:194
+msgid "Button text"
+msgstr ""
+
+#: includes/Slides_Meta.php:197
+msgid "Button URL"
+msgstr ""
+
+#: includes/Slides_Meta.php:202
+msgid "Whole-slide link (optional)"
+msgstr ""
+
+#: includes/Slides_Meta.php:207
+msgid "Open link in new tab"
+msgstr ""
+
+#: includes/Slides_Meta.php:211
+msgid "Background video (MP4/WebM, YouTube or Vimeo URL)"
+msgstr ""
+
+#: includes/Slides_Meta.php:215
+msgid "Choose file"
+msgstr ""
+
+#: includes/Slides_Meta.php:233
+msgid "Design preset"
+msgstr ""
+
+#: includes/Slides_Meta.php:241
+msgid "Navigation & frame skin"
+msgstr ""
+
+#: includes/Slides_Meta.php:250
+msgid "Transition"
+msgstr ""
+
+#: includes/Slides_Meta.php:291
 msgid "For \"Cover\" fit, use \"Top\" to keep faces from being cropped."
 msgstr ""
 
-#: includes/Slides_Meta.php:232
+#: includes/Slides_Meta.php:328
+msgid "The sub-heading, heading, text and button enter one after another."
+msgstr ""
+
+#: includes/Slides_Meta.php:333
+msgid "Leave a field blank to keep the desktop value on that device."
+msgstr ""
+
+#: includes/Slides_Meta.php:370
+msgid "Arrows"
+msgstr ""
+
+#: includes/Slides_Meta.php:373
+msgid "Dots"
+msgstr ""
+
+#: includes/Slides_Meta.php:406
 msgid "CSS applied only to this slider. Use the scope selector shown in the placeholder."
 msgstr ""
 
-#: includes/Slides_Meta.php:245
+#: includes/Slides_Meta.php:419
 msgid "Add the \"General Slider\" block to any page and pick this slider, or paste this shortcode:"
 msgstr ""
 
