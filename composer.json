@@ -39,7 +39,7 @@
 		"phpcompatibility/phpcompatibility-wp": "^2.1",
 		"phpstan/phpstan": "^1.12",
 		"php-stubs/wordpress-stubs": "^6.5",
-		"phpunit/phpunit": "9.6"
+		"phpunit/phpunit": "^9.6.33"
 	},
 	"config": {
 		"allow-plugins": {
