@@ -6,7 +6,7 @@
 [![WordPress Plugin Active Installs](https://img.shields.io/wordpress/plugin/installs/general-slider)](https://wordpress.org/plugins/general-slider/)
 [![License: GPL v2+](https://img.shields.io/badge/license-GPLv2%2B-blue.svg)](LICENSE)
 
-![General Slider demo](.wordpress-org/screenshot-4.gif)
+![General Slider demo](.wordpress-org/screenshot-3.gif)
 
 Built on the lightweight [Splide](https://splidejs.com/) engine — **no jQuery** on the front end, accessible by default, and assets only load on pages that actually show a slider.
 
