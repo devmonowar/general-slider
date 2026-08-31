@@ -6,7 +6,7 @@
 [![WordPress Plugin Active Installs](https://img.shields.io/wordpress/plugin/installs/general-slider)](https://wordpress.org/plugins/general-slider/)
 [![License: GPL v2+](https://img.shields.io/badge/license-GPLv2%2B-blue.svg)](LICENSE)
 
-![General Slider demo](.wordpress-org/screenshot-3.gif)
+![General Slider demo](https://raw.githubusercontent.com/devmonowar/general-slider/main/.wordpress-org/screenshot-3.gif)
 
 Built on the lightweight [Splide](https://splidejs.com/) engine — **no jQuery** on the front end, accessible by default, and assets only load on pages that actually show a slider.
 
@@ -89,7 +89,7 @@ See [`docs/hooks.md`](docs/hooks.md) for the full hook reference with examples.
 
 | Front end | Demo Library | Settings |
 | --- | --- | --- |
-| ![](.wordpress-org/screenshot-1.jpg) | ![](.wordpress-org/screenshot-4.png) | ![](.wordpress-org/screenshot-6.png) |
+| ![](https://raw.githubusercontent.com/devmonowar/general-slider/main/.wordpress-org/screenshot-1.jpg) | ![](https://raw.githubusercontent.com/devmonowar/general-slider/main/.wordpress-org/screenshot-4.png) | ![](https://raw.githubusercontent.com/devmonowar/general-slider/main/.wordpress-org/screenshot-6.png) |
 
 ## Development
 
