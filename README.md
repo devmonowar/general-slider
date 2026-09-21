@@ -91,6 +91,12 @@ See [`docs/hooks.md`](docs/hooks.md) for the full hook reference with examples.
 | --- | --- | --- |
 | ![](https://raw.githubusercontent.com/devmonowar/general-slider/main/.wordpress-org/screenshot-1.jpg) | ![](https://raw.githubusercontent.com/devmonowar/general-slider/main/.wordpress-org/screenshot-4.png) | ![](https://raw.githubusercontent.com/devmonowar/general-slider/main/.wordpress-org/screenshot-6.png) |
 
+## Links
+
+- Plugin page: https://devmonowar.github.io/general-slider/
+- Guide: https://devmonowar.github.io/blog/general-slider-fast-accessible-wordpress-slider/
+- WordPress.org: https://wordpress.org/plugins/general-slider/
+
 ## Development
 
 This is the development repository. The released plugin lives on [WordPress.org](https://wordpress.org/plugins/general-slider/). Front-end and admin CSS/JS ship minified (the un-minified sources load when `SCRIPT_DEBUG` is on); the only bundled third-party library is Splide (`assets/vendor/splide`, MIT). Quality gates run in CI — PHP lint, PHPCS, PHPStan and PHPUnit.
