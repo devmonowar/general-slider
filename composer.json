@@ -1,6 +1,6 @@
 {
 	"name": "devmonowar/general-slider",
-	"description": "A lightweight, easy-to-use carousel slider for WordPress.",
+	"description": "Create reusable carousel sliders in minutes — no jQuery, block-ready, accessible, and no coding required. Assets load only where a slider runs.",
 	"type": "wordpress-plugin",
 	"keywords": [
 		"wordpress",
@@ -8,12 +8,14 @@
 		"slider",
 		"carousel",
 		"slideshow",
+		"image slider",
+		"responsive slider",
 		"gutenberg",
 		"block",
 		"elementor",
 		"splide"
 	],
-	"homepage": "https://wordpress.org/plugins/general-slider/",
+	"homepage": "https://devmonowar.github.io/general-slider/",
 	"license": "GPL-2.0-or-later",
 	"authors": [
 		{

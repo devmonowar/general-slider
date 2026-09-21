@@ -8,7 +8,7 @@ Stable tag: 2.3.11
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Create beautiful, reusable carousel sliders in minutes — lightweight, block-ready, and no coding required.
+Create reusable carousel sliders in minutes — no jQuery, block-ready, accessible, and no coding required. Assets load only where a slider runs.
 
 == Description ==
 
