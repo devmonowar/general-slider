@@ -1,6 +1,6 @@
 === General Slider ===
 Contributors: kstmonowar, ksthannan
-Tags: slider, carousel, elementor, testimonial, slideshow
+Tags: slider, carousel, slideshow, image slider, responsive slider
 Requires at least: 6.0
 Tested up to: 7.1
 Requires PHP: 7.4
