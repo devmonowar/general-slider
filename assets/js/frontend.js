@@ -34,6 +34,9 @@
 			speed: reduceMotion ? 0 : ( opts.speed || 600 ),
 			drag: true,
 			keyboard: 'focused',
+			// Translated control labels from PHP; Splide deep-merges these
+			// with its own defaults, so an absent key changes nothing.
+			i18n: opts.i18n || {},
 			breakpoints: opts.breakpoints || {
 				782: { perPage: Math.min( perPage, 2 ) },
 				600: { perPage: 1 }

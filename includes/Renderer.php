@@ -72,6 +72,19 @@ class Renderer {
 			'perPage'    => $per_page,
 			'gap'        => absint( $settings['gap'] ) . 'px',
 			'direction'  => is_rtl() ? 'rtl' : 'ltr',
+			// Screen-reader labels for Splide's own controls (arrows, dots,
+			// play/pause toggle). Splide deep-merges this with its English
+			// defaults, so partial lists are safe.
+			'i18n'       => array(
+				'prev'   => __( 'Previous slide', 'general-slider' ),
+				'next'   => __( 'Next slide', 'general-slider' ),
+				'first'  => __( 'Go to first slide', 'general-slider' ),
+				'last'   => __( 'Go to last slide', 'general-slider' ),
+				'slideX' => __( 'Go to slide %s', 'general-slider' ),
+				'pageX'  => __( 'Go to page %s', 'general-slider' ),
+				'play'   => __( 'Start autoplay', 'general-slider' ),
+				'pause'  => __( 'Pause autoplay', 'general-slider' ),
+			),
 		);
 
 		$breakpoints = self::responsive_breakpoints( $responsive, $per_page );
@@ -175,8 +188,10 @@ class Renderer {
 								<?php if ( '' !== $slide['btn_text'] ) : ?>
 									<?php if ( $gs_has_link ) : ?>
 										<span class="gs-slide__btn"><?php echo esc_html( $slide['btn_text'] ); ?></span>
+									<?php elseif ( '' !== $slide['btn_url'] ) : ?>
+										<a class="gs-slide__btn" href="<?php echo esc_url( $slide['btn_url'] ); ?>"><?php echo esc_html( $slide['btn_text'] ); ?></a>
 									<?php else : ?>
-										<a class="gs-slide__btn" href="<?php echo esc_url( $slide['btn_url'] ? $slide['btn_url'] : '#' ); ?>"><?php echo esc_html( $slide['btn_text'] ); ?></a>
+										<span class="gs-slide__btn"><?php echo esc_html( $slide['btn_text'] ); ?></span>
 									<?php endif; ?>
 								<?php endif; ?>
 							<?php echo $gs_has_link ? '</a>' : '</div>'; ?>
@@ -340,7 +355,8 @@ class Renderer {
 		if ( ! empty( $slide['video'] ) ) {
 			$embed = self::video_embed_src( $slide['video'] );
 			if ( $embed ) {
-				return '<div class="gs-slide__media gs-slide__media--embed"><iframe class="gs-slide__embed" src="' . esc_url( $embed ) . '" title="' . esc_attr( $slide['heading'] ) . '" loading="lazy" allow="autoplay; encrypted-media" aria-hidden="true" tabindex="-1"></iframe></div>';
+				$title = '' !== $slide['heading'] ? $slide['heading'] : __( 'Slider background video', 'general-slider' );
+				return '<div class="gs-slide__media gs-slide__media--embed"><iframe class="gs-slide__embed" src="' . esc_url( $embed ) . '" title="' . esc_attr( $title ) . '" loading="lazy" allow="autoplay; encrypted-media" aria-hidden="true" tabindex="-1"></iframe></div>';
 			}
 			// Self-hosted file.
 			$poster = ! empty( $slide['image_id'] ) ? wp_get_attachment_image_url( $slide['image_id'], 'full' ) : '';
