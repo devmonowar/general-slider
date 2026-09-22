@@ -455,23 +455,27 @@ class Data {
 	 * @return array<int,array{id:int,title:string}>
 	 */
 	public static function get_slider_choices() {
+		// Full post objects (not fields => 'ids'): get_posts() then primes the
+		// post cache, so get_the_title() below costs no extra query per slider.
+		// Meta and term caches are skipped — only IDs and titles are used.
 		$posts = get_posts(
 			array(
-				'post_type'      => Post_Type::SLUG,
-				'post_status'    => 'publish',
-				'numberposts'    => 100,
-				'orderby'        => 'title',
-				'order'          => 'ASC',
-				'fields'         => 'ids',
-				'suppress_filters' => false,
+				'post_type'            => Post_Type::SLUG,
+				'post_status'          => 'publish',
+				'numberposts'          => 100,
+				'orderby'              => 'title',
+				'order'                => 'ASC',
+				'update_post_meta_cache' => false,
+				'update_post_term_cache' => false,
+				'suppress_filters'     => false,
 			)
 		);
 
 		$choices = array();
-		foreach ( $posts as $id ) {
+		foreach ( $posts as $post ) {
 			$choices[] = array(
-				'id'    => (int) $id,
-				'title' => get_the_title( $id ),
+				'id'    => (int) $post->ID,
+				'title' => get_the_title( $post ),
 			);
 		}
 		return $choices;
