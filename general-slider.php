@@ -3,7 +3,7 @@
  * Plugin Name:       General Slider
  * Plugin URI:        https://devmonowar.github.io/general-slider/
  * Description:        A lightweight, easy-to-use carousel slider. Build reusable sliders and drop them anywhere with a block.
- * Version:           2.3.11
+ * Version:           2.3.12
  * Requires at least: 6.0
  * Requires PHP:      7.4
  * Author:            Monowar Hossain
@@ -25,7 +25,7 @@ define( 'GENERAL_SLIDER_BASENAME', plugin_basename( __FILE__ ) );
 
 // Keep in sync with the "Version" header above: get_file_data() parses the
 // file on every request, so the constant is hardcoded instead.
-define( 'GENERAL_SLIDER_VERSION', '2.3.11' );
+define( 'GENERAL_SLIDER_VERSION', '2.3.12' );
 
 // Remote demo library manifest (hosted on GitHub Pages). Override with the
 // `general_slider_demo_library_url` filter for dev / staging environments.

@@ -4,7 +4,7 @@ Tags: slider, carousel, slideshow, image slider, responsive slider
 Requires at least: 6.0
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 2.3.11
+Stable tag: 2.3.12
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -221,6 +221,11 @@ These are plain, read-only requests for files. No personal data is collected or 
 
 **Background videos (YouTube / Vimeo):** if a slide uses a YouTube or Vimeo URL, that slide embeds the provider's player on your site (YouTube via its privacy-enhanced `youtube-nocookie.com` domain). The embed loads on every page showing that slider, whether or not the visitor plays anything — loading the page already connects them to YouTube (Google LLC) or Vimeo (Vimeo, Inc.), which may set cookies — [YouTube terms](https://www.youtube.com/t/terms) — [Google privacy](https://policies.google.com/privacy) — [Vimeo terms](https://vimeo.com/terms) — [Vimeo privacy](https://vimeo.com/privacy). Self-hosted video files (MP4/WebM) involve no third party at all.
 
+== Upgrade Notice ==
+
+= 2.3.12 =
+Three behaviour changes to know about: unpublished (draft, pending, private) sliders are now hidden from visitors; global tablet/mobile defaults now fill the gaps in saved sliders; YouTube background videos load from the privacy-enhanced youtube-nocookie.com domain. No action is required — update and everything keeps working.
+
 == Screenshots ==
 
 1. A full-width hero slider on the front end.
@@ -235,6 +240,22 @@ These are plain, read-only requests for files. No personal data is collected or 
 10. Background video slides — muted, looped video behind your content (animated).
 
 == Changelog ==
+
+= 2.3.12 =
+* Tested up to WordPress 7.1.
+* Fixed: draft, pending and private sliders no longer show to visitors (editors still see previews when editing).
+* Fixed: global tablet/mobile defaults now fill the gaps in saved sliders — previously they only applied to new ones.
+* Fixed: imported sliders keep their exported slides instead of silently re-running a dynamic query.
+* Fixed: fade sliders with looping off now stop at the last slide instead of rewinding.
+* Fixed: video-only and link-only slide rows are no longer discarded when saving.
+* Fixed: the Demo Library Refresh button works again after a failed load.
+* Fixed: custom CSS with modern range syntax (e.g. `@media (width < 768px)`) no longer breaks.
+* Added: translated screen-reader labels for the slider controls (arrows, dots, play/pause).
+* Added: the pause/play toggle hides itself for reduced-motion users, for whom autoplay is off.
+* Added: the Demo Library remembers a failed load for a few minutes instead of timing out on every view.
+* Improved: YouTube embeds use the privacy-enhanced domain, and all external services are now declared.
+* Improved: the slider picker no longer runs a query per slider, and Random sliders reshuffle on every view.
+* Improved: version constant is hardcoded (no file parsing per request), Splide asset handles are prefixed, and the lint now includes the security sniffs with a CI guard over the minified assets.
 
 = 2.3.11 =
 * Fixed: the tablet and mobile height settings had no effect — sliders always used the desktop height.
