@@ -407,7 +407,7 @@ class Renderer {
 					'rel'            => 0,
 					'iv_load_policy' => 3,
 				),
-				'https://www.youtube.com/embed/' . $id
+				'https://www.youtube-nocookie.com/embed/' . $id
 			);
 		}
 		if ( preg_match( '~vimeo\.com/(?:video/)?(\d+)~', $url, $m ) ) {

@@ -80,7 +80,7 @@ Use it as a hero slider, image carousel, testimonial slider, logo carousel, prod
 
 **For developers**
 
-* Filters: `general_slider_settings`, `general_slider_slides`, `general_slider_config`, `general_slider_html`, `general_slider_presets`, `general_slider_skins`, `general_slider_dynamic_query_args` and `general_slider_dynamic_slide`
+* Filters: `general_slider_settings`, `general_slider_slides`, `general_slider_config`, `general_slider_html`, `general_slider_presets`, `general_slider_skins`, `general_slider_dynamic_query_args`, `general_slider_dynamic_slide` and `general_slider_demo_library_url`
 * Register your own design preset or navigation skin, or reshape a dynamic slider's query and slides
 
 **Demos & migration**
@@ -93,7 +93,7 @@ Use it as a hero slider, image carousel, testimonial slider, logo carousel, prod
 
 1. Upload the plugin through Plugins > Add New, or upload the ZIP via Plugins > Add New > Upload.
 2. Activate it through the Plugins menu.
-3. Go to General Slider > Add New to create your first slider (or General Slider > Settings to import a demo).
+3. Go to General Slider > Add New to create your first slider (or General Slider > Demo Library to import a demo).
 4. Add the "General Slider" block to any page and choose your slider, or use the shortcode shown on the slider edit screen.
 
 == Frequently Asked Questions ==
@@ -218,6 +218,8 @@ It connects to this service only when you:
 * click **Import Demo** — to download that demo's data and images into your site's Media Library.
 
 These are plain, read-only requests for files. No personal data is collected or sent, and no request is made unless you use the Demo Library. The service is provided by GitHub Pages (GitHub, Inc.) — [terms of service](https://docs.github.com/site-policy/github-terms/github-terms-of-service) — [privacy statement](https://docs.github.com/site-policy/privacy-policies/github-privacy-statement).
+
+**Background videos (YouTube / Vimeo):** if you add a YouTube or Vimeo URL to a slide, that slide embeds the provider's player on your site (YouTube via its privacy-enhanced `youtube-nocookie.com` domain). The embed loads only on pages showing that slider, and only when a slide actually uses a video URL. Watching the video connects visitors to YouTube (Google LLC) or Vimeo (Vimeo, Inc.), which may set cookies — [YouTube terms](https://www.youtube.com/t/terms) — [Google privacy](https://policies.google.com/privacy) — [Vimeo terms](https://vimeo.com/terms) — [Vimeo privacy](https://vimeo.com/privacy). Self-hosted video files (MP4/WebM) involve no third party at all.
 
 == Screenshots ==
 
