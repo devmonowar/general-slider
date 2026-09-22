@@ -90,6 +90,28 @@ class Elementor_Widget extends \Elementor\Widget_Base {
 	}
 
 	/**
+	 * Front-end dependencies. Elementor enqueues these itself, so the slider
+	 * assets are guaranteed in the editor preview and AJAX-loaded content —
+	 * not only when the widget renders before wp_footer(). The renderer still
+	 * calls Assets::mark_needed() as well, which registers the handles on
+	 * demand if Elementor asked for them before registration ran.
+	 *
+	 * @return string[]
+	 */
+	public function get_script_depends() {
+		return array( 'splide', 'general-slider' );
+	}
+
+	/**
+	 * Front-end style dependencies (same guarantee as the scripts above).
+	 *
+	 * @return string[]
+	 */
+	public function get_style_depends() {
+		return array( 'splide', 'general-slider' );
+	}
+
+	/**
 	 * Render the widget output.
 	 */
 	protected function render() {
