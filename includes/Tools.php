@@ -129,8 +129,15 @@ class Tools {
 							}
 						}
 					}
-					update_post_meta( $new_id, Data::META_SLIDES, $slides );
-					update_post_meta( $new_id, Data::META_SETTINGS, Data::sanitize_settings( isset( $slider['settings'] ) ? $slider['settings'] : array() ) );
+				update_post_meta( $new_id, Data::META_SLIDES, $slides );
+				$import_settings = Data::sanitize_settings( isset( $slider['settings'] ) ? $slider['settings'] : array() );
+				// The export holds resolved slides, so the copy is always a manual
+				// slider: keeping source=dynamic would ignore the imported slides
+				// and re-run the query instead (empty on a site without those
+				// posts). The dynamic config is preserved, so switching back to
+				// dynamic later is one click.
+				$import_settings['source']['type'] = 'manual';
+				update_post_meta( $new_id, Data::META_SETTINGS, $import_settings );
 
 					if ( ! empty( $slider['custom_css'] ) ) {
 						update_post_meta( $new_id, Data::META_CSS, self::clean_css( $slider['custom_css'] ) );
