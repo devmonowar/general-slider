@@ -33,8 +33,16 @@ class Renderer {
 	 */
 	public static function render( $post_id, $overrides = array() ) {
 		$post_id = absint( $post_id );
-		if ( ! $post_id || Post_Type::SLUG !== get_post_type( $post_id ) ) {
+		$post    = $post_id ? get_post( $post_id ) : null;
+		if ( ! $post || Post_Type::SLUG !== $post->post_type ) {
 			return self::notice( __( 'General Slider: please choose a slider.', 'general-slider' ) );
+		}
+
+		// Drafts, pending and private sliders stay hidden from visitors; people
+		// who can edit the slider still see it (block/Elementor editor previews
+		// and admin checks render drafts by design).
+		if ( 'publish' !== $post->post_status && ! current_user_can( 'edit_post', $post_id ) ) {
+			return self::notice( __( 'General Slider: this slider is not published yet.', 'general-slider' ) );
 		}
 
 		$slides = Data::get_slides( $post_id );
