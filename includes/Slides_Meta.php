@@ -425,9 +425,9 @@ class Slides_Meta {
 	 * Save slides and settings.
 	 *
 	 * @param int      $post_id Slider ID.
-	 * @param \WP_Post $post    Post object.
+	 * @param \WP_Post $post    Post object (unused; kept for the save_post hook signature).
 	 */
-	public function save( $post_id, $post ) {
+	public function save( $post_id, $post ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter -- save_post hook passes ($post_id, $post).
 		if ( ! isset( $_POST['gs_slider_nonce'] ) || ! wp_verify_nonce( sanitize_key( $_POST['gs_slider_nonce'] ), 'gs_save_slider' ) ) {
 			return;
 		}

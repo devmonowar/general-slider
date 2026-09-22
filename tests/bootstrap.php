@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! function_exists( '__' ) ) {
-	function __( $text, $domain = 'default' ) {
+	function __( $text, $domain = 'default' ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter -- mirrors the WordPress signature.
 		return $text;
 	}
 }
