@@ -125,6 +125,13 @@ class Dynamic_Slides {
 	 * @return array<int,array> Normalised slides.
 	 */
 	public static function get( $post_id, $source ) {
+		// Random order must reshuffle on every view, so it bypasses the
+		// transient cache. The query underneath is bounded (at most 20 posts,
+		// no_found_rows), so the per-request cost stays small.
+		if ( 'rand' === ( $source['orderby'] ?? '' ) ) {
+			return self::build( $post_id, $source );
+		}
+
 		$key = self::cache_key( $post_id, $source );
 
 		$cached = get_transient( $key );
