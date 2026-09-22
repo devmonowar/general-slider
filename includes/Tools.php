@@ -158,9 +158,11 @@ class Tools {
 	 * @return string
 	 */
 	public static function clean_css( $css ) {
-		// Removing "<" is enough to stop a "</style>" break-out while keeping
-		// CSS child combinators (">") intact.
-		return trim( str_replace( '<', '', (string) $css ) );
+		// A <style> element is raw text: it can only be closed by "</style",
+		// so stripping "</" is enough to stop a break-out. Keeping bare "<"
+		// preserves modern CSS such as media-query range syntax (width < 768px)
+		// as well as ">" child combinators.
+		return trim( str_replace( '</', '', (string) $css ) );
 	}
 
 	/**
