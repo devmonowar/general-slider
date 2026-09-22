@@ -80,7 +80,9 @@ class Renderer {
 				'next'   => __( 'Next slide', 'general-slider' ),
 				'first'  => __( 'Go to first slide', 'general-slider' ),
 				'last'   => __( 'Go to last slide', 'general-slider' ),
+				/* translators: %s: slide number. */
 				'slideX' => __( 'Go to slide %s', 'general-slider' ),
+				/* translators: %s: page number. */
 				'pageX'  => __( 'Go to page %s', 'general-slider' ),
 				'play'   => __( 'Start autoplay', 'general-slider' ),
 				'pause'  => __( 'Pause autoplay', 'general-slider' ),
