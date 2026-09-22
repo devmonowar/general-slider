@@ -180,11 +180,13 @@ class Demo_Library {
 	 * Render the Demo Library page.
 	 */
 	public function page() {
-		// "Refresh" clears the 6-hour manifest cache so newly published demos appear immediately.
-		if ( isset( $_GET['gs_refresh'] ) && isset( $_GET['_wpnonce'] ) && wp_verify_nonce( sanitize_key( wp_unslash( $_GET['_wpnonce'] ) ), 'gs_demo_refresh' ) ) {
+		// "Refresh" clears the manifest cache (including a remembered failure)
+		// so newly published demos — or a recovered endpoint — appear immediately.
+		$refresh = isset( $_GET['gs_refresh'] ) && isset( $_GET['_wpnonce'] ) && wp_verify_nonce( sanitize_key( wp_unslash( $_GET['_wpnonce'] ) ), 'gs_demo_refresh' );
+		if ( $refresh ) {
 			delete_transient( self::TRANSIENT );
 		}
-		$manifest = self::get_manifest();
+		$manifest = self::get_manifest( $refresh );
 		?>
 		<div class="wrap gs-demo-library">
 			<h1>
