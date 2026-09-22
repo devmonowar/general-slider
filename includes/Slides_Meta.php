@@ -444,8 +444,9 @@ class Slides_Meta {
 		$slides     = array();
 		foreach ( $raw_slides as $raw ) {
 			$slide = Data::normalise_slide( $raw );
-			// Skip completely empty rows.
-			if ( $slide && ( $slide['image_id'] || '' !== $slide['heading'] || '' !== $slide['sub_heading'] || '' !== $slide['text'] ) ) {
+			// Skip completely empty rows — but a video, link or button alone is
+			// a legitimate slide (e.g. a background-video slide with no text).
+			if ( $slide && ( $slide['image_id'] || '' !== $slide['video'] || '' !== $slide['heading'] || '' !== $slide['sub_heading'] || '' !== $slide['text'] || '' !== $slide['btn_text'] || '' !== $slide['btn_url'] || '' !== $slide['link'] ) ) {
 				$slides[] = $slide;
 			}
 		}
