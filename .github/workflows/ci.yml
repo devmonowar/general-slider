@@ -68,3 +68,21 @@ jobs:
         run: composer install --prefer-dist --no-progress
       - name: Run PHPUnit
         run: composer test
+
+  assets:
+    name: Minified assets in sync
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      # The .min.js files are committed (no build step at runtime), so fail
+      # if a source change wasn't re-minified with the same pinned settings.
+      - name: Re-minify and diff
+        run: |
+          npm install --no-save terser@5.51.2
+          for src in assets/js/frontend.js assets/js/admin.js assets/js/admin-copy.js; do
+            npx terser "$src" --compress --mangle --toplevel -o "${src%.js}.min.js"
+          done
+          git diff --exit-code -- assets/js/*.min.js
