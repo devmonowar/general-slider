@@ -23,8 +23,9 @@ define( 'GENERAL_SLIDER_DIR', plugin_dir_path( __FILE__ ) );
 define( 'GENERAL_SLIDER_URL', plugin_dir_url( __FILE__ ) );
 define( 'GENERAL_SLIDER_BASENAME', plugin_basename( __FILE__ ) );
 
-// Version is read from the plugin header above, so it only needs bumping there.
-define( 'GENERAL_SLIDER_VERSION', get_file_data( __FILE__, array( 'Version' => 'Version' ) )['Version'] );
+// Keep in sync with the "Version" header above: get_file_data() parses the
+// file on every request, so the constant is hardcoded instead.
+define( 'GENERAL_SLIDER_VERSION', '2.3.11' );
 
 // Remote demo library manifest (hosted on GitHub Pages). Override with the
 // `general_slider_demo_library_url` filter for dev / staging environments.

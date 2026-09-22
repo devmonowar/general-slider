@@ -24,6 +24,14 @@ class Review_Notice {
 	const REVIEW_URL = 'https://wordpress.org/support/plugin/general-slider/reviews/#new-post';
 
 	/**
+	 * Request-level cache for the notice state, so the option is read once
+	 * per admin page instead of on every footer render and notice check.
+	 *
+	 * @var array|null
+	 */
+	private static $state = null;
+
+	/**
 	 * Days of use before the notice first appears.
 	 */
 	const WAIT_DAYS = 15;
@@ -44,6 +52,28 @@ class Review_Notice {
 	}
 
 	/**
+	 * Read the notice state (cached for the rest of the request).
+	 *
+	 * @return array
+	 */
+	private static function state() {
+		if ( null === self::$state ) {
+			self::$state = (array) get_option( self::OPTION, array() );
+		}
+		return self::$state;
+	}
+
+	/**
+	 * Persist the notice state and refresh the request cache.
+	 *
+	 * @param array $state Updated state.
+	 */
+	private static function save_state( $state ) {
+		update_option( self::OPTION, $state, false );
+		self::$state = $state;
+	}
+
+	/**
 	 * A small, permanent rating link in the admin footer — only on this
 	 * plugin's own screens, and only until the user has rated.
 	 *
@@ -55,7 +85,7 @@ class Review_Notice {
 		if ( ! $screen || Post_Type::SLUG !== $screen->post_type ) {
 			return $text;
 		}
-		$state = (array) get_option( self::OPTION, array() );
+		$state = self::state();
 		if ( ! empty( $state['rated'] ) ) {
 			return $text;
 		}
@@ -73,9 +103,9 @@ class Review_Notice {
 	 * also wait a full period after updating to a version with this notice.
 	 */
 	public function start_clock() {
-		$state = get_option( self::OPTION );
+		$state = self::state();
 		if ( ! is_array( $state ) || empty( $state['since'] ) ) {
-			update_option( self::OPTION, array( 'since' => time() ), false );
+			self::save_state( array( 'since' => time() ) );
 		}
 	}
 
@@ -92,7 +122,7 @@ class Review_Notice {
 		}
 		check_admin_referer( 'gs_review_notice' );
 
-		$state  = (array) get_option( self::OPTION, array() );
+		$state  = self::state();
 		$action = sanitize_key( wp_unslash( $_GET['gs_review'] ) );
 
 		if ( 'rated' === $action ) {
@@ -104,7 +134,7 @@ class Review_Notice {
 		} else {
 			$state['snooze_until'] = time() + self::SNOOZE_DAYS * DAY_IN_SECONDS;
 		}
-		update_option( self::OPTION, $state, false );
+		self::save_state( $state );
 
 		wp_safe_redirect( remove_query_arg( array( 'gs_review', '_wpnonce' ) ) );
 		exit;
@@ -118,7 +148,7 @@ class Review_Notice {
 			return;
 		}
 
-		$state = (array) get_option( self::OPTION, array() );
+		$state = self::state();
 		$later = wp_nonce_url( add_query_arg( 'gs_review', 'later' ), 'gs_review_notice' );
 		$rate  = wp_nonce_url( add_query_arg( 'gs_review', 'rate' ), 'gs_review_notice' );
 		$rated = wp_nonce_url( add_query_arg( 'gs_review', 'rated' ), 'gs_review_notice' );
@@ -162,7 +192,7 @@ class Review_Notice {
 			return false;
 		}
 
-		$state = (array) get_option( self::OPTION, array() );
+		$state = self::state();
 		if ( ! empty( $state['rated'] ) ) {
 			return false;
 		}

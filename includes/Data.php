@@ -359,7 +359,20 @@ class Data {
 	public static function get_settings( $post_id ) {
 		$per_slider = get_post_meta( $post_id, self::META_SETTINGS, true );
 		$per_slider = is_array( $per_slider ) ? $per_slider : array();
-		$settings   = wp_parse_args( $per_slider, self::global_settings() );
+		$globals    = self::global_settings();
+		$settings   = wp_parse_args( $per_slider, $globals );
+
+		// Nested groups merge recursively: wp_parse_args() is shallow, so a
+		// saved slider's (possibly empty) responsive/source array would
+		// otherwise permanently shadow the global defaults. Per-slider values
+		// still win field by field; globals only fill the gaps.
+		foreach ( array( 'responsive', 'source' ) as $group ) {
+			$g = ( isset( $globals[ $group ] ) && is_array( $globals[ $group ] ) ) ? $globals[ $group ] : array();
+			$s = ( isset( $settings[ $group ] ) && is_array( $settings[ $group ] ) ) ? $settings[ $group ] : array();
+			if ( $g || $s ) {
+				$settings[ $group ] = array_replace_recursive( $g, $s );
+			}
+		}
 
 		/**
 		 * Filter the effective settings for a slider.

@@ -57,6 +57,16 @@
 			splide.on( 'mounted moved', animate );
 		}
 
+		// Reduced motion: background videos are decorative (autoplay/muted/loop),
+		// so freeze them on the first frame instead of playing.
+		if ( reduceMotion ) {
+			var videos = el.querySelectorAll( 'video' );
+			for ( var v = 0; v < videos.length; v++ ) {
+				videos[ v ].removeAttribute( 'autoplay' );
+				videos[ v ].pause();
+			}
+		}
+
 		// Thumbnail navigation: sync a second slider if present. Mount the main
 		// carousel first, then the thumbnails (Splide's documented order).
 		var thumbEl = el.nextElementSibling;
