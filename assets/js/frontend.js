@@ -70,6 +70,12 @@
 				videos[ v ].removeAttribute( 'autoplay' );
 				videos[ v ].pause();
 			}
+			// Autoplay is forced off above, so Splide's Autoplay never starts
+			// and the pause/play toggle would be a dead control — hide it.
+			var toggle = el.querySelector( '.gs-toggle' );
+			if ( toggle ) {
+				toggle.style.display = 'none';
+			}
 		}
 
 		// Thumbnail navigation: sync a second slider if present. Mount the main
