@@ -49,6 +49,8 @@ function general_slider_uninstall_site() {
 	delete_option( 'general_slider_demo_installed' );
 	delete_option( 'general_slider_review' );
 	delete_option( 'general_slider_dynamic_cache_v' );
+	delete_transient( 'gs_demo_manifest' );
+	delete_transient( 'gs_demo_manifest_failed' );
 
 	// Remove any leftover dynamic-slider slide caches (transients).
 	global $wpdb;
