@@ -85,6 +85,11 @@ class Demo_Library {
 			if ( is_array( $cached ) ) {
 				return $cached;
 			}
+			// A recent failure is remembered briefly, so a down endpoint
+			// doesn't block every Demo Library page view with a timeout.
+			if ( get_transient( self::TRANSIENT . '_failed' ) ) {
+				return new \WP_Error( 'gs_http', __( 'The demo library could not be reached.', 'general-slider' ) );
+			}
 		}
 
 		$response = wp_remote_get(
@@ -96,20 +101,31 @@ class Demo_Library {
 		);
 
 		if ( is_wp_error( $response ) ) {
+			self::remember_failure();
 			return $response;
 		}
 		if ( 200 !== (int) wp_remote_retrieve_response_code( $response ) ) {
+			self::remember_failure();
 			return new \WP_Error( 'gs_http', __( 'The demo library could not be reached.', 'general-slider' ) );
 		}
 
 		$data = json_decode( wp_remote_retrieve_body( $response ), true );
 		$data = self::validate_manifest( $data );
 		if ( is_wp_error( $data ) ) {
+			self::remember_failure();
 			return $data;
 		}
 
+		delete_transient( self::TRANSIENT . '_failed' );
 		set_transient( self::TRANSIENT, $data, self::CACHE_TTL );
 		return $data;
+	}
+
+	/**
+	 * Remember a manifest failure for a few minutes.
+	 */
+	private static function remember_failure() {
+		set_transient( self::TRANSIENT . '_failed', 1, 5 * MINUTE_IN_SECONDS );
 	}
 
 	/**
