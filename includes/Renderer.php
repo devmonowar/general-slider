@@ -58,8 +58,12 @@ class Renderer {
 
 		$per_page   = 'fade' === $settings['transition'] ? 1 : min( 6, max( 1, absint( $settings['per_page'] ) ) );
 		$responsive = is_array( $settings['responsive'] ?? null ) ? $settings['responsive'] : array();
+		$type       = 'fade' === $settings['transition'] ? 'fade' : ( $settings['loop'] ? 'loop' : 'slide' );
 		$config     = array(
-			'type'       => 'fade' === $settings['transition'] ? 'fade' : ( $settings['loop'] ? 'loop' : 'slide' ),
+			'type'       => $type,
+			// Splide ignores rewind for the loop type and always rewinds fade;
+			// the flag only changes behaviour for fade sliders with loop off.
+			'rewind'     => 'loop' === $type ? false : ( 'fade' === $type ? (bool) $settings['loop'] : true ),
 			'autoplay'   => (bool) $settings['autoplay'],
 			'interval'   => max( 1000, absint( $settings['speed'] ) ),
 			'speed'      => min( 3000, max( 100, absint( $settings['transition_speed'] ?? 600 ) ) ),

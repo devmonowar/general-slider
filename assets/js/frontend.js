@@ -18,7 +18,9 @@
 
 		var splide = new Splide( el, {
 			type: opts.type || 'loop',
-			rewind: opts.type !== 'loop',
+			// PHP sends an explicit rewind flag for fade sliders; every other
+			// config keeps the historic default (rewind whenever not looping).
+			rewind: opts.rewind !== false && opts.type !== 'loop',
 			direction: opts.direction === 'rtl' ? 'rtl' : 'ltr',
 			perPage: perPage,
 			perMove: 1,
