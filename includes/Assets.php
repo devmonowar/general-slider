@@ -29,11 +29,11 @@ class Assets {
 		$css = self::asset( 'assets/css/frontend.css' );
 		$js  = self::asset( 'assets/js/frontend.js' );
 
-		wp_register_style( 'splide', GENERAL_SLIDER_URL . 'assets/vendor/splide/splide.min.css', array(), '4.1.4' );
-		wp_register_style( 'general-slider', GENERAL_SLIDER_URL . $css, array( 'splide' ), self::version( $css ) );
+		wp_register_style( 'gs-splide', GENERAL_SLIDER_URL . 'assets/vendor/splide/splide.min.css', array(), '4.1.4' );
+		wp_register_style( 'general-slider', GENERAL_SLIDER_URL . $css, array( 'gs-splide' ), self::version( $css ) );
 
-		wp_register_script( 'splide', GENERAL_SLIDER_URL . 'assets/vendor/splide/splide.min.js', array(), '4.1.4', true );
-		wp_register_script( 'general-slider', GENERAL_SLIDER_URL . $js, array( 'splide' ), self::version( $js ), true );
+		wp_register_script( 'gs-splide', GENERAL_SLIDER_URL . 'assets/vendor/splide/splide.min.js', array(), '4.1.4', true );
+		wp_register_script( 'general-slider', GENERAL_SLIDER_URL . $js, array( 'gs-splide' ), self::version( $js ), true );
 	}
 
 	/**
@@ -81,9 +81,9 @@ class Assets {
 		if ( ! wp_style_is( 'general-slider', 'registered' ) ) {
 			self::register_frontend();
 		}
-		wp_enqueue_style( 'splide' );
+		wp_enqueue_style( 'gs-splide' );
 		wp_enqueue_style( 'general-slider' );
-		wp_enqueue_script( 'splide' );
+		wp_enqueue_script( 'gs-splide' );
 		wp_enqueue_script( 'general-slider' );
 	}
 

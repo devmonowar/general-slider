@@ -99,7 +99,7 @@ class Elementor_Widget extends \Elementor\Widget_Base {
 	 * @return string[]
 	 */
 	public function get_script_depends() {
-		return array( 'splide', 'general-slider' );
+		return array( 'gs-splide', 'general-slider' );
 	}
 
 	/**
@@ -108,7 +108,7 @@ class Elementor_Widget extends \Elementor\Widget_Base {
 	 * @return string[]
 	 */
 	public function get_style_depends() {
-		return array( 'splide', 'general-slider' );
+		return array( 'gs-splide', 'general-slider' );
 	}
 
 	/**
