@@ -4,7 +4,7 @@ Tags: slider, carousel, slideshow, image slider, responsive slider
 Requires at least: 6.0
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 2.3.12
+Stable tag: 2.3.13
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -223,6 +223,9 @@ These are plain, read-only requests for files. No personal data is collected or 
 
 == Upgrade Notice ==
 
+= 2.3.13 =
+Fixes the slider preview in the Elementor editor. Visitors see no difference. No settings change needed.
+
 = 2.3.12 =
 Three behaviour changes to know about: unpublished (draft, pending, private) sliders are now hidden from visitors; global tablet/mobile defaults now fill the gaps in saved sliders; YouTube background videos load from the privacy-enhanced youtube-nocookie.com domain. No action is required — update and everything keeps working.
 
@@ -240,6 +243,10 @@ Three behaviour changes to know about: unpublished (draft, pending, private) sli
 10. Background video slides — muted, looped video behind your content (animated).
 
 == Changelog ==
+
+= 2.3.13 =
+* Fixed: in the Elementor editor the slider preview did not start (a JavaScript error); it now works while you edit.
+* Tested with WordPress 7.1.4 and Elementor 4.3.5.
 
 = 2.3.12 =
 * Tested up to WordPress 7.1.

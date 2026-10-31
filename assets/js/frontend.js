@@ -1,10 +1,30 @@
 ( function () {
 	'use strict';
 
+	// Elementor's editor builds widget markup in its own window and then moves
+	// it into the preview iframe. Those nodes keep the other window's
+	// HTMLElement prototype, which Splide's instanceof check rejects ("A
+	// track/list element is missing"). Re-parse such a node in this document so
+	// it belongs to this window. A normal page never takes the branch.
+	function inThisWindow( node ) {
+		if ( node instanceof window.HTMLElement || ! node.parentNode ) {
+			return node;
+		}
+		var holder = document.createElement( 'div' );
+		holder.innerHTML = node.outerHTML;
+		var fresh = holder.firstElementChild;
+		node.parentNode.replaceChild( fresh, node );
+		// Anything still watching the old node (the viewport observer) lets go of it.
+		node.dataset.gsMounted = '1';
+		return fresh;
+	}
+
 	function initSlider( el ) {
 		if ( el.dataset.gsMounted || typeof Splide === 'undefined' ) {
 			return;
 		}
+
+		el = inThisWindow( el );
 
 		var opts = {};
 		try {
@@ -82,6 +102,7 @@
 		// carousel first, then the thumbnails (Splide's documented order).
 		var thumbEl = el.nextElementSibling;
 		if ( thumbEl && thumbEl.classList && thumbEl.classList.contains( 'gs-thumbnails' ) ) {
+			thumbEl = inThisWindow( thumbEl );
 			var thumb = new Splide( thumbEl, {
 				fixedWidth: 100,
 				fixedHeight: 64,
